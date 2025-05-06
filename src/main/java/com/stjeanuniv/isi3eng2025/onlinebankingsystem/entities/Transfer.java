@@ -8,9 +8,8 @@ import java.util.Date;
 @Data
 @Entity
 @DiscriminatorValue(
-        value = "Admin"
+        value = "Transfer"
 )
-public class Admin extends User {
-    public String Department;
-    public String Position;
+public class Transfer extends Transaction{
+
 }
