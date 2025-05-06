@@ -7,8 +7,6 @@ import java.util.Date;
 
 @Data
 @Entity
-@Getter
-@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
         name = "USERTYPE",
