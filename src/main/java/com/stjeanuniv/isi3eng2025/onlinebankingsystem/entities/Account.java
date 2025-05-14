@@ -14,7 +14,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    public float balance;
+    public double balance;
     public String AccountType;
     public Date CreatedDate;
 }
