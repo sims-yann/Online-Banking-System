@@ -36,7 +36,7 @@ public class TransferServiceImpl {
         return transferMetrics;
     }
 
-    //To tranfer an amount from a sender account to a receiver account
+    //To transfer an amount from a sender account to a receiver account
     public void applyTransfer(Transfer transfer){
 
         if(senderNotReceiver(transfer.getSender(), transfer.getReceiver(), transfer.getAmount())){
@@ -51,7 +51,7 @@ public class TransferServiceImpl {
 
     }
 
-    //To verify account account balance is greater than amount
+    //To verify the account balance is greater than amount
     public boolean verifyBalance(Account sender, double amount){
         if(sender.getBalance() >= amount){
             return verifyAccountType(sender);

@@ -17,4 +17,6 @@ public class Customer extends User {
     public Date BirthDate;
     @Column(unique = true, nullable = false)
     private String NationalCardNumber;
+
+
 }

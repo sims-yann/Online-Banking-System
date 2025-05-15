@@ -18,5 +18,7 @@ public interface TransferService {
 
     public Map<String, Object> showTransferDetails(Transfer t);
 
-    public List<Transfer> getTransferList()
+    public List<Transfer> getTransferList();
+
+    public void
 }
