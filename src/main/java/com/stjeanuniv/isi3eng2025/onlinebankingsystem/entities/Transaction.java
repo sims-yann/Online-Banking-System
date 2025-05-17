@@ -21,7 +21,6 @@ public class Transaction {
     private double amount;
     private String description;
     private Date date;
-    public String type;
     private String status;
     @ManyToOne
     @JoinColumn(name = "Source_Account", unique = false, nullable = true, updatable = false)

@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     public double balance;

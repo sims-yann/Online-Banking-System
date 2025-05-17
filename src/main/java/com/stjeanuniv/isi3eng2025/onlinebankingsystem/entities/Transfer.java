@@ -14,18 +14,17 @@ import java.util.Date;
         value = "Transfer"
 )
 public class Transfer extends Transaction{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Getter
     @Setter
     private String state;
 
     @NotNull
+    @ManyToOne
     private Account sender;
 
     @NotNull
+    @ManyToOne
     private Account receiver;
 
     @NotNull
@@ -34,7 +33,4 @@ public class Transfer extends Transaction{
     @NotNull
     @Min(value = 0)
     private double amount;
-
-
-
 }

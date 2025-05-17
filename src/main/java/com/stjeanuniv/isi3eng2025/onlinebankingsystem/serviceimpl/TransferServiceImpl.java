@@ -1,24 +1,27 @@
-package com.stjeanuniv.isi3eng2025.onlinebankingsystem.service;
+package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.TransferRepo;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class TransferServiceImpl {
+@Component
+public class TransferServiceImpl implements TransferService {
+
+    private final AccountServiceImpl accountServiceImpl;
 
     @Autowired
     private final TransferRepo transferRepo;
-    private final AccountService accountService;
 
-    TransferServiceImpl(TransferRepo transferRepo, AccountService accountService){
+    TransferServiceImpl(TransferRepo transferRepo, AccountServiceImpl accountServiceImpl){
         this.transferRepo = transferRepo;
-        this.accountService = accountService;
+        this.accountServiceImpl = accountServiceImpl;
     }
 
 
@@ -26,7 +29,6 @@ public class TransferServiceImpl {
     public Map<String, Object> showTransferDetails(Transfer t){
         Map<String, Object> transferMetrics = new HashMap<>();
 
-        transferMetrics.put("code", t.getId());
         transferMetrics.put("sender", t.getSender());
         transferMetrics.put("receiver", t.getReceiver());
         transferMetrics.put("amount", t.getAmount());
@@ -34,6 +36,10 @@ public class TransferServiceImpl {
         transferMetrics.put("state", t.getState());
 
         return transferMetrics;
+    }
+
+    public List<Transfer> getTransferList() {
+        return transferRepo.findAll();
     }
 
     //To tranfer an amount from a sender account to a receiver account
@@ -45,13 +51,13 @@ public class TransferServiceImpl {
 
             recordTransfer(transfer);
 
-            accountService.updateAccount(transfer.getSender());
-            accountService.updateAccount(transfer.getReceiver());
+            accountServiceImpl.updateAccount(transfer.getSender());
+            accountServiceImpl.updateAccount(transfer.getReceiver());
         }
 
     }
 
-    //To verify account account balance is greater than amount
+    //To verify account balance is greater than amount
     public boolean verifyBalance(Account sender, double amount){
         if(sender.getBalance() >= amount){
             return verifyAccountType(sender);
@@ -59,9 +65,9 @@ public class TransferServiceImpl {
         return false;
     }
 
-    //To verify the account type (currant ou epargne)
+    //To verify the account type (current ou epargne)
     public boolean verifyAccountType(Account verify){
-        if(verify.getAccountType().equals("CURRANT") ){
+        if(verify.getAccountType().equals("CURRENT") ){
             return true;
         }
         return false;
