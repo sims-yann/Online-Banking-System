@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Admin - Users Management</title>
+    <link rel="stylesheet" href="../user/user-html/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../admin-css/admin-users.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/admin"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="/admin/users" class="active"><span class="icon">👥</span><span>Users</span></a></li>
+                <li><a href="/admin/transactions"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="/admin/settings"><span class="icon">⚙️</span><span>System Settings</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, Admin</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Users Management</h1>
+
+                <div class="users-controls">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input
+                                type="text"
+                                id="search-users"
+                                class="search-input"
+                                placeholder="Search users by name or email..."
+                        />
+                    </div>
+
+                    <button class="primary-button" id="add-user-button">
+                        <span class="icon">➕</span>
+                        Add New User
+                    </button>
+                </div>
+
+                <div class="users-card">
+                    <div class="card-header">
+                        <h2 class="card-title">All Users</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="users-table-container">
+                            <table class="users-table" id="users-table">
+                                <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Created On</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- User Actions Dropdown -->
+<div class="dropdown" id="user-actions-dropdown">
+    <div class="dropdown-content">
+        <div class="dropdown-header">Actions</div>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" id="view-user-btn">View Details</button>
+        <button class="dropdown-item" id="edit-user-btn">Edit</button>
+        <button class="dropdown-item status-toggle-btn">Deactivate</button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item delete-user-btn">Delete</button>
+    </div>
+</div>
+
+<script src="../admin-js/admin-users.js"></script>
+</body>
+</html>

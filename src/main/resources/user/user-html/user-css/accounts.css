@@ -1,0 +1,193 @@
+/* Account Specific Styles */
+.accounts-overview {
+    margin-bottom: 24px;
+}
+
+.account-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+}
+
+.primary-button {
+    background: linear-gradient(to right, #9b87f5, #7E69AB);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.primary-button:hover {
+    background: linear-gradient(to right, #8a76e4, #6d58a0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.accounts-grid.detailed {
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.account-card.detailed {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-header-detailed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.account-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 16px 0;
+}
+
+.account-info-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+.account-info-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.account-info-value {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.account-actions-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.view-button {
+    background-color: #F0F4F8;
+    color: #333;
+    border: none;
+}
+
+.view-button:hover {
+    background-color: #E4EBF2;
+}
+
+.transfer-button {
+    background-color: #9b87f5;
+    color: white;
+    border: none;
+}
+
+.transfer-button:hover {
+    background-color: #8a76e4;
+}
+
+.statement-button {
+    background-color: #F0F4F8;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.statement-button:hover {
+    background-color: #E4EBF2;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.account-transactions {
+    margin-top: 24px;
+}
+
+.account-transactions h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.transactions-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.activity-empty {
+    text-align: center;
+    padding: 24px;
+    color: #666;
+}

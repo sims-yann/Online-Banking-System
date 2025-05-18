@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoreBank - Register</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+<div class="min-h-screen flex items-center justify-center bg-banking-light py-12 px-4">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-banking-primary">CoreBank</h1>
+            <p class="mt-2 text-gray-600">Create your account</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Register a new account</h2>
+                <p class="card-description">Enter your details to create an account</p>
+            </div>
+
+            <form id="register-form">
+                <div class="card-content">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <div class="input-container">
+                            <span class="input-icon">👤</span>
+                            <input
+                                    id="name"
+                                    placeholder="John Doe"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-container">
+                            <span class="input-icon">✉️</span>
+                            <input
+                                    id="email"
+                                    type="email"
+                                    placeholder="name@example.com"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <div class="input-container">
+                            <span class="input-icon">📞</span>
+                            <input
+                                    id="phone"
+                                    placeholder="123-456-7890"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-container">
+                            <span class="input-icon">🔒</span>
+                            <input
+                                    id="password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="input-container">
+                            <span class="input-icon">🔒</span>
+                            <input
+                                    id="confirmPassword"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button
+                            type="submit"
+                            class="primary-button"
+                    >
+                        Create account
+                    </button>
+
+                    <p class="text-center text-sm text-gray-600">
+                        Already have an account?
+                        <a href="/login" class="text-banking-primary hover-underline">
+                            Sign in
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="register.js"></script>
+</body>
+</html>

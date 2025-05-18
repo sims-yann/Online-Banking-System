@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Admin - Transactions Management</title>
+    <link rel="stylesheet" href="../user/user-html/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../admin-css/admin-transactions.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/admin"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="/admin/users"><span class="icon">👥</span><span>Users</span></a></li>
+                <li><a href="/admin/transactions" class="active"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="/admin/settings"><span class="icon">⚙️</span><span>System Settings</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, Admin</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Transactions Management</h1>
+
+                <div class="transactions-controls">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input
+                                type="text"
+                                id="search-transactions"
+                                class="search-input"
+                                placeholder="Search by description or ID..."
+                        />
+                    </div>
+
+                    <div class="date-range-picker">
+                        <div class="date-input-group">
+                            <label for="start-date">From:</label>
+                            <input type="date" id="start-date" class="date-input" />
+                        </div>
+                        <div class="date-input-group">
+                            <label for="end-date">To:</label>
+                            <input type="date" id="end-date" class="date-input" />
+                        </div>
+                        <button id="clear-dates" class="clear-button">Clear</button>
+                    </div>
+                </div>
+
+                <div class="transactions-card">
+                    <div class="card-header">
+                        <h2 class="card-title">All Transactions</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="transactions-table-container">
+                            <table class="transactions-table" id="transactions-table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Transaction Actions Dropdown -->
+<div class="dropdown" id="transaction-actions-dropdown">
+    <div class="dropdown-content">
+        <div class="dropdown-header">Actions</div>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" id="view-transaction-btn">View Details</button>
+        <div id="pending-transaction-actions">
+            <button class="dropdown-item approve-transaction-btn">Approve</button>
+            <button class="dropdown-item reject-transaction-btn">Reject</button>
+        </div>
+    </div>
+</div>
+
+<script src="../admin-js/admin-transactions.js"></script>
+</body>
+</html>

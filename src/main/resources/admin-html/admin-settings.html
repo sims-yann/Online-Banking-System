@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Admin - System Settings</title>
+    <link rel="stylesheet" href="../user/user-html/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../admin-css/admin-settings.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/admin"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="/admin/users"><span class="icon">👥</span><span>Users</span></a></li>
+                <li><a href="/admin/transactions"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="/admin/settings" class="active"><span class="icon">⚙️</span><span>System Settings</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, Admin</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">System Settings</h1>
+
+                <div class="settings-container">
+                    <div class="settings-tabs">
+                        <button class="tab-button active" data-tab="security">Security Settings</button>
+                        <button class="tab-button" data-tab="transactions">Transaction Settings</button>
+                        <button class="tab-button" data-tab="notifications">Notification Settings</button>
+                    </div>
+
+                    <div id="security" class="tab-content active">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Security Settings</h2>
+                                <p class="card-description">Configure security settings for the system</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="security-form">
+                                    <div class="form-group">
+                                        <label for="sessionTimeout">Session Timeout (minutes)</label>
+                                        <input
+                                                type="number"
+                                                id="sessionTimeout"
+                                                class="form-control"
+                                                value="30"
+                                        />
+                                        <p class="help-text">
+                                            Users will be automatically logged out after this period of inactivity
+                                        </p>
+                                    </div>
+
+                                    <div class="form-group-switch">
+                                        <div>
+                                            <label for="strongPassword">Require Strong Passwords</label>
+                                            <p class="help-text">
+                                                Enforce password complexity requirements
+                                            </p>
+                                        </div>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="strongPassword" class="switch-input" checked />
+                                            <label for="strongPassword" class="switch-label"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-switch">
+                                        <div>
+                                            <label for="twoFactor">Enable Two-Factor Authentication</label>
+                                            <p class="help-text">
+                                                Require two-factor authentication for all users
+                                            </p>
+                                        </div>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="twoFactor" class="switch-input" />
+                                            <label for="twoFactor" class="switch-label"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="primary-button">
+                                            Save Security Settings
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="transactions" class="tab-content">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Transaction Settings</h2>
+                                <p class="card-description">Configure settings related to financial transactions</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="transaction-form">
+                                    <div class="form-group">
+                                        <label for="dailyLimit">Daily Transfer Limit ($)</label>
+                                        <input
+                                                type="number"
+                                                id="dailyLimit"
+                                                class="form-control"
+                                                value="10000"
+                                        />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="transactionLimit">Per Transaction Limit ($)</label>
+                                        <input
+                                                type="number"
+                                                id="transactionLimit"
+                                                class="form-control"
+                                                value="5000"
+                                        />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="approvalLimit">Require Approval Above ($)</label>
+                                        <input
+                                                type="number"
+                                                id="approvalLimit"
+                                                class="form-control"
+                                                value="1000"
+                                        />
+                                        <p class="help-text">
+                                            Transactions above this amount will require administrator approval
+                                        </p>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="primary-button">
+                                            Save Transaction Settings
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="notifications" class="tab-content">
+                        <div class="settings-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Notification Settings</h2>
+                                <p class="card-description">Configure when and how users receive notifications</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="notification-form">
+                                    <div class="form-group-switch">
+                                        <div>
+                                            <label for="emailNotify">Email Notifications</label>
+                                            <p class="help-text">
+                                                Send system notifications via email
+                                            </p>
+                                        </div>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="emailNotify" class="switch-input" checked />
+                                            <label for="emailNotify" class="switch-label"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-switch">
+                                        <div>
+                                            <label for="loginAlerts">Login Alerts</label>
+                                            <p class="help-text">
+                                                Send notifications when users log in
+                                            </p>
+                                        </div>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="loginAlerts" class="switch-input" checked />
+                                            <label for="loginAlerts" class="switch-label"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-switch">
+                                        <div>
+                                            <label for="transactionAlerts">Transaction Alerts</label>
+                                            <p class="help-text">
+                                                Notify users about new transactions
+                                            </p>
+                                        </div>
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" id="transactionAlerts" class="switch-input" checked />
+                                            <label for="transactionAlerts" class="switch-label"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="primary-button">
+                                            Save Notification Settings
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="../admin-js/admin-settings.js"></script>
+</body>
+</html>

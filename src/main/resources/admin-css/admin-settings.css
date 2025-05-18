@@ -1,0 +1,195 @@
+/* Settings Page Specific Styles */
+.settings-container {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.settings-tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 24px;
+    overflow-x: auto;
+}
+
+.tab-button {
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    position: relative;
+    white-space: nowrap;
+}
+
+.tab-button:hover {
+    color: #9b87f5;
+}
+
+.tab-button.active {
+    color: #9b87f5;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #9b87f5;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.settings-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+}
+
+.card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.card-title {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-description {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.card-content {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #9b87f5;
+}
+
+.help-text {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-group-switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    min-width: 50px;
+}
+
+.switch-input {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.switch-label {
+    display: block;
+    width: 48px;
+    height: 24px;
+    background: #e5e5e5;
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+}
+
+.switch-label:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch-input:checked + .switch-label {
+    background: #9b87f5;
+}
+
+.switch-input:checked + .switch-label:after {
+    left: calc(100% - 22px);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.primary-button {
+    background: linear-gradient(to right, #9b87f5, #7E69AB);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.primary-button:hover {
+    background: linear-gradient(to right, #8a76e4, #6d58a0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .settings-tabs {
+        flex-wrap: wrap;
+    }
+
+    .form-group-switch {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toggle-switch {
+        margin-top: 12px;
+    }
+}

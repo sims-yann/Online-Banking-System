@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Admin - Dashboard</title>
+    <link rel="stylesheet" href="../user/user-html/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../admin-css/admin-dashboard.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/admin" class="active"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="/admin/users"><span class="icon">👥</span><span>Users</span></a></li>
+                <li><a href="/admin/transactions"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="/admin/settings"><span class="icon">⚙️</span><span>System Settings</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, Admin</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Admin Dashboard</h1>
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <div class="card-header">
+                            <h3>👥 User Statistics</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stats-list">
+                                <div class="stats-item">
+                                    <span class="stats-label">Total Users:</span>
+                                    <span class="stats-value" id="total-users">0</span>
+                                </div>
+                                <div class="stats-item">
+                    <span class="stats-label">
+                      <span class="icon-small green">✓</span> Active:
+                    </span>
+                                    <span class="stats-value green" id="active-users">0</span>
+                                </div>
+                                <div class="stats-item">
+                    <span class="stats-label">
+                      <span class="icon-small red">✗</span> Inactive:
+                    </span>
+                                    <span class="stats-value red" id="inactive-users">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="card-header">
+                            <h3>💳 Account Statistics</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stats-list">
+                                <div class="stats-item">
+                                    <span class="stats-label">Total Accounts:</span>
+                                    <span class="stats-value" id="total-accounts">0</span>
+                                </div>
+                                <div class="stats-item">
+                    <span class="stats-label">
+                      <span class="icon-small green">✓</span> Active:
+                    </span>
+                                    <span class="stats-value green" id="active-accounts">0</span>
+                                </div>
+                                <div class="stats-item">
+                    <span class="stats-label">
+                      <span class="icon-small yellow">⚠️</span> Suspended:
+                    </span>
+                                    <span class="stats-value yellow" id="suspended-accounts">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="card-header">
+                            <h3>🕒 Transaction Statistics</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stats-list">
+                                <div class="stats-item">
+                                    <span class="stats-label">Total Transactions:</span>
+                                    <span class="stats-value" id="total-transactions">0</span>
+                                </div>
+                                <div class="stats-item">
+                    <span class="stats-label">
+                      <span class="icon-small yellow">⏳</span> Pending:
+                    </span>
+                                    <span class="stats-value yellow" id="pending-transactions">0</span>
+                                </div>
+                                <div class="stats-item">
+                    <span class="stats-label">
+                      <span class="icon-small red">✗</span> Failed:
+                    </span>
+                                    <span class="stats-value red" id="failed-transactions">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Users</h3>
+                            <p class="card-subtitle">Latest user registrations</p>
+                        </div>
+                        <div class="card-content">
+                            <div id="recent-users" class="recent-list">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Transactions</h3>
+                            <p class="card-subtitle">Latest system transactions</p>
+                        </div>
+                        <div class="card-content">
+                            <div id="recent-transactions" class="recent-list">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="../admin-js/admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+/* Admin Dashboard Specific Styles */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stats-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.stats-card .card-header {
+    padding: 16px 20px 8px;
+}
+
+.stats-card .card-header h3 {
+    font-size: 18px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.stats-list {
+    padding: 0 20px 16px;
+}
+
+.stats-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.stats-item:last-child {
+    margin-bottom: 0;
+}
+
+.stats-label {
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.stats-value {
+    font-weight: 500;
+}
+
+.green {
+    color: #4CAF50;
+}
+
+.red {
+    color: #F44336;
+}
+
+.yellow {
+    color: #FFC107;
+}
+
+.icon-small {
+    font-size: 12px;
+    margin-right: 4px;
+}
+
+.recent-activity-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 1024px) {
+    .recent-activity-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.recent-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.recent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.recent-item:last-child {
+    border-bottom: none;
+}
+
+.recent-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    color: #9b87f5;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.user-email {
+    font-size: 14px;
+    color: #666;
+}
+
+.user-status, .transaction-status {
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-active {
+    background-color: #E8F5E9;
+    color: #4CAF50;
+}
+
+.status-inactive {
+    background-color: #FFEBEE;
+    color: #F44336;
+}
+
+.status-pending {
+    background-color: #FFF8E1;
+    color: #FFA000;
+}
+
+.status-completed {
+    background-color: #E8F5E9;
+    color: #4CAF50;
+}
+
+.status-failed {
+    background-color: #FFEBEE;
+    color: #F44336;
+}
+
+.transaction-type {
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+.transaction-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.transaction-amount {
+    font-weight: bold;
+}

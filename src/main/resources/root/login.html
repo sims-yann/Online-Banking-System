@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoreBank - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+<div class="min-h-screen flex items-center justify-center bg-banking-light py-12 px-4">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-banking-primary">CoreBank</h1>
+            <p class="mt-2 text-gray-600">Secure Online Banking System</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Login to your account</h2>
+                <p class="card-description">Enter your email and password to sign in</p>
+            </div>
+
+            <form id="login-form">
+                <div class="card-content">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-container">
+                            <span class="input-icon">✉️</span>
+                            <input
+                                    id="email"
+                                    type="email"
+                                    placeholder="name@example.com"
+                                    required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-container">
+                            <span class="input-icon">🔒</span>
+                            <input
+                                    id="password"
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button
+                            type="submit"
+                            class="primary-button"
+                    >
+                        Sign in
+                    </button>
+
+                    <p class="text-center text-sm text-gray-600">
+                        Don't have an account?
+                        <a href="/register" class="text-banking-primary hover-underline">
+                            Register here
+                        </a>
+                    </p>
+
+                    <div class="demo-accounts">
+                        <p>Demo accounts:</p>
+                        <p>Admin: admin@bankingsystem.com / admin123</p>
+                        <p>User: john@example.com / password123</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>
