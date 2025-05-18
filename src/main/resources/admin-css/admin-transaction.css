@@ -1,11 +1,17 @@
-/* Users Management Specific Styles */
-.users-controls {
+/* Transactions Management Specific Styles */
+.transactions-controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+    .transactions-controls {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .search-container {
@@ -35,26 +41,51 @@
     border-color: #9b87f5;
 }
 
-.primary-button {
-    background: linear-gradient(to right, #9b87f5, #7E69AB);
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
+.date-range-picker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.date-input-group {
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: all 0.2s ease;
 }
 
-.primary-button:hover {
-    background: linear-gradient(to right, #8a76e4, #6d58a0);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.date-input-group label {
+    font-size: 14px;
+    color: #666;
 }
 
-.users-card {
+.date-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #9b87f5;
+}
+
+.clear-button {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #666;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.clear-button:hover {
+    background-color: #f5f5f5;
+}
+
+.transactions-card {
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
@@ -76,16 +107,16 @@
     padding: 0;
 }
 
-.users-table-container {
+.transactions-table-container {
     overflow-x: auto;
 }
 
-.users-table {
+.transactions-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.users-table th {
+.transactions-table th {
     background-color: #f9f9f9;
     text-align: left;
     padding: 16px;
@@ -94,31 +125,14 @@
     border-bottom: 1px solid #eee;
 }
 
-.users-table td {
+.transactions-table td {
     padding: 16px;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
 }
 
-.users-table tbody tr:hover {
+.transactions-table tbody tr:hover {
     background-color: #f9f9f9;
-}
-
-.user-cell {
-    display: flex;
-    align-items: center;
-}
-
-.user-cell-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 12px;
-    color: #9b87f5;
 }
 
 .badge {
@@ -130,8 +144,18 @@
 }
 
 .badge-primary {
-    background-color: #9b87f5;
-    color: white;
+    background-color: #E8F5E9;
+    color: #4CAF50;
+}
+
+.badge-secondary {
+    background-color: #FFF8E1;
+    color: #FFA000;
+}
+
+.badge-destructive {
+    background-color: #FFEBEE;
+    color: #F44336;
 }
 
 .badge-outline {
@@ -139,14 +163,9 @@
     color: #666;
 }
 
-.badge-success {
-    background-color: #E8F5E9;
-    color: #4CAF50;
-}
-
-.badge-danger {
-    background-color: #FFEBEE;
-    color: #F44336;
+.transaction-id {
+    font-family: monospace;
+    font-size: 14px;
 }
 
 .actions-button {
@@ -215,10 +234,18 @@
     background-color: #f5f5f5;
 }
 
-.dropdown-item.delete-user-btn {
+.approve-transaction-btn {
+    color: #4CAF50;
+}
+
+.approve-transaction-btn:hover {
+    background-color: #E8F5E9;
+}
+
+.reject-transaction-btn {
     color: #F44336;
 }
 
-.dropdown-item.delete-user-btn:hover {
+.reject-transaction-btn:hover {
     background-color: #FFEBEE;
 }
