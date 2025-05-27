@@ -7,6 +7,10 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TransferServiceImpl {
@@ -36,6 +40,7 @@ public class TransferServiceImpl {
     }
 
     //To transfer an amount from a sender account to a receiver account
+
     public List<Transfer> getTransferList(List<Account> accounts) {
         List<Transfer> transferList = new ArrayList<>();
 
