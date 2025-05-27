@@ -1,10 +1,8 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.types.AccountStatus;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AccountRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
     //to block an account
     public void blockAccount(int id){
        Account ac = accountRepo.findById(id);
-       ac.setStatus(AccountStatus.BLOCK);
+
        accountRepo.save(ac);
     }
 
@@ -57,4 +55,7 @@ public class AccountServiceImpl implements AccountService {
 
         return details;
     }
+
+    //to save accounts
+
 }

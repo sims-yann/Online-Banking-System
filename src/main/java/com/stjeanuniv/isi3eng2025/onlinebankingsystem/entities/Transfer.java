@@ -18,8 +18,7 @@ public class Transfer extends Transaction{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
+
     private String state;
 
     @NotNull

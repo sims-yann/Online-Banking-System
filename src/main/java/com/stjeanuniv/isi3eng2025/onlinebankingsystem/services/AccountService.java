@@ -1,16 +1,18 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.services;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 
 import java.util.List;
 import java.util.Map;
 
 public interface AccountService {
+
+    public void updateAccount(Account account);
+
     //deactivating an account
 
     public void blockAccount(int id);
-
-    public void updateAccount(Account account);
 
     public void recordAccount(Account account);
 

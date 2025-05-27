@@ -7,15 +7,17 @@ import java.util.Date;
 
 @Data
 @Entity
-@Getter
-@Setter
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     public double balance;
-    public String AccountType;
+
+    public String type;
+
     public Date CreatedDate;
+
+    public String status;
 
 }

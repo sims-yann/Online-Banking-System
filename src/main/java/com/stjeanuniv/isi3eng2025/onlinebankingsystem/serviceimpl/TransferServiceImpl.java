@@ -1,18 +1,12 @@
-package com.stjeanuniv.isi3eng2025.onlinebankingsystem.service;
+package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.TransferRepo;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-<<<<<<< Updated upstream:src/main/java/com/stjeanuniv/isi3eng2025/onlinebankingsystem/service/TransferServiceImpl.java
-import java.time.LocalDateTime;
-import java.util.Arrays;
-=======
-import java.util.ArrayList;
->>>>>>> Stashed changes:src/main/java/com/stjeanuniv/isi3eng2025/onlinebankingsystem/serviceimpl/TransferServiceImpl.java
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TransferServiceImpl {
@@ -41,9 +35,7 @@ public class TransferServiceImpl {
         return transferMetrics;
     }
 
-<<<<<<< Updated upstream:src/main/java/com/stjeanuniv/isi3eng2025/onlinebankingsystem/service/TransferServiceImpl.java
     //To transfer an amount from a sender account to a receiver account
-=======
     public List<Transfer> getTransferList(List<Account> accounts) {
         List<Transfer> transferList = new ArrayList<>();
 
@@ -61,8 +53,7 @@ public class TransferServiceImpl {
     }
 
     //To tranfer an amount from a sender account to a receiver account
->>>>>>> Stashed changes:src/main/java/com/stjeanuniv/isi3eng2025/onlinebankingsystem/serviceimpl/TransferServiceImpl.java
-    public void applyTransfer(Transfer transfer){
+   public void applyTransfer(Transfer transfer){
 
         if(senderNotReceiver(transfer.getSender(), transfer.getReceiver(), transfer.getAmount())){
             transfer.getSender().setBalance(transfer.getSender().getBalance() - transfer.getAmount());
@@ -86,7 +77,7 @@ public class TransferServiceImpl {
 
     //To verify the account type (currant ou epargne)
     public boolean verifyAccountType(Account verify){
-        if(verify.getAccountType().equals("CURRANT") ){
+        if(verify.getType().equals("CURRANT") ){
             return true;
         }
         return false;

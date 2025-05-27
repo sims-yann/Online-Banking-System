@@ -1,4 +1,4 @@
-package com.stjeanuniv.isi3eng2025.onlinebankingsystem.service;
+package com.stjeanuniv.isi3eng2025.onlinebankingsystem.services;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
@@ -18,11 +18,9 @@ public interface TransferService {
 
     public Map<String, Object> showTransferDetails(Transfer t);
 
-<<<<<<< Updated upstream:src/main/java/com/stjeanuniv/isi3eng2025/onlinebankingsystem/service/TransferService.java
     public List<Transfer> getTransferList();
 
-    public void
-=======
+    public void applyTransfer(Transfer transfer);
+
     public List<Transfer> getTransferList(List<Account> t);
->>>>>>> Stashed changes:src/main/java/com/stjeanuniv/isi3eng2025/onlinebankingsystem/services/TransferService.java
 }
