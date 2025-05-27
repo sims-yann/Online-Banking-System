@@ -12,7 +12,10 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     List<User> findAll();
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======

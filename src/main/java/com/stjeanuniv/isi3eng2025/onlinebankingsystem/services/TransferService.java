@@ -20,10 +20,13 @@ public interface TransferService {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public List<Transfer> getTransferList();
 
     public void applyTransfer(Transfer transfer);
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======

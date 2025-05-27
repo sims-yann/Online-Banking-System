@@ -4,11 +4,14 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransferService;
 import org.springframework.security.access.prepost.PreAuthorize;
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
@@ -20,6 +23,9 @@ import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -29,9 +35,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 import java.util.List;
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +49,9 @@ import java.security.SecurityPermission;
 import java.util.List;
 import java.util.Map;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
