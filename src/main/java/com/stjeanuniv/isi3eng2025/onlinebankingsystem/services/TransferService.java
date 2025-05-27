@@ -11,25 +11,12 @@ import java.util.Map;
 public interface TransferService {
 
     public void recordTransfer(Transfer transfer);
-    public void applyTransfer(Account sender, Account receiver, float amount);
+    public void applyTransfer(Transfer t);
     public boolean verifyAccountType(Account account);
-    public boolean senderNotReceiver(Account sender, Account receiver);
-    public boolean verifyBalance(Account sender, Float amount);
+    public boolean senderNotReceiver(Account sender, Account receiver, double amount);
+    public boolean verifyBalance(Account sender, double amount);
 
     public Map<String, Object> showTransferDetails(Transfer t);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public List<Transfer> getTransferList();
-
-    public void applyTransfer(Transfer transfer);
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-    public List<Transfer> getTransferList(List<Account> t);
+   public List<Transfer> getTransferList(List<Account> t);
 }

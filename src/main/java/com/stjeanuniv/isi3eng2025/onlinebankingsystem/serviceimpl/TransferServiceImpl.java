@@ -2,12 +2,11 @@ package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.types.AccountStatus;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.types.AccountType;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.TransferRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class TransferServiceImpl implements TransferService {
 
     private final AccountServiceImpl accountServiceImpl;
@@ -23,7 +22,7 @@ public class TransferServiceImpl implements TransferService {
     @Autowired
     private final TransferRepo transferRepo;
 
-    TransferServiceImpl(TransferRepo transferRepo, AccountServiceImpl accountServiceImpl){
+    public TransferServiceImpl(TransferRepo transferRepo, AccountServiceImpl accountServiceImpl){
         this.transferRepo = transferRepo;
         this.accountServiceImpl = accountServiceImpl;
     }
@@ -83,7 +82,7 @@ public class TransferServiceImpl implements TransferService {
 
     //To verify the account type (current ou epargne)
     public boolean verifyAccountType(Account verify){
-        if(verify.getType().equals(AccountType.CURRENT) || verify.getStatus().equals(AccountStatus.ACTIVE)){
+        if(verify.getType().equals("CURRENT") || verify.getStatus().equals("ACTIVE")){
             return false;
         }
         return true;
@@ -91,7 +90,7 @@ public class TransferServiceImpl implements TransferService {
 
     //To verify that sender is not receiver
     public boolean senderNotReceiver(Account sender, Account receiver, double amount){
-        if(sender.getId() == receiver.getId() || receiver.getStatus().equals(AccountStatus.BLOCK)){
+        if(sender.getId() == receiver.getId() || receiver.getStatus().equals("BLOCK")){
             return false;
         }
         return true;
