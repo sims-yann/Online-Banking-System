@@ -6,7 +6,10 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.TransferRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+<<<<<<< Updated upstream
 import java.util.*;
+=======
+>>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +42,11 @@ public class TransferServiceImpl {
         return transferMetrics;
     }
 
+<<<<<<< Updated upstream
     //To transfer an amount from a sender account to a receiver account
 
+=======
+>>>>>>> Stashed changes
     public List<Transfer> getTransferList(List<Account> accounts) {
         List<Transfer> transferList = new ArrayList<>();
 

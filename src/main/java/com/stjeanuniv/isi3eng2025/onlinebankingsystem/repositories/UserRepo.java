@@ -10,5 +10,8 @@ import java.util.List;
 public interface UserRepo extends JpaRepository<User, Integer> {
     User findById(int i);
     List<User> findAll();
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }

@@ -18,9 +18,12 @@ public interface TransferService {
 
     public Map<String, Object> showTransferDetails(Transfer t);
 
+<<<<<<< Updated upstream
     public List<Transfer> getTransferList();
 
     public void applyTransfer(Transfer transfer);
 
+=======
+>>>>>>> Stashed changes
     public List<Transfer> getTransferList(List<Account> t);
 }

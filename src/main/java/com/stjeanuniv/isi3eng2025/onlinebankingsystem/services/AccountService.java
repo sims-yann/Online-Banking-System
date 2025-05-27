@@ -14,6 +14,11 @@ public interface AccountService {
 
     public void blockAccount(int id);
 
+<<<<<<< Updated upstream
+=======
+    public void updateAccount(Account account);
+
+>>>>>>> Stashed changes
     public void recordAccount(Account account);
 
     public void DeleteAccount(Account account);
