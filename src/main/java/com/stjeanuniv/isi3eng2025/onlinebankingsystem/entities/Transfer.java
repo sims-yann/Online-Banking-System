@@ -10,23 +10,23 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-<<<<<<< Updated upstream
 @DiscriminatorValue(
         value = "Transfer"
 )
-public class Transfer extends Transaction{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-=======
 @EqualsAndHashCode(callSuper = true)
-@DiscriminatorValue(value = "Transfer")
-public class Transfer extends Transaction {
+public class Transfer extends Transaction{
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
->>>>>>> Stashed changes
 
     private String state;
 
@@ -46,13 +46,6 @@ public class Transfer extends Transaction {
         this.state = state;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public @NotNull Account getReceiver() {
         return receiver;
@@ -80,12 +73,7 @@ public class Transfer extends Transaction {
         this.amount = amount;
     }
 
-    @NotNull
-<<<<<<< Updated upstream
-    private Account sender;
 
-    @NotNull
-=======
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private Account sender;
@@ -93,7 +81,6 @@ public class Transfer extends Transaction {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "receiver_id")
->>>>>>> Stashed changes
     private Account receiver;
 
     @NotNull
@@ -102,11 +89,6 @@ public class Transfer extends Transaction {
     @NotNull
     @Min(value = 0)
     private double amount;
-<<<<<<< Updated upstream
-
 
 
 }
-=======
-}
->>>>>>> Stashed changes
