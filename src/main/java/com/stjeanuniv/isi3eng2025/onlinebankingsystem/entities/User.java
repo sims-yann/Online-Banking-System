@@ -23,5 +23,7 @@ public class User {
     public double phone;
     public Date CreationDate;
     public Date Lastlogin;
-
+    
+    @Column(nullable = false)
+    public String role; // e.g., 'ADMIN' or 'CUSTOMER'
 }

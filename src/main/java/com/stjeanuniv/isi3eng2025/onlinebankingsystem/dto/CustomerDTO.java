@@ -1,12 +1,16 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
 public class CustomerDTO {
 
     private Long userId;
     private String username;
+    private String password;
     private String email;
     private String firstName;
     private String lastName;

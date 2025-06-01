@@ -7,16 +7,15 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.*;
 
 @Component
 public class TransferServiceImpl implements TransferService {
 
     private final AccountServiceImpl accountServiceImpl;
 
-    @Autowired
     private final TransferRepo transferRepo;
 
     TransferServiceImpl(TransferRepo transferRepo, AccountServiceImpl accountServiceImpl){
@@ -29,11 +28,11 @@ public class TransferServiceImpl implements TransferService {
     public Map<String, Object> showTransferDetails(Transfer t){
         Map<String, Object> transferMetrics = new HashMap<>();
 
-        transferMetrics.put("sender", t.getSender());
-        transferMetrics.put("receiver", t.getReceiver());
+        transferMetrics.put("sender", t.getSourceAccount());
+        transferMetrics.put("receiver", t.getDestinationAccount());
         transferMetrics.put("amount", t.getAmount());
         transferMetrics.put("date", t.getDate());
-        transferMetrics.put("state", t.getState());
+        transferMetrics.put("state", t.getStatus());
 
         return transferMetrics;
     }
@@ -42,17 +41,27 @@ public class TransferServiceImpl implements TransferService {
         return transferRepo.findAll();
     }
 
+    @Override
+    public LocalDate GetCurrentDate() {
+        return LocalDate.now();
+    }
+
+    @Override
+    public LocalTime GetCurrentTime() {
+        return LocalTime.now();
+    }
+
     //To tranfer an amount from a sender account to a receiver account
     public void applyTransfer(Transfer transfer){
 
-        if(senderNotReceiver(transfer.getSender(), transfer.getReceiver(), transfer.getAmount())){
-            transfer.getSender().setBalance(transfer.getSender().getBalance() - transfer.getAmount());
-            transfer.getReceiver().setBalance(transfer.getReceiver().getBalance() + transfer.getAmount());
+        if(senderNotReceiver(transfer.getSourceAccount(), transfer.getDestinationAccount(), transfer.getAmount())){
+            transfer.getSourceAccount().setBalance(transfer.getSourceAccount().getBalance() - transfer.getAmount());
+            transfer.getDestinationAccount().setBalance(transfer.getDestinationAccount().getBalance() + transfer.getAmount());
 
             recordTransfer(transfer);
 
-            accountServiceImpl.updateAccount(transfer.getSender());
-            accountServiceImpl.updateAccount(transfer.getReceiver());
+            accountServiceImpl.updateAccount(transfer.getSourceAccount());
+            accountServiceImpl.updateAccount(transfer.getDestinationAccount());
         }
 
     }

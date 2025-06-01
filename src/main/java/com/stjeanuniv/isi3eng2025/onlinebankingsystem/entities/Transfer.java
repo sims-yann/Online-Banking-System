@@ -15,22 +15,4 @@ import java.util.Date;
 )
 public class Transfer extends Transaction{
 
-    @Getter
-    @Setter
-    private String state;
-
-    @NotNull
-    @ManyToOne
-    private Account sender;
-
-    @NotNull
-    @ManyToOne
-    private Account receiver;
-
-    @NotNull
-    private LocalDateTime time;
-
-    @NotNull
-    @Min(value = 0)
-    private double amount;
 }

@@ -3,8 +3,9 @@ package com.stjeanuniv.isi3eng2025.onlinebankingsystem.services;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.*;
 
 public interface TransferService {
 
@@ -17,4 +18,8 @@ public interface TransferService {
     public Map<String, Object> showTransferDetails(Transfer t);
 
     public List<Transfer> getTransferList();
+
+    public LocalDate GetCurrentDate();
+
+    public LocalTime GetCurrentTime();
 }
