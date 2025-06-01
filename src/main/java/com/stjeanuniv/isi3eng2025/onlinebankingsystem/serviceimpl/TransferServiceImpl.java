@@ -35,7 +35,7 @@ public class TransferServiceImpl implements TransferService {
         transferMetrics.put("sender", t.getSender());
         transferMetrics.put("receiver", t.getReceiver());
         transferMetrics.put("amount", t.getAmount());
-        transferMetrics.put("date", t.getDate());
+        transferMetrics.put("date", t.getTime());
         transferMetrics.put("state", t.getState());
 
         return transferMetrics;

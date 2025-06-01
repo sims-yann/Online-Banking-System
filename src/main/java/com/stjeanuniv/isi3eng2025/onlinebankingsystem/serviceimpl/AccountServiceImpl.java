@@ -48,10 +48,10 @@ public class AccountServiceImpl implements AccountService {
     public Map<String, Object> viewAccountDetails(int id){
         Account ac = accountRepo.findById(id);
         Map<String, Object> details =new HashMap<>();
-        details.put("balace", ac.balance);
-        details.put("createdDate", ac.CreatedDate);
-        details.put("type", ac.type);
-        details.put("status", ac.status);
+        details.put("balace", ac.getBalance());
+        details.put("createdDate", ac.getCreatedDate());
+        details.put("type", ac.getType());
+        details.put("status", ac.getStatus());
 
         return details;
     }
