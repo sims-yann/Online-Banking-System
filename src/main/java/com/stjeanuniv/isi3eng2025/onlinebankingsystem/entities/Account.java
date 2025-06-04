@@ -17,4 +17,5 @@ public class Account {
     public double balance;
     public String AccountType;
     public Date CreatedDate;
+
 }
