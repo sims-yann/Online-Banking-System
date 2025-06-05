@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @DiscriminatorValue(
@@ -13,4 +14,8 @@ import java.util.Date;
 public class Admin extends User {
     public String Department;
     public String Position;
+
+    public Admin() {
+        this.role = "ADMIN";
+    }
 }

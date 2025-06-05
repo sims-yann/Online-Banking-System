@@ -14,7 +14,7 @@ import java.util.Date;
 )
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     public String name;
@@ -23,5 +23,7 @@ public class User {
     public double phone;
     public Date CreationDate;
     public Date Lastlogin;
-
+    
+    @Column(nullable = false)
+    public String role; // e.g., 'ADMIN' or 'CUSTOMER'
 }

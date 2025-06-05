@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @DiscriminatorValue(
@@ -18,5 +19,7 @@ public class Customer extends User {
     @Column(unique = true, nullable = false)
     private String NationalCardNumber;
 
-
+    public Customer() {
+        this.role = "CUSTOMER";
+    }
 }

@@ -14,27 +14,5 @@ import java.util.Date;
         value = "Transfer"
 )
 public class Transfer extends Transaction{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Getter
-    @Setter
-    private String state;
-
-    @NotNull
-    private Account sender;
-
-    @NotNull
-    private Account receiver;
-
-    @NotNull
-    private LocalDateTime time;
-
-    @NotNull
-    @Min(value = 0)
-    private double amount;
-
-
 
 }
