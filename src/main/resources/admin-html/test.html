@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmFinder</title>
+  <style>
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color: #f9fafb;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Tailwind-like utility classes */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.bg-pharmacy-primary {
+  background-color: #4AC6B7;
+}
+
+.hover\:bg-pharmacy-primary\/80:hover {
+  background-color: rgba(74, 198, 183, 0.8);
+}
+
+.bg-pharmacy-secondary {
+  background-color: #70B5F9;
+}
+
+.hover\:bg-pharmacy-secondary\/80:hover {
+  background-color: rgba(112, 181, 249, 0.8);
+}
+
+.bg-pharmacy-light {
+  background-color: #F5F7FA;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.text-pharmacy-primary {
+  color: #4AC6B7;
+}
+
+.text-pharmacy-dark {
+  color: #2D3748;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-gray-600 {
+  color: #4B5563;
+}
+
+.text-gray-500 {
+  color: #6B7280;
+}
+
+.hover\:text-pharmacy-accent:hover {
+  color: #F9BE70;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.hover\:shadow-lg:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-lg {
+  max-width: 32rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.pt-0 {
+  padding-top: 0;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.space-x-6 > * + * {
+  margin-left: 1.5rem;
+}
+
+.space-x-2 > * + * {
+  margin-left: 0.5rem;
+}
+
+.space-y-3 > * + * {
+  margin-top: 0.75rem;
+}
+
+/* Flexbox */
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+/* Text styles */
+.text-center {
+  text-align: center;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+/* Border and Rounded */
+.border {
+  border: 1px solid #e5e7eb;
+}
+
+.border-t {
+  border-top: 1px solid #e5e7eb;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+/* Elements */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Tabs */
+.tabs-container {
+  position: relative;
+}
+
+.tabs-header {
+  display: grid;
+  border-radius: 0.375rem;
+  background-color: #f3f4f6;
+  padding: 0.25rem;
+}
+
+.tab-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.tab-trigger.active {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Cards */
+.medication-card, .pharmacy-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Status badges */
+.prescription-badge.rx-required {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.prescription-badge.otc {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.status-badge.open {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.status-badge.closed {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Hide by default */
+.md\:hidden {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+}
+
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+  <nav class="bg-pharmacy-primary text-white shadow-md">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-4">
+        <a href="/" class="flex items-center space-x-2">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 2-5.5 3.5-1.5 6 1.5 6 5.5 3.5 5.5-3.5 1.5-6-1.5-6L12 2"></path>
+            <circle cx="12" cy="9" r="1"></circle>
+            <path d="M8 13h8"></path>
+          </svg>
+          <span class="text-xl font-bold">PharmFinder</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="/" class="hover:text-pharmacy-accent transition-colors">Home</a>
+          <a href="/prescriptions" class="hover:text-pharmacy-accent transition-colors">Prescriptions</a>
+          <a href="/reminders" class="hover:text-pharmacy-accent transition-colors">Reminders</a>
+        </div>
+
+        <div class="md:hidden">
+          <button class="flex items-center px-3 py-2 border rounded text-white border-white hover:text-pharmacy-accent hover:border-pharmacy-accent">
+            <svg class="h-3 w-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-pharmacy-dark">
+        Find Your Medications & Nearby Pharmacies
+      </h1>
+      <p class="text-gray-600 mb-8">
+        Search for medications, check availability, and find pharmacies near you.
+      </p>
+
+      <div class="tabs-container">
+        <div class="tabs-header grid grid-cols-2 w-full max-w-md mx-auto mb-6">
+          <button id="tab-medications" class="tab-trigger active flex items-center">
+            <svg class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 2-5.5 3.5-1.5 6 1.5 6 5.5 3.5 5.5-3.5 1.5-6-1.5-6L12 2"></path>
+              <circle cx="12" cy="9" r="1"></circle>
+              <path d="M8 13h8"></path>
+            </svg>
+            Medications
+          </button>
+          <button id="tab-pharmacies" class="tab-trigger flex items-center">
+            <svg class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Pharmacies
+          </button>
+        </div>
+
+        <div id="tab-content-medications" class="tab-content active mt-4">
+          <form id="medication-search-form" class="mx-auto mb-8 max-w-lg">
+            <div class="flex w-full max-w-lg items-center space-x-2">
+              <input
+                id="medication-search-input"
+                type="text"
+                placeholder="Search medications by name..."
+                class="w-full shadow-sm rounded-md border py-2 px-3"
+              />
+              <button type="submit" class="bg-pharmacy-primary hover:bg-pharmacy-primary/80 text-white px-4 py-2 rounded-md">
+                <svg class="h-4 w-4 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="tab-content-pharmacies" class="tab-content mt-4" style="display:none">
+          <form id="pharmacy-search-form" class="mx-auto mb-8 max-w-lg">
+            <div class="flex w-full max-w-lg items-center space-x-2">
+              <input
+                id="pharmacy-search-input"
+                type="text"
+                placeholder="Search pharmacies by location..."
+                class="w-full shadow-sm rounded-md border py-2 px-3"
+              />
+              <button type="submit" class="bg-pharmacy-primary hover:bg-pharmacy-primary/80 text-white px-4 py-2 rounded-md">
+                <svg class="h-4 w-4 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <div id="medications-results" class="results-container">
+        <!-- Search results will be displayed here -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="medications-grid">
+          <!-- Medication cards will be dynamically inserted here -->
+        </div>
+
+        <div id="no-medications-message" class="text-center py-12" style="display:none">
+          <div class="text-4xl mb-4">🔍</div>
+          <h3 class="text-xl font-semibold mb-2">No medications found</h3>
+          <p class="text-gray-500">
+            Try searching with a different term or browsing our categories.
+          </p>
+        </div>
+      </div>
+
+      <div id="pharmacies-results" class="results-container" style="display:none">
+        <!-- Pharmacy search results will be displayed here -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="pharmacies-grid">
+          <!-- Pharmacy cards will be dynamically inserted here -->
+        </div>
+
+        <div id="no-pharmacies-message" class="text-center py-12" style="display:none">
+          <div class="text-4xl mb-4">🗺️</div>
+          <h3 class="text-xl font-semibold mb-2">No pharmacies found</h3>
+          <p class="text-gray-500">
+            Try searching with a different location or zoom out to see more results.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medication Card Template -->
+  <template id="medication-card-template">
+    <div class="medication-card overflow-hidden transition-all duration-300 hover:shadow-lg rounded-lg border bg-card">
+      <div class="bg-pharmacy-light p-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg class="h-5 w-5 mr-2 text-pharmacy-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 2-5.5 3.5-1.5 6 1.5 6 5.5 3.5 5.5-3.5 1.5-6-1.5-6L12 2"></path>
+              <circle cx="12" cy="9" r="1"></circle>
+              <path d="M8 13h8"></path>
+            </svg>
+            <span class="medication-name">Medication Name</span>
+          </div>
+          <span class="prescription-badge inline-flex items-center border px-2.5 py-0.5 rounded-full text-xs font-semibold">Prescription</span>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="text-sm text-muted-foreground mb-2 medication-generic">Generic Name</div>
+        <div class="text-sm mb-4 line-clamp-2 medication-description">Description text goes here</div>
+        <div class="flex items-center justify-between">
+          <div class="text-pharmacy-primary font-semibold medication-price">$0.00</div>
+          <div class="flex items-center medication-availability">
+            <svg class="h-4 w-4 mr-1 availability-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span class="availability-text">Available at X pharmacies</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 p-4 border-t">
+        <a href="#" class="medication-details-link w-full text-center block bg-pharmacy-secondary hover:bg-pharmacy-secondary/80 text-white py-2 px-4 rounded-md transition-colors">
+          View Details
+        </a>
+      </div>
+    </div>
+  </template>
+
+  <!-- Pharmacy Card Template -->
+  <template id="pharmacy-card-template">
+    <div class="pharmacy-card overflow-hidden transition-all duration-300 hover:shadow-lg rounded-lg border bg-card">
+      <div class="bg-pharmacy-light p-4">
+        <div class="flex items-center justify-between">
+          <div class="text-lg font-semibold pharmacy-name">Pharmacy Name</div>
+          <span class="status-badge inline-flex items-center border px-2.5 py-0.5 rounded-full text-xs font-semibold">Status</span>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="space-y-3">
+          <div class="flex items-center text-sm">
+            <svg class="h-4 w-4 mr-2 text-pharmacy-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="pharmacy-address">Address goes here</span>
+          </div>
+          <div class="flex items-center text-sm">
+            <svg class="h-4 w-4 mr-2 text-pharmacy-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span class="pharmacy-hours">Hours go here</span>
+          </div>
+          <div class="flex items-center text-sm">
+            <svg class="h-4 w-4 mr-2 text-pharmacy-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span class="pharmacy-phone">Phone number</span>
+          </div>
+          <div class="flex items-center text-sm">
+            <svg class="h-4 w-4 mr-2 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span class="pharmacy-rating">4.5 / 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 p-4 border-t">
+        <a href="#" class="pharmacy-directions-link w-full text-center block bg-pharmacy-primary hover:bg-pharmacy-primary/80 text-white py-2 px-4 rounded-md transition-colors">
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </template>
+
+  <script>
+// Mock data for medications and pharmacies
+const medications = [
+  {
+    id: "med1",
+    name: "Acetaminophen",
+    genericName: "Acetaminophen",
+    description: "Used to treat mild to moderate pain and reduce fever.",
+    price: { amount: 12.99, currency: "USD" },
+    requiresPrescription: false,
+    category: "pain-relief"
+  },
+  {
+    id: "med2",
+    name: "Lisinopril",
+    genericName: "Lisinopril",
+    description: "Used to treat high blood pressure and heart failure.",
+    price: { amount: 15.50, currency: "USD" },
+    requiresPrescription: true,
+    category: "cardiovascular"
+  },
+  {
+    id: "med3",
+    name: "Metformin",
+    genericName: "Metformin Hydrochloride",
+    description: "First-line medication for the treatment of type 2 diabetes.",
+    price: { amount: 8.99, currency: "USD" },
+    requiresPrescription: true,
+    category: "diabetes"
+  }
+];
+
+const pharmacies = [
+  {
+    id: "pharm1",
+    name: "Community Pharmacy",
+    isOpen: true,
+    rating: 4.7,
+    phoneNumber: "(555) 123-4567",
+    location: {
+      address: "123 Main St",
+      city: "Anytown",
+      state: "CA",
+      zipCode: "12345",
+      latitude: 34.0522,
+      longitude: -118.2437
+    },
+    hours: {
+      monday: "9:00 AM - 9:00 PM",
+      tuesday: "9:00 AM - 9:00 PM",
+      wednesday: "9:00 AM - 9:00 PM",
+      thursday: "9:00 AM - 9:00 PM",
+      friday: "9:00 AM - 9:00 PM",
+      saturday: "10:00 AM - 6:00 PM",
+      sunday: "10:00 AM - 6:00 PM"
+    },
+    medications: [
+      { medicationId: "med1", stock: 100, price: { amount: 12.99, currency: "USD" } },
+      { medicationId: "med2", stock: 50, price: { amount: 15.50, currency: "USD" } }
+    ]
+  },
+  {
+    id: "pharm2",
+    name: "MediCare Pharmacy",
+    isOpen: true,
+    rating: 4.3,
+    phoneNumber: "(555) 987-6543",
+    location: {
+      address: "456 Oak Ave",
+      city: "Anytown",
+      state: "CA",
+      zipCode: "12345",
+      latitude: 34.0532,
+      longitude: -118.2437
+    },
+    hours: {
+      monday: "8:00 AM - 10:00 PM",
+      tuesday: "8:00 AM - 10:00 PM",
+      wednesday: "8:00 AM - 10:00 PM",
+      thursday: "8:00 AM - 10:00 PM",
+      friday: "8:00 AM - 10:00 PM",
+      saturday: "9:00 AM - 9:00 PM",
+      sunday: "9:00 AM - 7:00 PM"
+    },
+    medications: [
+      { medicationId: "med1", stock: 75, price: { amount: 11.99, currency: "USD" } },
+      { medicationId: "med3", stock: 30, price: { amount: 9.99, currency: "USD" } }
+    ]
+  },
+  {
+    id: "pharm3",
+    name: "Health Mart",
+    isOpen: false,
+    rating: 4.5,
+    phoneNumber: "(555) 456-7890",
+    location: {
+      address: "789 Pine Blvd",
+      city: "Anytown",
+      state: "CA",
+      zipCode: "12345",
+      latitude: 34.0522,
+      longitude: -118.2457
+    },
+    hours: {
+      monday: "8:30 AM - 7:00 PM",
+      tuesday: "8:30 AM - 7:00 PM",
+      wednesday: "8:30 AM - 7:00 PM",
+      thursday: "8:30 AM - 7:00 PM",
+      friday: "8:30 AM - 7:00 PM",
+      saturday: "9:00 AM - 5:00 PM",
+      sunday: "Closed"
+    },
+    medications: [
+      { medicationId: "med2", stock: 40, price: { amount: 14.99, currency: "USD" } },
+      { medicationId: "med3", stock: 25, price: { amount: 8.50, currency: "USD" } }
+    ]
+  }
+];
+
+// Helper function to count pharmacies that have the medication
+function getPharmacyCount(medicationId) {
+  return pharmacies.filter(pharmacy =>
+    pharmacy.medications.some(med => med.medicationId === medicationId)
+  ).length;
+}
+
+// DOM Elements
+const medicationTab = document.getElementById('tab-medications');
+const pharmacyTab = document.getElementById('tab-pharmacies');
+const medicationContent = document.getElementById('tab-content-medications');
+const pharmacyContent = document.getElementById('tab-content-pharmacies');
+const medicationsGrid = document.getElementById('medications-grid');
+const pharmaciesGrid = document.getElementById('pharmacies-grid');
+const medicationSearchForm = document.getElementById('medication-search-form');
+const pharmacySearchForm = document.getElementById('pharmacy-search-form');
+const medicationSearchInput = document.getElementById('medication-search-input');
+const pharmacySearchInput = document.getElementById('pharmacy-search-input');
+const noMedicationsMessage = document.getElementById('no-medications-message');
+const noPharmaciesMessage = document.getElementById('no-pharmacies-message');
+const medicationsResults = document.getElementById('medications-results');
+const pharmaciesResults = document.getElementById('pharmacies-results');
+
+// Tab functionality
+medicationTab.addEventListener('click', () => {
+  medicationTab.classList.add('active');
+  pharmacyTab.classList.remove('active');
+  medicationContent.style.display = 'block';
+  pharmacyContent.style.display = 'none';
+  medicationsResults.style.display = 'block';
+  pharmaciesResults.style.display = 'none';
+});
+
+pharmacyTab.addEventListener('click', () => {
+  pharmacyTab.classList.add('active');
+  medicationTab.classList.remove('active');
+  pharmacyContent.style.display = 'block';
+  medicationContent.style.display = 'none';
+  pharmaciesResults.style.display = 'block';
+  medicationsResults.style.display = 'none';
+});
+
+// Search form handling
+medicationSearchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const query = medicationSearchInput.value.toLowerCase();
+  renderMedicationResults(query);
+});
+
+pharmacySearchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const query = pharmacySearchInput.value.toLowerCase();
+  renderPharmacyResults(query);
+});
+
+// Render functions
+function renderMedicationResults(query) {
+  medicationsGrid.innerHTML = '';
+
+  // Filter medications based on search query
+  const filteredMedications = medications.filter(med =>
+    med.name.toLowerCase().includes(query) ||
+    med.genericName.toLowerCase().includes(query) ||
+    med.description.toLowerCase().includes(query)
+  );
+
+  if (filteredMedications.length === 0) {
+    medicationsGrid.style.display = 'none';
+    noMedicationsMessage.style.display = 'block';
+  } else {
+    medicationsGrid.style.display = 'grid';
+    noMedicationsMessage.style.display = 'none';
+
+    // Create medication cards
+    filteredMedications.forEach(medication => {
+      const cardTemplate = document.getElementById('medication-card-template');
+      const cardClone = document.importNode(cardTemplate.content, true);
+
+      // Fill in card data
+      const pharmacyCount = getPharmacyCount(medication.id);
+
+      cardClone.querySelector('.medication-name').textContent = medication.name;
+      cardClone.querySelector('.medication-generic').textContent = `Generic: ${medication.genericName}`;
+      cardClone.querySelector('.medication-description').textContent = medication.description;
+      cardClone.querySelector('.medication-price').textContent = `$${medication.price.amount.toFixed(2)}`;
+      cardClone.querySelector('.medication-details-link').href = `/medication/${medication.id}`;
+
+      const prescriptionBadge = cardClone.querySelector('.prescription-badge');
+      if (medication.requiresPrescription) {
+        prescriptionBadge.textContent = 'Rx Required';
+        prescriptionBadge.classList.add('rx-required');
+      } else {
+        prescriptionBadge.textContent = 'OTC';
+        prescriptionBadge.classList.add('otc');
+      }
+
+      const availabilityIcon = cardClone.querySelector('.availability-icon');
+      const availabilityText = cardClone.querySelector('.availability-text');
+
+      if (pharmacyCount > 0) {
+        availabilityIcon.setAttribute('stroke', 'green');
+        availabilityText.textContent = `Available at ${pharmacyCount} pharmacies`;
+      } else {
+        availabilityIcon.innerHTML = `
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="15" y1="9" x2="9" y2="15"></line>
+          <line x1="9" y1="9" x2="15" y2="15"></line>
+        `;
+        availabilityIcon.setAttribute('stroke', 'red');
+        availabilityText.textContent = 'Not available';
+      }
+
+      medicationsGrid.appendChild(cardClone);
+    });
+  }
+}
+
+function renderPharmacyResults(query) {
+  pharmaciesGrid.innerHTML = '';
+
+  // Filter pharmacies based on search query
+  const filteredPharmacies = pharmacies.filter(pharmacy =>
+    pharmacy.location.city.toLowerCase().includes(query) ||
+    pharmacy.location.state.toLowerCase().includes(query) ||
+    pharmacy.location.address.toLowerCase().includes(query) ||
+    pharmacy.location.zipCode.includes(query)
+  );
+
+  if (filteredPharmacies.length === 0) {
+    pharmaciesGrid.style.display = 'none';
+    noPharmaciesMessage.style.display = 'block';
+  } else {
+    pharmaciesGrid.style.display = 'grid';
+    noPharmaciesMessage.style.display = 'none';
+
+    // Create pharmacy cards
+    filteredPharmacies.forEach(pharmacy => {
+      const cardTemplate = document.getElementById('pharmacy-card-template');
+      const cardClone = document.importNode(cardTemplate.content, true);
+
+      // Fill in card data
+      cardClone.querySelector('.pharmacy-name').textContent = pharmacy.name;
+      cardClone.querySelector('.pharmacy-address').textContent = `${pharmacy.location.address}, ${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zipCode}`;
+      cardClone.querySelector('.pharmacy-hours').textContent = `Today: ${pharmacy.hours.monday}`;
+      cardClone.querySelector('.pharmacy-phone').textContent = pharmacy.phoneNumber;
+      cardClone.querySelector('.pharmacy-rating').textContent = `${pharmacy.rating} / 5`;
+
+      const statusBadge = cardClone.querySelector('.status-badge');
+      if (pharmacy.isOpen) {
+        statusBadge.textContent = 'Open';
+        statusBadge.classList.add('open');
+      } else {
+        statusBadge.textContent = 'Closed';
+        statusBadge.classList.add('closed');
+      }
+
+      const directionsLink = cardClone.querySelector('.pharmacy-directions-link');
+      directionsLink.href = `https://maps.google.com/?q=${pharmacy.location.latitude},${pharmacy.location.longitude}`;
+
+      pharmaciesGrid.appendChild(cardClone);
+    });
+  }
+}
+
+// Init - show all medications by default
+renderMedicationResults('');
+
+  </script>
+</body>
+</html>
