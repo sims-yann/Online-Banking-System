@@ -1,11 +1,12 @@
-package com.stjeanuniv.isi3eng2025.onlinebankingsystem.services;
+package com.stjeanuniv.isi3eng2025.onlinebankingsystem.service;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.*;
 
 @Service
 public interface TransferService {
@@ -19,4 +20,9 @@ public interface TransferService {
     public Map<String, Object> showTransferDetails(Transfer t);
 
    public List<Transfer> getTransferList(List<Account> t);
+    public List<Transfer> getTransferList();
+
+    public LocalDate GetCurrentDate();
+
+    public LocalTime GetCurrentTime();
 }

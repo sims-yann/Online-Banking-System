@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.*;
 
 @Service
 public class TransferServiceImpl implements TransferService {
@@ -35,14 +33,17 @@ public class TransferServiceImpl implements TransferService {
         transferMetrics.put("sender", t.getSender());
         transferMetrics.put("receiver", t.getReceiver());
         transferMetrics.put("amount", t.getAmount());
-        transferMetrics.put("date", t.getTime());
-        transferMetrics.put("state", t.getState());
+        transferMetrics.put("date", t.getDate());
+        transferMetrics.put("state", t.getStatus());
 
         return transferMetrics;
     }
 
     public List<Transfer> getTransferList(List<Account> accounts) {
         List<Transfer> transferList = new ArrayList<>();
+    public List<Transfer> getTransferList() {
+        return transferRepo.findAll();
+    }
 
         for (Account account : accounts) {
             // Find transfers where the account is either sender or receiver
@@ -52,7 +53,14 @@ public class TransferServiceImpl implements TransferService {
             transferList.addAll(senderTransfers);
             transferList.addAll(receiverTransfers);
         }
+    @Override
+    public LocalDate GetCurrentDate() {
+        return LocalDate.now();
+    }
 
+    @Override
+    public LocalTime GetCurrentTime() {
+        return LocalTime.now();
         // Remove duplicates if same transfer appears in both sender and receiver lists
         return transferList.stream().distinct().collect(Collectors.toList());
     }
@@ -94,6 +102,11 @@ public class TransferServiceImpl implements TransferService {
             return false;
         }
         return true;
+    }
+        if(sender.getId() != receiver.getId()){
+            return verifyBalance(sender, amount)&&verifyAccountType(receiver);
+        }
+        return false;
     }
 
     public void recordTransfer(Transfer transfer){
