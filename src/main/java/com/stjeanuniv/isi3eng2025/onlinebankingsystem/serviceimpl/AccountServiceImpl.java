@@ -13,9 +13,10 @@ import java.util.Map;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
+
     private final AccountRepo accountRepo;
 
+    @Autowired
     public AccountServiceImpl( AccountRepo accountRepo){
         this.accountRepo = accountRepo;
     }
