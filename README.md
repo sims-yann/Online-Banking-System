@@ -15,7 +15,7 @@ core functionalities like account management, fund transfers, transaction histor
 controls for bank staff. The system will be built using Java-based web technologies and designed with best 
 practices in software security, usability, and scalability. 
 
-  **Main Features to be Implemented** : 
+  **Main Features to be Implemented** :
 1. User Registration and Login 
 -  New users can create an account. 
 - Secure login system with password encryption. 
