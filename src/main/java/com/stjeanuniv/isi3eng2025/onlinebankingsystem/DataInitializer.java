@@ -2,12 +2,16 @@ package com.stjeanuniv.isi3eng2025.onlinebankingsystem;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AccountRepo;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AdminRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -16,25 +20,35 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepo userRepo;
     private final AccountRepo accountRepo;
     private final PasswordEncoder passwordEncoder;
+    private final AdminRepo adminRepo;
 
     @Autowired
     public DataInitializer(UserRepo userRepo,
                            AccountRepo accountRepo,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           AdminRepo adminRepo) {
         this.userRepo = userRepo;
         this.accountRepo = accountRepo;
         this.passwordEncoder = passwordEncoder;
+        this.adminRepo = adminRepo;
+    }
+
+
+
+    public Date parseDateLegacy(String dateStr) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.parse(dateStr);
     }
 
     @Override
     public void run(String... args) throws Exception {
         // Only initialize if no users exist
         if (userRepo.count() == 0) {
-            createAdmin("admin1", "admin1@bank.com", "IT", "Manager", "A1001");
-            createAdmin("admin2", "admin2@bank.com", "HR", "Director", "A1002");
-            createCustomer("customer1", "customer1@bank.com", "John", "Doe",
+            createAdmin("admin1", "ismaelulrich121@gmail.com", "IT", "Manager", "A1001");
+            createAdmin("admin2", "ismaelulrich121@gmail.com", "HR", "Director", "A1002");
+            createCustomer("customer1", "ismaelulrich121@gmail.com", "John", "Doe",
                     "123 Main St", "1990-01-01", "ID-123456", "C1001");
-            createCustomer("customer2", "customer2@bank.com", "Jane", "Smith",
+            createCustomer("customer2", "ismaelulrich121@gmail.com", "Jane", "Smith",
                     "456 Oak Ave", "1992-05-15", "ID-654321", "C1002");
         }
     }
@@ -50,9 +64,10 @@ public class DataInitializer implements CommandLineRunner {
         admin.setCreationDate(new Date());
         admin.setDepartment(department);
         admin.setPosition(position);
-        userRepo.save(admin);
+        adminRepo.save(admin);
 
-        createAccount(admin, accountNumber, "Admin Account", 50000.0);
+
+        createAccount(admin, accountNumber, "CURRENT", 50000.0);
     }
 
     private void createCustomer(String username, String email,
@@ -69,10 +84,15 @@ public class DataInitializer implements CommandLineRunner {
         customer.setLastName(lastName);
         customer.setAddress(address);
         customer.setNationalCardNumber(nationalId);
-        // Parse birth date - implement date parsing logic if needed
+        try {
+            customer.setBirthDate(parseDateLegacy(birthDateStr));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
         userRepo.save(customer);
 
-        createAccount(customer, accountNumber, "Savings", 2500.0);
+        createAccount(customer, accountNumber, "CURRENT", 2500.0);
     }
 
     private void createAccount(User user, String accountNumber,

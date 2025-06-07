@@ -16,10 +16,8 @@ public class Customer extends User {
     public String LastName;
     public String Address;
     public Date BirthDate;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String NationalCardNumber;
-
-
 
     public Customer() {
         this.role = "CUSTOMER";

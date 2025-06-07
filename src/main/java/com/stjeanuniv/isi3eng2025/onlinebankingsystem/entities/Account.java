@@ -20,15 +20,15 @@ public class Account {
 
     public String status;
 
+    public int userId;
+
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        this.userId = userId;
     }
-
-    public int UserId;
 
     public int getId() {
         return id;

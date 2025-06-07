@@ -33,11 +33,11 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "Source_Account", unique = false, nullable = true, updatable = false)
-    private Account SourceAccount;
+    private Account sourceAccount;
 
     @ManyToOne
     @JoinColumn(name = "Destination_Account", unique = false, nullable = true, updatable = false)
-    private Account DestinationAccount;
+    private Account destinationAccount;
 
     @NotNull
     private LocalDateTime time;
@@ -85,19 +85,19 @@ public class Transaction {
     }
 
     public Account getSourceAccount() {
-        return SourceAccount;
+        return sourceAccount;
     }
 
     public void setSourceAccount(Account sourceAccount) {
-        SourceAccount = sourceAccount;
+        this.sourceAccount = sourceAccount;
     }
 
     public Account getDestinationAccount() {
-        return DestinationAccount;
+        return destinationAccount;
     }
 
     public void setDestinationAccount(Account destinationAccount) {
-        DestinationAccount = destinationAccount;
+        this.destinationAccount = destinationAccount;
     }
 
     public @NotNull LocalDateTime getTime() {

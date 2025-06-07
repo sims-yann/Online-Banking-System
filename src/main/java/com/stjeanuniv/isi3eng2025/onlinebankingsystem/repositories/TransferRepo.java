@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface TransferRepo extends JpaRepository<Transfer, Integer> {
-    List<Transfer> findBySender(Account a);
-    List<Transfer> findByReceiver(Account a);
+    List<Transfer> findBySourceAccount(Account a);
+    List<Transfer> findByDestinationAccount(Account a);
 
 }

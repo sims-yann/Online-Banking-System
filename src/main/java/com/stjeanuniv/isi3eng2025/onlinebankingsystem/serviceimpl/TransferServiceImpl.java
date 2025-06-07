@@ -60,8 +60,8 @@ public class TransferServiceImpl implements TransferService {
 
         for (Account account : accounts) {
             // Find transfers where the account is either sender or receiver
-            List<Transfer> senderTransfers = transferRepo.findBySender(account);
-            List<Transfer> receiverTransfers = transferRepo.findByReceiver(account);
+            List<Transfer> senderTransfers = transferRepo.findBySourceAccount(account);
+            List<Transfer> receiverTransfers = transferRepo.findByDestinationAccount(account);
 
             transferList.addAll(senderTransfers);
             transferList.addAll(receiverTransfers);
