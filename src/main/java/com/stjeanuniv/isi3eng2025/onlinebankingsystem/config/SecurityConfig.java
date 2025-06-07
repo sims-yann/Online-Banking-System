@@ -57,14 +57,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers("/admin-css/**", "/admin-js/**", "/auth-css/**", "/auth-js/**", "/customer-css/**", "/customer-js/**", "/**").permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("//session-expired").permitAll()
                         .requestMatchers("//Admin/**").hasRole("Admin")
                         .requestMatchers("//Customer/**").hasRole("Customer")
                         .requestMatchers("//auth/**").permitAll()
                         .anyRequest().hasRole("Admin")
                 )
                 .formLogin(form -> form
-                        .loginPage("/auth/login")
+                        .loginPage("/")
                         .loginProcessingUrl("/authenticate")
                         .permitAll()
                         .successHandler(new CustomAuthenticationSuccessHandler()) // Redirect based on role
