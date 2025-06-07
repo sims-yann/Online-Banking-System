@@ -1,29 +1,63 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-        name = "USERTYPE",
-        discriminatorType = DiscriminatorType.STRING
-)
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    public String name;
-    public String password;
-    public String email;
-    public double phone;
-    public Date CreationDate;
-    public Date Lastlogin;
-    
+    @NotBlank(message = "Full name is required")
+    @Size(min = 2, max = 100, message = "Full name must be between 2 and 100 characters")
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     @Column(nullable = false)
-    public String role; // e.g., 'ADMIN' or 'CUSTOMER'
+    private String password;
+
+    @Size(max = 20, message = "Phone number must be less than 20 characters")
+    private String phone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.CUSTOMER;
+
+    @Column(nullable = false)
+    private Boolean active = true;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Account> accounts = new ArrayList<>();
+
 }

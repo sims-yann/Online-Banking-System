@@ -1,195 +1,154 @@
-/* Settings Page Specific Styles */
-.settings-container {
-    max-width: 768px;
-    margin: 0 auto;
+body {
+    background: #f8f9fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
-
-.settings-tabs {
-    display: flex;
+.sidebar {
+    width: 220px;
+    min-height: 100vh;
+    background: #7c5dfa;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+.sidebar-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.sidebar .nav-link {
+    color: #e0e0e0;
+    font-size: 1.08rem;
+    padding: 10px 0 10px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    transition: background 0.2s;
+}
+.sidebar .nav-link.active, .sidebar .nav-link:hover {
+    background: #6c47e0;
+    color: #fff;
+}
+.logout-link {
+    color: #fff;
+    font-weight: 500;
+    margin-top: 30px;
+    padding-left: 10px;
+}
+.main-content {
+    margin-left: 220px;
+    background: #f8f9fa;
+    min-height: 100vh;
+    width: 100%;
+}
+.topbar {
+    background: #fff;
     border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 24px;
-    overflow-x: auto;
+    font-size: 1.1rem;
+    height: 60px;
 }
-
-.tab-button {
-    padding: 16px 20px;
+.profile-icon {
+    font-size: 2rem;
+    color: #7c5dfa;
+}
+.btn-primary {
+    background: #7c5dfa;
+    border: none;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 8px 20px;
+}
+.btn-primary:hover {
+    background: #6c47e0;
+}
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+.table {
+    margin-bottom: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.table th {
+    background: #f4f4fb;
+    color: #6c47e0;
+    font-weight: 600;
+    border: none;
+}
+.table td {
+    vertical-align: middle;
+    border-top: 1px solid #f0f0f0;
+}
+.status-badge {
+    background: #232946;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    padding: 2px 14px;
+    font-weight: 500;
+}
+.role-badge {
+    background: #f4f4fb;
+    color: #6c47e0;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    padding: 2px 10px;
+    font-weight: 500;
+}
+.user-avatar {
+    background: #e0e0ff;
+    color: #7c5dfa;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+.ellipsis-btn {
     background: none;
     border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    color: #666;
-    position: relative;
-    white-space: nowrap;
-}
-
-.tab-button:hover {
-    color: #9b87f5;
-}
-
-.tab-button.active {
-    color: #9b87f5;
-}
-
-.tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background-color: #9b87f5;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.settings-card {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 24px;
-}
-
-.card-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid #eee;
-}
-
-.card-title {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.card-description {
-    margin: 0;
-    color: #666;
-    font-size: 14px;
-}
-
-.card-content {
-    padding: 24px;
-}
-
-.form-group {
-    margin-bottom: 24px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-control {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: #9b87f5;
-}
-
-.help-text {
-    margin-top: 4px;
-    font-size: 14px;
-    color: #666;
-}
-
-.form-group-switch {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-/* Toggle Switch */
-.toggle-switch {
-    position: relative;
-    min-width: 50px;
-}
-
-.switch-input {
-    height: 0;
-    width: 0;
-    visibility: hidden;
-    position: absolute;
-}
-
-.switch-label {
-    display: block;
-    width: 48px;
-    height: 24px;
-    background: #e5e5e5;
-    border-radius: 100px;
-    position: relative;
+    color: #6c47e0;
+    font-size: 1.5rem;
     cursor: pointer;
 }
-
-.switch-label:after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-
-.switch-input:checked + .switch-label {
-    background: #9b87f5;
-}
-
-.switch-input:checked + .switch-label:after {
-    left: calc(100% - 22px);
-}
-
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.primary-button {
-    background: linear-gradient(to right, #9b87f5, #7E69AB);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
+.badge.bg-danger.text-white {
+    background: #e74c3c !important;
+    color: #fff !important;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    padding: 2px 12px;
     font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
 }
-
-.primary-button:hover {
-    background: linear-gradient(to right, #8a76e4, #6d58a0);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.badge.bg-light.text-primary {
+    background: #f4f4fb !important;
+    color: #6c47e0 !important;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    padding: 2px 12px;
+    font-weight: 500;
 }
-
-/* Responsive */
-@media (max-width: 576px) {
-    .settings-tabs {
-        flex-wrap: wrap;
-    }
-
-    .form-group-switch {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .toggle-switch {
-        margin-top: 12px;
-    }
+.badge.bg-light.text-dark {
+    background: #e0e0e0 !important;
+    color: #232946 !important;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    padding: 2px 12px;
+    font-weight: 500;
 }
+@media (max-width: 900px) {
+    .sidebar {
+        width: 60px;
+        padding: 10px 0;
+    }
+    .main-content {
+        margin-left: 60px;
+    }
+    .sidebar-title, .sidebar .nav-link span, .logout-link {
+        display: none;
+    }
+} 

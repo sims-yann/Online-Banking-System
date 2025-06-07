@@ -1,7 +1,6 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.services;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

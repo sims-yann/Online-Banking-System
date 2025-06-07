@@ -1,255 +1,266 @@
-// Mock Data
-const users = [
-    {
-        id: "user1",
-        name: "John Doe",
-        email: "john.doe@example.com",
-        password: "password123",
-        phone: "555-1234",
-        role: "customer",
-        createdAt: new Date("2023-04-15"),
-        status: "active"
-    },
-    {
-        id: "user2",
-        name: "Jane Smith",
-        email: "jane.smith@example.com",
-        password: "password456",
-        phone: "555-5678",
-        role: "customer",
-        createdAt: new Date("2023-04-20"),
-        status: "active"
-    },
-    {
-        id: "user3",
-        name: "Alice Johnson",
-        email: "alice.johnson@example.com",
-        password: "password789",
-        phone: "555-9012",
-        role: "customer",
-        createdAt: new Date("2023-05-01"),
-        status: "inactive"
-    },
-    {
-        id: "user4",
-        name: "Bob Brown",
-        email: "bob.brown@example.com",
-        password: "password101112",
-        phone: "555-3456",
-        role: "customer",
-        createdAt: new Date("2023-05-05"),
-        status: "active"
-    },
-    {
-        id: "admin1",
-        name: "Admin User",
-        email: "admin@example.com",
-        password: "adminPass123",
-        phone: "555-0000",
-        role: "admin",
-        createdAt: new Date("2023-01-01"),
-        status: "active"
-    }
-];
+const API_URL = '/api/users';
+let users = [];
+let editingUserId = null;
 
-// Variables
-let selectedUserId = null;
-let filteredUsers = [...users];
+const usersTableBody = document.querySelector('#usersTable tbody');
+const searchInput = document.getElementById('searchInput');
+const addUserBtn = document.getElementById('addUserBtn');
+const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+const userForm = document.getElementById('userForm');
+const userModalLabel = document.getElementById('userModalLabel');
 
-// Utility Functions
-function formatDate(date) {
-    return new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    }).format(date);
-}
+// Sidebar navigation logic
+const usersManagementSection = document.getElementById('usersManagementSection');
+const transactionsManagementSection = document.getElementById('transactionsManagementSection');
+const usersLink = document.getElementById('usersLink');
+const transactionsLink = document.getElementById('transactionsLink');
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Page Initialization
-document.addEventListener('DOMContentLoaded', function() {
-    // Set welcome message
-    document.querySelector('.welcome-text').textContent = `Welcome, ${users.find(user => user.role === 'admin').name}`;
-
-    // Render users table
-    renderUsersTable();
-
-    // Setup search functionality
-    const searchInput = document.getElementById('search-users');
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        filteredUsers = users.filter(user =>
-            user.name.toLowerCase().includes(searchTerm) ||
-            user.email.toLowerCase().includes(searchTerm)
-        );
-        renderUsersTable();
-    });
-
-    // Setup add user button
-    document.getElementById('add-user-button').addEventListener('click', function() {
-        alert('Add new user functionality will be implemented soon');
-    });
-
-    // Setup logout button
-    document.getElementById('logout-button').addEventListener('click', function() {
-        console.log('Logout clicked');
-        alert('Logging out...');
-        window.location.href = "/login";
-    });
-
-    // Setup user actions dropdown functionality
-    setupUserActionsDropdown();
-
-    // Close dropdown when clicking elsewhere
-    window.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('user-actions-dropdown');
-        if (!event.target.matches('.actions-button') && !dropdown.contains(event.target)) {
-            closeActionsDropdown();
-        }
-    });
+usersLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    usersLink.classList.add('active');
+    transactionsLink.classList.remove('active');
+    usersManagementSection.classList.remove('d-none');
+    transactionsManagementSection.classList.add('d-none');
 });
 
-function renderUsersTable() {
-    const tableBody = document.querySelector('#users-table tbody');
-    tableBody.innerHTML = '';
+transactionsLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    usersLink.classList.remove('active');
+    transactionsLink.classList.add('active');
+    usersManagementSection.classList.add('d-none');
+    transactionsManagementSection.classList.remove('d-none');
+    fetchAndRenderTransactions().then(r => {});
+});
 
-    filteredUsers.forEach(user => {
+// Transactions Management Logic
+const TRANSACTIONS_API_URL = '/transactions/all';
+let allTransactions = [];
+const transactionsTableBody = document.querySelector('#transactionsTable tbody');
+const transactionSearchInput = document.getElementById('transactionSearchInput');
+const transactionDateRange = document.getElementById('transactionDateRange');
+
+// Fetch and render users
+async function fetchUsers(query = '') {
+    let url = API_URL;
+    if (query) url += `?search=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    users = await res.json();
+    renderUsers();
+}
+
+function renderUsers() {
+    usersTableBody.innerHTML = '';
+    if (users.length === 0) {
+        usersTableBody.innerHTML = '<tr><td colspan="6" class="text-center">No users found.</td></tr>';
+        return;
+    }
+    users.forEach(user => {
         const tr = document.createElement('tr');
-
-        // User cell with avatar and name
-        const tdUser = document.createElement('td');
-        tdUser.innerHTML = `
-        <div class="user-cell">
-          <div class="user-cell-avatar">👤</div>
-          ${user.name}
-        </div>
-      `;
-
-        // Email cell
-        const tdEmail = document.createElement('td');
-        tdEmail.textContent = user.email;
-
-        // Role cell with badge
-        const tdRole = document.createElement('td');
-        const roleBadge = document.createElement('span');
-        roleBadge.className = `badge ${user.role === 'admin' ? 'badge-primary' : 'badge-outline'}`;
-        roleBadge.textContent = user.role;
-        tdRole.appendChild(roleBadge);
-
-        // Status cell with badge
-        const tdStatus = document.createElement('td');
-        const statusBadge = document.createElement('span');
-        statusBadge.className = `badge ${
-            user.status === 'active' ? 'badge-success' : 'badge-danger'
-        }`;
-        statusBadge.textContent = user.status;
-        tdStatus.appendChild(statusBadge);
-
-        // Created date cell
-        const tdCreated = document.createElement('td');
-        tdCreated.textContent = formatDate(user.createdAt);
-
-        // Actions cell with dropdown button
-        const tdActions = document.createElement('td');
-        const actionsButton = document.createElement('button');
-        actionsButton.className = 'actions-button';
-        actionsButton.setAttribute('data-user-id', user.id);
-        actionsButton.innerHTML = '⋮';
-        tdActions.appendChild(actionsButton);
-
-        // Append all cells to the row
-        tr.appendChild(tdUser);
-        tr.appendChild(tdEmail);
-        tr.appendChild(tdRole);
-        tr.appendChild(tdStatus);
-        tr.appendChild(tdCreated);
-        tr.appendChild(tdActions);
-
-        // Append the row to the table body
-        tableBody.appendChild(tr);
-    });
-
-    // Re-attach event listeners to action buttons
-    document.querySelectorAll('.actions-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-            selectedUserId = this.getAttribute('data-user-id');
-            showActionsDropdown(this);
-        });
+        tr.innerHTML = `
+            <td><span class="user-avatar"><i class="bi bi-person"></i></span> ${user.name}</td>
+            <td>${user.email}</td>
+            <td><span class="role-badge">${user.role}</span></td>
+            <td><span class="status-badge">${user.status}</span></td>
+            <td>${formatDate(user.createdOn)}</td>
+            <td>
+                <button class="ellipsis-btn" title="Actions" data-id="${user.id}"><i class="bi bi-three-dots-vertical"></i></button>
+                <div class="dropdown-menu d-none" id="dropdown-${user.id}">
+                    <a class="dropdown-item edit-user" href="#" data-id="${user.id}">Edit</a>
+                    <a class="dropdown-item delete-user" href="#" data-id="${user.id}">Delete</a>
+                </div>
+            </td>
+        `;
+        usersTableBody.appendChild(tr);
     });
 }
 
-function setupUserActionsDropdown() {
-    // View user details
-    document.getElementById('view-user-btn').addEventListener('click', function() {
-        alert(`View details for user ID: ${selectedUserId}`);
-        closeActionsDropdown();
-    });
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+}
 
-    // Edit user
-    document.getElementById('edit-user-btn').addEventListener('click', function() {
-        alert(`Edit user ID: ${selectedUserId}`);
-        closeActionsDropdown();
-    });
+// Search functionality
+searchInput.addEventListener('input', (e) => {
+    fetchUsers(e.target.value.trim());
+});
 
-    // Toggle user status (activate/deactivate)
-    document.querySelector('.status-toggle-btn').addEventListener('click', function() {
-        const user = users.find(u => u.id === selectedUserId);
-        const newStatus = user.status === 'active' ? 'inactive' : 'active';
-        const message = newStatus === 'active' ? 'activated' : 'deactivated';
+// Add User button
+addUserBtn.addEventListener('click', () => {
+    editingUserId = null;
+    userModalLabel.textContent = 'Add New User';
+    userForm.reset();
+    document.getElementById('userId').value = '';
+    userModal.show();
+});
 
-        // In a real app, this would be an API call
-        // For demo, we'll just update the local data
-        const userIndex = users.findIndex(u => u.id === selectedUserId);
-        users[userIndex].status = newStatus;
-        filteredUsers = [...users]; // Update filtered users
-
-        alert(`User ${user.name} has been ${message}`);
-        renderUsersTable();
-        closeActionsDropdown();
-    });
-
-    // Delete user
-    document.querySelector('.delete-user-btn').addEventListener('click', function() {
-        const user = users.find(u => u.id === selectedUserId);
-
-        if (confirm(`Are you sure you want to delete user ${user.name}?`)) {
-            // In a real app, this would be an API call
-            // For demo, we'll just update the local data
-            const userIndex = users.findIndex(u => u.id === selectedUserId);
-            users.splice(userIndex, 1);
-            filteredUsers = [...users]; // Update filtered users
-
-            alert(`User ${user.name} has been deleted`);
-            renderUsersTable();
+// Handle table actions (edit/delete)
+usersTableBody.addEventListener('click', (e) => {
+    if (e.target.closest('.ellipsis-btn')) {
+        const id = e.target.closest('.ellipsis-btn').dataset.id;
+        showDropdownMenu(id, e.target.closest('.ellipsis-btn'));
+    } else if (e.target.classList.contains('edit-user')) {
+        e.preventDefault();
+        const id = e.target.dataset.id;
+        openEditModal(id);
+    } else if (e.target.classList.contains('delete-user')) {
+        e.preventDefault();
+        const id = e.target.dataset.id;
+        if (confirm('Are you sure you want to delete this user?')) {
+            deleteUser(id).then(r => {});
         }
+    }
+});
 
-        closeActionsDropdown();
+document.addEventListener('click', (e) => {
+    // Hide all dropdowns if clicking outside
+    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.add('d-none'));
+});
+
+function showDropdownMenu(id, btn) {
+    document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.add('d-none'));
+    const menu = document.getElementById(`dropdown-${id}`);
+    if (menu) {
+        menu.classList.remove('d-none');
+        const rect = btn.getBoundingClientRect();
+        menu.style.position = 'absolute';
+        menu.style.left = rect.left + 'px';
+        menu.style.top = (rect.bottom + window.scrollY) + 'px';
+        menu.style.zIndex = 2000;
+    }
+}
+
+// Add/Edit User form submit
+userForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('userId').value;
+    const user = {
+        name: document.getElementById('userName').value,
+        email: document.getElementById('userEmail').value,
+        role: document.getElementById('userRole').value,
+        status: document.getElementById('userStatus').value
+    };
+    if (id) {
+        // Edit
+        await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        });
+    } else {
+        // Add
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        });
+    }
+    userModal.hide();
+    fetchUsers(searchInput.value.trim());
+});
+
+async function openEditModal(id) {
+    const user = users.find(u => u.id === id);
+    if (!user) return;
+    editingUserId = id;
+    userModalLabel.textContent = 'Edit User';
+    document.getElementById('userId').value = user.id;
+    document.getElementById('userName').value = user.name;
+    document.getElementById('userEmail').value = user.email;
+    document.getElementById('userRole').value = user.role;
+    document.getElementById('userStatus').value = user.status;
+    userModal.show();
+}
+
+async function deleteUser(id) {
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    await fetchUsers(searchInput.value.trim());
+}
+
+async function fetchAndRenderTransactions() {
+    const res = await fetch(TRANSACTIONS_API_URL);
+    allTransactions = await res.json();
+    renderTransactions();
+}
+
+function renderTransactions() {
+    let filtered = allTransactions;
+    const search = transactionSearchInput.value.trim().toLowerCase();
+    if (search) {
+        filtered = filtered.filter(t =>
+            (t.description && t.description.toLowerCase().includes(search)) ||
+            (t.id && t.id.toString().includes(search))
+        );
+    }
+    // Date range filter
+    transactionsTableBody.innerHTML = '';
+    if (filtered.length === 0) {
+        transactionsTableBody.innerHTML = '<tr><td colspan="7" class="text-center">No transactions found.</td></tr>';
+        return;
+    }
+    filtered.forEach(t => {
+        transactionsTableBody.innerHTML += `
+            <tr>
+                <td>#${t.id}</td>
+                <td>${renderTypeBadge(t.transactionType)}</td>
+                <td>$${Number(t.amount).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                <td>${t.description || ''}</td>
+                <td>${formatDateTime(t.createdAt)}</td>
+                <td>${renderStatusBadge(t.status)}</td>
+                <td><button class="ellipsis-btn" title="Actions"><i class="bi bi-three-dots-vertical"></i></button></td>
+            </tr>
+        `;
     });
 }
 
-function showActionsDropdown(buttonElement) {
-    const dropdown = document.getElementById('user-actions-dropdown');
-    const user = users.find(u => u.id === selectedUserId);
-
-    // Update the status toggle button text based on current user status
-    const statusToggleBtn = dropdown.querySelector('.status-toggle-btn');
-    statusToggleBtn.textContent = user.status === 'active' ? 'Deactivate' : 'Activate';
-
-    // Position the dropdown next to the button
-    const buttonRect = buttonElement.getBoundingClientRect();
-    dropdown.style.top = `${buttonRect.bottom}px`;
-    dropdown.style.left = `${buttonRect.left - 160 + buttonRect.width}px`; // Align right edge
-
-    // Show the dropdown
-    dropdown.classList.add('active');
+function renderTypeBadge(type) {
+    if (!type) return '';
+    if (type.toLowerCase() === 'withdrawal' || type.toLowerCase() === 'withdraw') {
+        return '<span class="badge bg-danger text-white">withdraw</span>';
+    }
+    if (type.toLowerCase() === 'deposit') {
+        return '<span class="badge bg-light text-primary">deposit</span>';
+    }
+    return '<span class="badge bg-light text-dark">transfer</span>';
 }
 
-function closeActionsDropdown() {
-    const dropdown = document.getElementById('user-actions-dropdown');
-    dropdown.classList.remove('active');
-    selectedUserId = null;
+function renderStatusBadge(status) {
+    if (!status) return '';
+    return `<span class="status-badge">${status.toLowerCase()}</span>`;
 }
+
+function formatDateTime(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return date.toLocaleDateString(undefined, options) + ', ' + date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+}
+
+transactionSearchInput.addEventListener('input', renderTransactions);
+// Date range picker logic
+flatpickr(transactionDateRange, {
+    mode: 'range',
+    dateFormat: 'Y-m-d',
+    onClose: function(selectedDates) {
+        if (selectedDates.length === 2) {
+            fetchTransactionsByDateRange(selectedDates[0], selectedDates[1]);
+        } else {
+            fetchAndRenderTransactions();
+        }
+    }
+});
+
+async function fetchTransactionsByDateRange(startDate, endDate) {
+    // Convert to ISO string and set time to cover the full days
+    const start = new Date(startDate);
+    start.setHours(0,0,0,0);
+    const end = new Date(endDate);
+    end.setHours(23,59,59,999);
+    const res = await fetch(`/transactions/range?start=${start.toISOString()}&end=${end.toISOString()}`);
+    allTransactions = await res.json();
+    renderTransactions();
+}
+
+// Initial load
+fetchUsers(); 

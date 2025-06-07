@@ -1,11 +1,8 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transfer;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.TransferRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
