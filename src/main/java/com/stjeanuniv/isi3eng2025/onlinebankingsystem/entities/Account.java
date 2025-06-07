@@ -20,6 +20,10 @@ public class Account {
 
     public String status;
 
+    @ManyToOne
+    @JoinColumn(name = "account_holder_id", nullable = false, unique = false, updatable = false)
+    public Customer accountHolder;
+
     public int getId() {
         return id;
     }

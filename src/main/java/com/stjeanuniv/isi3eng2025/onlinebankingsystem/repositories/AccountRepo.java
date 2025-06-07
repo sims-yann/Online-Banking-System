@@ -9,12 +9,10 @@ import java.util.List;
 
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Integer> {
-    Account save(Account account);
-    List<Account> findByUserId(int id);
+    List<Account> findByAccountHolder_Id(int id);;
 
     Account findById(int id);
 
-    void flush();
+    List<Account> findAll();
 
-    void delete(Account account);
 }

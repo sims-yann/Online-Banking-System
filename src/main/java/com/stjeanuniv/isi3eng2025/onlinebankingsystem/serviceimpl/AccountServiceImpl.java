@@ -39,8 +39,12 @@ public class AccountServiceImpl implements AccountService {
         return accountRepo.findById(id);
     }
 
-    public List<Account> getAllAccounts(int id) {
-        return accountRepo.findByUserId(id);
+    public List<Account> getAllAccounts() {
+        return accountRepo.findAll();
+    }
+
+    public List<Account> getAccountsByHolderId(int id) {
+        return accountRepo.findByAccountHolder_Id(id);
     }
 
     //to block an account

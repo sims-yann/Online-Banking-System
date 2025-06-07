@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoreBank - Secure Online Banking</title>
-    <link rel="stylesheet" href="../static/index.css">
+    <link rel="stylesheet" th:href="@{index.css}">
 </head>
 <body>
 <div class="banking-container">
@@ -22,8 +23,8 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="navbar-buttons">
-                    <a href="/login" class="login-button">Login</a>
-                    <a href="/register" class="register-button">Register</a>
+                    <a th:href="@{/auth/login}" class="login-button">Login</a>
+                    <a th:href="@{/auth/register}" class="register-button">Register</a>
                 </div>
             </div>
             <div class="mobile-menu-toggle">
@@ -41,12 +42,12 @@
                 <h1 class="hero-title">Banking for the Digital Age</h1>
                 <p class="hero-subtitle">Secure, Fast, and User-Friendly Online Banking Platform</p>
                 <div class="hero-buttons">
-                    <a href="/register" class="primary-button">Get Started</a>
+                    <a th:href="@{/auth/register}" class="primary-button">Get Started</a>
                     <a href="#features" class="secondary-button">Learn More</a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://via.placeholder.com/600x400" alt="Banking App Dashboard" />
+                <img th:src="@{https://via.placeholder.com/600x400}" alt="Banking App Dashboard" />
             </div>
         </div>
     </section>
@@ -124,7 +125,7 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <img src="https://via.placeholder.com/500x500" alt="About CoreBank" />
+                    <img th:src="@{https://via.placeholder.com/500x500}" alt="About CoreBank" />
                 </div>
                 <div class="about-text">
                     <h2>About CoreBank</h2>
@@ -162,7 +163,7 @@
                         <p>"CoreBank has revolutionized how I manage my finances. The interface is intuitive and the customer service is exceptional."</p>
                     </div>
                     <div class="testimonial-author">
-                        <img src="https://via.placeholder.com/60" alt="Sarah L." class="author-image" />
+                        <img th:src="@{https://via.placeholder.com/60}" alt="Sarah L." class="author-image" />
                         <div class="author-info">
                             <h4>Sarah L.</h4>
                             <p>Personal Account</p>
@@ -174,7 +175,7 @@
                         <p>"As a business owner, CoreBank's business solutions have streamlined our payment processes and improved our cash flow management."</p>
                     </div>
                     <div class="testimonial-author">
-                        <img src="https://via.placeholder.com/60" alt="Robert J." class="author-image" />
+                        <img th:src="@{https://via.placeholder.com/60}" alt="Robert J." class="author-image" />
                         <div class="author-info">
                             <h4>Robert J.</h4>
                             <p>Business Owner</p>
@@ -196,7 +197,7 @@
             <div class="cta-content">
                 <h2>Ready to experience modern banking?</h2>
                 <p>Join thousands of satisfied customers today. Open an account in minutes.</p>
-                <a href="/register" class="primary-button">Get Started Now</a>
+                <a th:href="@{/auth/register}" class="primary-button">Get Started Now</a>
             </div>
         </div>
     </section>
@@ -250,6 +251,6 @@
     </footer>
 </div>
 
-<script src="../static/index.js"></script>
+<script th:src="@{index.js}"></script>
 </body>
 </html>

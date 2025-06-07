@@ -11,11 +11,16 @@ import java.util.Date;
 @DiscriminatorValue(
         value = "Admin"
 )
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin extends User {
     public String Department;
     public String Position;
 
-    public Admin() {
-        this.role = "ADMIN";
+    public Admin(String name, String password, String email, int phone, Date creationdate, String department, String position) {
+        super(name, password, email, phone, creationdate);
+        this.Department = department;
+        this.Position = position;
     }
+
 }

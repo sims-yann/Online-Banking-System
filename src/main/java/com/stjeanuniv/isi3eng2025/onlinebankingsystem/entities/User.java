@@ -3,6 +3,7 @@ package com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -12,6 +13,8 @@ import java.util.Date;
         name = "USERTYPE",
         discriminatorType = DiscriminatorType.STRING
 )
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +25,12 @@ public class User {
     public String email;
     public double phone;
     public Date CreationDate;
-    public Date Lastlogin;
-    
-    @Column(nullable = false)
-    public String role; // e.g., 'ADMIN' or 'CUSTOMER'
+
+    public User(String name, String password, String email, double phone, Date CreationDate) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.CreationDate = CreationDate;
+    }
 }

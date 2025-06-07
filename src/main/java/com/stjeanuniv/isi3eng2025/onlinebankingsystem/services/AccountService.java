@@ -17,7 +17,7 @@ public interface AccountService {
     public void DeleteAccount(Account account);
 
     public Account getAccount(int id);
-    public List<Account> getAllAccounts(int userId);
+    public List<Account> getAllAccounts();
 
     public Map<String, Object> viewAccountDetails(int id);
 

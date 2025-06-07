@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoreBank - Login</title>
-    <link rel="stylesheet" href="../../static/auth-css/login.css">
+    <link rel="stylesheet" th:href="@{/auth-css/login.css}">
 </head>
 <body>
 <div class="min-h-screen flex items-center justify-center bg-banking-light py-12 px-4">
@@ -20,7 +21,7 @@
                 <p class="card-description">Enter your email and password to sign in</p>
             </div>
 
-            <form id="login-form">
+            <form id="login-form" th:action="@{/authenticate}" method="POST">
                 <div class="card-content">
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -30,6 +31,7 @@
                                     id="email"
                                     type="email"
                                     placeholder="name@example.com"
+                                    name="username"
                                     required
                             />
                         </div>
@@ -43,6 +45,7 @@
                                     id="password"
                                     type="password"
                                     placeholder="••••••••"
+                                    name="password"
                                     required
                             />
                         </div>
@@ -59,22 +62,16 @@
 
                     <p class="text-center text-sm text-gray-600">
                         Don't have an account?
-                        <a href="/register" class="text-banking-primary hover-underline">
+                        <a th:href="@{/auth/register}" class="text-banking-primary hover-underline">
                             Register here
                         </a>
                     </p>
-
-                    <div class="demo-accounts">
-                        <p>Demo accounts:</p>
-                        <p>Admin: admin@bankingsystem.com / admin123</p>
-                        <p>User: john@example.com / password123</p>
-                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script src="../../static/auth-js/login.js"></script>
+<script th:src="@{/auth-js/login.js}"></script>
 </body>
 </html>

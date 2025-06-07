@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoreBank - Register</title>
-    <link rel="stylesheet" href="../../static/auth-css/register.css">
+    <link rel="stylesheet" th:href="@{/auth-css/register.css}">
 </head>
 <body>
 <div class="min-h-screen flex items-center justify-center bg-banking-light py-12 px-4">
@@ -96,7 +97,7 @@
 
                     <p class="text-center text-sm text-gray-600">
                         Already have an account?
-                        <a href="/login" class="text-banking-primary hover-underline">
+                        <a th:href="@{/auth/login}" class="text-banking-primary hover-underline">
                             Sign in
                         </a>
                     </p>
@@ -106,6 +107,6 @@
     </div>
 </div>
 
-<script src="../../static/auth-js/register.js"></script>
+<script th:src="@{/auth-js/register.js}"></script>
 </body>
 </html>
