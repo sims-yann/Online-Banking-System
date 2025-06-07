@@ -13,9 +13,6 @@ import java.util.Map;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-
-    private final AccountRepo accountRepo;
-
     @Autowired
     private final AccountRepo accountRepo;
 
@@ -30,7 +27,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public void recordAccount(Account account) {
-    public void CreateAccount(Account account) {
         accountRepo.save(account);
     }
 
@@ -47,8 +43,6 @@ public class AccountServiceImpl implements AccountService {
        Account ac = accountRepo.findById(id);
 
        accountRepo.save(ac);
-    public Account getAccount(int id) {
-        return accountRepo.findById(id).get();
     }
 
     public Map<String, Object> viewAccountDetails(int id){
@@ -63,5 +57,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     //to save accounts
+
+    public void CreateAccount(Account account){
+        accountRepo.save(account);
+    }
 
 }

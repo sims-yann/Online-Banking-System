@@ -7,6 +7,7 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransferService;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,8 @@ import java.security.SecurityPermission;
 import java.util.List;
 import java.util.Map;
 
+@Controller
+@RequestMapping("/transfer")
 public class TransferController {
 
     TransferService transferService;
@@ -32,8 +35,8 @@ public class TransferController {
         this.userRepo = userRepo;
     }
 
-    @GetMapping("/transfer/{user}/history")
-    @PreAuthorize("hasRole('User')")
+    @GetMapping("/{user}/history")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public String showTransfer(Model model, @PathVariable int user){
 
         List<Account> accounts = accountService.getAccount(user);
@@ -43,8 +46,25 @@ public class TransferController {
         return "";
     }
 
-    @GetMapping("/transfer")
-    public String doTransfer(@ModelAttribute Transfer transfer, Model model){
+    @GetMapping("/history")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String showHistory(Model model){
+        model.addAttribute("history", transferService.getTransferList());
+
+        return "";
+    }
+
+    @GetMapping("/create")
+    public String createTransfer(Model model){
+        model.addAttribute("transfer", new Transfer());
+
+        return "";
+    }
+
+
+
+    @GetMapping("/ongoing")
+    public String saveTransfer(@ModelAttribute Transfer transfer, Model model){
         transferService.applyTransfer(transfer);
 
         model.addAttribute("Transfer", new Transfer());

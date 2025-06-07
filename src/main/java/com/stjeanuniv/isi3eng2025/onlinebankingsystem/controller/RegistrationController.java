@@ -1,4 +1,4 @@
-package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controllers.endpoint_controllers;
+package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controller;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.CustomerDTO;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Customer;

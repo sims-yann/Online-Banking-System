@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Integer> {
-    Account save(Account account);
     List<Account> findByUserId(int id);
 
     Account findById(int id);
@@ -17,6 +16,6 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
     void flush();
 
     void delete(Account account);
-public interface AccountRepo extends JpaRepository<Account, Integer> {
+
     Account findByBalance(double balance);
 }

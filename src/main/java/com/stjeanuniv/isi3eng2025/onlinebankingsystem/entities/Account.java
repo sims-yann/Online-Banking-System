@@ -20,6 +20,16 @@ public class Account {
 
     public String status;
 
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
+    }
+
+    public int UserId;
+
     public int getId() {
         return id;
     }

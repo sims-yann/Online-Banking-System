@@ -42,4 +42,69 @@ public class Transaction {
     @NotNull
     private LocalDateTime time;
 
+    public int getTransaction_ID() {
+        return Transaction_ID;
+    }
+
+    public void setTransaction_ID(int transaction_ID) {
+        Transaction_ID = transaction_ID;
+    }
+
+    @NotNull
+    @Min(value = 0)
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(@NotNull @Min(value = 0) double amount) {
+        this.amount = amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Account getSourceAccount() {
+        return SourceAccount;
+    }
+
+    public void setSourceAccount(Account sourceAccount) {
+        SourceAccount = sourceAccount;
+    }
+
+    public Account getDestinationAccount() {
+        return DestinationAccount;
+    }
+
+    public void setDestinationAccount(Account destinationAccount) {
+        DestinationAccount = destinationAccount;
+    }
+
+    public @NotNull LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(@NotNull LocalDateTime time) {
+        this.time = time;
+    }
 }

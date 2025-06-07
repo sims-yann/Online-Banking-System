@@ -18,4 +18,20 @@ public class Admin extends User {
     public Admin() {
         this.role = "ADMIN";
     }
+
+    public String getDepartment() {
+        return Department;
+    }
+
+    public void setDepartment(String department) {
+        Department = department;
+    }
+
+    public String getPosition() {
+        return Position;
+    }
+
+    public void setPosition(String position) {
+        Position = position;
+    }
 }
