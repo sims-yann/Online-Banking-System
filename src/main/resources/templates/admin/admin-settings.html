@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Admin - System Settings</title>
-    <link rel="stylesheet" href="../../static/customer-css/user-dashboard.css">
-    <link rel="stylesheet" href="../../static/admin-css/admin-settings.css">
+     <link rel="stylesheet" th:href="@{/customer-css/user-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/admin-css/admin-settings.css}">
 </head>
 <body>
 <div class="layout">
@@ -17,10 +18,10 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="/admin"><span class="icon">🏠</span><span>Dashboard</span></a></li>
-                <li><a href="/admin/users"><span class="icon">👥</span><span>Users</span></a></li>
-                <li><a href="/admin/transactions"><span class="icon">🕒</span><span>Transactions</span></a></li>
-                <li><a href="/admin/settings" class="active"><span class="icon">⚙️</span><span>System Settings</span></a></li>
+                <li><a th:href="@{/Admin/Dashboard}"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a th:href="@{/Admin/Users}"><span class="icon">👥</span><span>Users</span></a></li>
+                <li><a th:href="@{/Admin/Transactions}"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a th:href="@{/Admin/Settings}" class="active"><span class="icon">⚙️</span><span>System Settings</span></a></li>
             </ul>
         </nav>
 
@@ -224,6 +225,6 @@
     </div>
 </div>
 
-<script src="../../static/admin-js/admin-settings.js"></script>
+<script th:src="@{/admin-js/admin-settings.js}"></script>
 </body>
 </html>
