@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User updateUser(Long userId, UserUpdateDto userDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findById(userId);
+//                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (userDto.getFullName() != null) {
             user.setFullName(userDto.getFullName());
@@ -84,21 +84,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void changeUserStatus(Long userId, AccountStatus status) {
         if (!userRepository.existsById(userId)) {
-            throw new ResourceNotFoundException("User not found");
+//            throw new ResourceNotFoundException("User not found");
         }
         userRepository.updateUserStatus(userId, status);
     }
 
     @Override
     public User getUserById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userRepository.findById(userId);
+//                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userRepository.findByEmail(email);
+//                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override

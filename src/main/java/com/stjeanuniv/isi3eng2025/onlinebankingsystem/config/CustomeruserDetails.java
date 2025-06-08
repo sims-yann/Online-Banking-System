@@ -1,7 +1,5 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.config;
 
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Admin;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Customer;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Role.*;
 
 @Service
 public class CustomeruserDetails implements UserDetailsService {
@@ -35,9 +35,9 @@ public class CustomeruserDetails implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("User"));
 
-        if (user instanceof Admin){
+        if (user.getRole().equals(ADMIN)) {
            authorities.add(new SimpleGrantedAuthority("Admin"));
-        } else if (user instanceof Customer) {
+        } else if (user.getRole().equals(CUSTOMER)) {
             authorities.add(new SimpleGrantedAuthority("Customer"));
         }
 

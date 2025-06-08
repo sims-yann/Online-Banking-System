@@ -21,7 +21,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <p class="card-description">Enter your details to create an account</p>
             </div>
 
-            <form id="register-form">
+            <form id="register-form" th:action="@{/register}" th:method="post">
                 <div class="card-content">
                     <div class="form-group">
                         <label for="name">Full Name</label>
@@ -97,7 +97,7 @@ xmlns:th="http://www.thymeleaf.org">
 
                     <p class="text-center text-sm text-gray-600">
                         Already have an account?
-                        <a th:href="@{/auth/login}" class="text-banking-primary hover-underline">
+                        <a th:href="@{/login}" class="text-banking-primary hover-underline">
                             Sign in
                         </a>
                     </p>

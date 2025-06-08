@@ -1,4 +1,4 @@
-package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controllers.rest_controllers;
+package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controllers.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,35 +6,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
 @Controller
-@RequestMapping("/Customer")
+@RequestMapping("/customer")
 public class CustomerController {
 
-    @GetMapping("/Dashboard")
+    @GetMapping("/dashboard")
     public String Dashboard() {
         return "/Customer/user-dashboard";
     }
 
-    @GetMapping("/Profile")
+    @GetMapping("/crofile")
     public String Profile(Model model) {
         return "/Customer/profile";
     }
 
-    @GetMapping("/Transactions")
+    @GetMapping("/transactions")
     public String Transactions(Model model) {
         return "/Customer/transactions";
     }
 
-    @GetMapping("/Accounts")
+    @GetMapping("/accounts")
     public String Accounts(Model model) {
         return "/Customer/accounts";
     }
 
-    @GetMapping("/Transfer")
+    @GetMapping("/transfer")
     public String Transfer(Model model) {
         return "/Customer/transfer";
     }
 
-    @GetMapping("/Deposit-Withdraw")
+    @GetMapping("/deposit-Withdraw")
     public String DepositWithdraw(Model model) {
         return "/Customer/deposit-withdraw";
     }

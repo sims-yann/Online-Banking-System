@@ -57,9 +57,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers("/admin-css/**", "/admin-js/**", "/auth-css/**", "/auth-js/**", "/customer-css/**", "/customer-js/**", "/**").permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("//Admin/**").hasRole("Admin")
-                        .requestMatchers("//Customer/**").hasRole("Customer")
-                        .requestMatchers("//auth/**").permitAll()
+                        .requestMatchers("//admin/**").hasRole("Admin")
+                        .requestMatchers("//customer/**").hasRole("Customer")
+                        .requestMatchers("//login").permitAll()
+                        .requestMatchers("//register").permitAll()
+                        .requestMatchers("//access-denied").permitAll()
                         .anyRequest().hasRole("Admin")
                 )
                 .formLogin(form -> form

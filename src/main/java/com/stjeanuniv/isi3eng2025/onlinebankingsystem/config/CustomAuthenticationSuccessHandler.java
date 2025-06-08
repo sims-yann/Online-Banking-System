@@ -33,12 +33,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("Admin")) {
-                return "/Admin/Dashboard";
+                return "/admin/dashboard";
             } else if (grantedAuthority.getAuthority().equals("Customer")) {
-                return "/Customer/Dashboard";
+                return "/customer/dashboard";
             }
         }
 
-        return "/";
+        return "/login";
     }
 } 
