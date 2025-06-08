@@ -4,6 +4,7 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.AccountDto;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.exception.ResourceNotFoundException;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AccountRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
@@ -91,7 +92,7 @@ public class AccountServiceImpl implements AccountService {
         account.setBalance(BigDecimal.ZERO);
         account.setStatus(AccountStatus.ACTIVE);
 
-        return accountRepository.save(account);
+        return accountRepo.save(account);
     }
 
     @Override

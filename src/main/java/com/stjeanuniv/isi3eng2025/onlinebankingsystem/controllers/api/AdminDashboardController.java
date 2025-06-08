@@ -14,15 +14,15 @@ public class AdminDashboardController {
     @GetMapping("/statistics")
     public AdminStatisticsDTO getStatistics() {
         AdminStatisticsDTO stats = new AdminStatisticsDTO();
-        stats.totalUsers = 3;
-        stats.activeUsers = 3;
-        stats.inactiveUsers = 0;
-        stats.totalAccounts = 4;
-        stats.activeAccounts = 4;
-        stats.suspendedAccounts = 0;
-        stats.totalTransactions = 10;
-        stats.pendingTransactions = 0;
-        stats.failedTransactions = 0;
+        stats.setTotalUsers(3);
+        stats.setActiveUsers(3);
+        stats.setInactiveUsers(0);
+        stats.setTotalAccounts(4);
+        stats.setActiveAccounts(4);
+        stats.setSuspendedAccounts(0);
+        stats.setTotalTransactions(10);
+        stats.setPendingTransactions(0);
+        stats.setFailedTransactions(0);
         return stats;
     }
 

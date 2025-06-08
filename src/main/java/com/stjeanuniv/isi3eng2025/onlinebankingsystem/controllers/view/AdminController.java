@@ -31,9 +31,9 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         long totalUsers = userRepository.count();
-        long activeUsers = userRepository.countByStatus("ACTIVE");
+        long activeUsers = userRepository.countActiveUsers();
         long totalAccounts = accountRepository.count();
-        long activeAccounts = accountRepository.countByStatus("ACTIVE");
+        long activeAccounts = accountRepository.countActiveAccounts();
         long totalTransactions = transactionRepository.count();
 
         model.addAttribute("totalUsers", totalUsers);

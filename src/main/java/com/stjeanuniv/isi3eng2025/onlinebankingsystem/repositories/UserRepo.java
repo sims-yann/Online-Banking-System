@@ -26,6 +26,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query("SELECT COUNT(u) FROM User u WHERE u.active = 'INACTIVE'")
     long countInactiveUsers();
 
+
     @Query("SELECT u FROM User u WHERE u.fullName LIKE %:keyword% OR u.email LIKE %:keyword%")
     List<User> searchUsers(String keyword);
 
@@ -37,4 +38,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     void updateUserStatus(Long userId, AccountStatus status);
 
     boolean existsByEmail(String email);
+
+    List<User> findTop5ByOrderByCreatedAtDesc();
 }
