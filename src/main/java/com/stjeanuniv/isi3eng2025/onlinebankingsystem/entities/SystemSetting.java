@@ -28,4 +28,9 @@ public class SystemSetting {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public SystemSetting(String settingKey, String settingValue) {
+        this.settingKey = settingKey;
+        this.settingValue = settingValue;
+    }
+
 }

@@ -12,13 +12,13 @@ import java.util.List;
 @Repository
 public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = :status")
-    List<Transaction> countByStatus(TransactionStatus status);
+    long countByStatus(TransactionStatus status);
 
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'PENDING'")
-    List<Transaction> countPendingTransactions();
+    long countPendingTransactions();
 
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'FAILED'")
-    List<Transaction> countFailedTransactions();
+    long countFailedTransactions();
 
     @Query("SELECT t FROM Transaction t ORDER BY t.transactionDate DESC LIMIT 5")
     List<Transaction> findRecentTransactions();
@@ -40,7 +40,7 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     List<Transaction> findUserTransactionSince(Long userId, LocalDateTime since);
 
      @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'COMPLETED'")
-    long countCompletedTransactions();
+    Long countCompletedTransactions();
 
     @Query("SELECT SUM(t.amount) FROM Transaction t WHERE " +
            "t.transactionType = 'TRANSFER' AND t.transactionStatus = 'COMPLETED' " +
