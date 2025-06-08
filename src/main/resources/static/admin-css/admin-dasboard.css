@@ -1,0 +1,120 @@
+/* dashboard.css */
+body {
+    background: #f8fafc;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.bg-purple {
+    background: #7c3aed !important;
+}
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+.sidebar h2 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+.sidebar .nav-link {
+    color: #e0e7ff !important;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    padding: 10px 16px;
+    transition: background 0.2s;
+}
+.sidebar .nav-link.active, .sidebar .nav-link:hover {
+    background: #6d28d9 !important;
+    color: #fff !important;
+}
+.sidebar .nav-link:last-child {
+    margin-top: 2rem;
+}
+.flex-grow-1 {
+    margin-left: 240px;
+    min-height: 100vh;
+}
+.profile-icon {
+    font-size: 2.2rem;
+    color: #7c3aed;
+    background: #ede9fe;
+    border-radius: 50%;
+    padding: 8px 12px;
+}
+.stat-card {
+    border-left: 5px solid #7c3aed;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.04);
+    margin-bottom: 20px;
+}
+.stat-card h6 {
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.stat-card p {
+    margin-bottom: 6px;
+    font-size: 1.05rem;
+}
+.card {
+    border-radius: 14px !important;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.04);
+    margin-bottom: 20px;
+}
+.card-body {
+    padding: 1.3rem 1.5rem;
+}
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #f1f1f1;
+    background: transparent;
+    padding: 0.8rem 0.5rem;
+}
+.list-group-item:last-child {
+    border-bottom: none;
+}
+.badge-success {
+    background: #dcfce7 !important;
+    color: #22c55e !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+.badge-warning {
+    background: #fef9c3 !important;
+    color: #eab308 !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+.badge-danger {
+    background: #fee2e2 !important;
+    color: #ef4444 !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+.fw-bold {
+    font-weight: 600 !important;
+}
+@media (max-width: 991px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        flex-direction: row;
+        padding: 1rem 0.5rem;
+    }
+    .flex-grow-1 {
+        margin-left: 0;
+    }
+}

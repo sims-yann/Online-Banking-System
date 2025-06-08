@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Transfer</title>
+    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../../static/customer-css/transfer.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../user/user-html/userdashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="accounts.html"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a href="transfer.html" class="active"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a href="transactions.html"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="deposit-withdraw.html"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a href="profile.html"><span class="icon">👤</span><span>Profile</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Money Transfer</h1>
+
+                <!-- Transfer Form -->
+                <div class="transfer-container">
+                    <div class="transfer-tabs">
+                        <button class="transfer-tab-button active" data-tab="internal">Between My Accounts</button>
+                        <button class="transfer-tab-button" data-tab="external">To Someone Else</button>
+                    </div>
+
+                    <div class="transfer-content">
+                        <!-- Internal Transfer Form -->
+                        <div class="transfer-form-container active" id="internal-transfer">
+                            <form id="internal-transfer-form" class="transfer-form">
+                                <div class="form-group">
+                                    <label for="from-account">From Account</label>
+                                    <select id="from-account" required>
+                                        <option value="" disabled selected>Select account</option>
+                                        <!-- Options will be added by JavaScript -->
+                                    </select>
+                                    <div class="account-balance" id="from-account-balance"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="to-account">To Account</label>
+                                    <select id="to-account" required>
+                                        <option value="" disabled selected>Select account</option>
+                                        <!-- Options will be added by JavaScript -->
+                                    </select>
+                                    <div class="account-balance" id="to-account-balance"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <div class="amount-input-container">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="amount" placeholder="0.00" min="0.01" step="0.01" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="description">Description (Optional)</label>
+                                    <input type="text" id="description" placeholder="What's this transfer for?">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-button" id="transfer-button">
+                                        <span class="icon">💸</span>
+                                        Transfer Money
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- External Transfer Form -->
+                        <div class="transfer-form-container" id="external-transfer">
+                            <form id="external-transfer-form" class="transfer-form">
+                                <div class="form-group">
+                                    <label for="external-from-account">From Account</label>
+                                    <select id="external-from-account" required>
+                                        <option value="" disabled selected>Select account</option>
+                                        <!-- Options will be added by JavaScript -->
+                                    </select>
+                                    <div class="account-balance" id="external-from-account-balance"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="recipient-name">Recipient Name</label>
+                                    <input type="text" id="recipient-name" placeholder="Full name of recipient" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="recipient-account">Recipient Account Number</label>
+                                    <input type="text" id="recipient-account" placeholder="Account number" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="recipient-bank">Recipient Bank</label>
+                                    <input type="text" id="recipient-bank" placeholder="Bank name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="external-amount">Amount</label>
+                                    <div class="amount-input-container">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="external-amount" placeholder="0.00" min="0.01" step="0.01" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="external-description">Description (Optional)</label>
+                                    <input type="text" id="external-description" placeholder="What's this transfer for?">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-button" id="external-transfer-button">
+                                        <span class="icon">💸</span>
+                                        Transfer Money
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transfers -->
+                <div class="recent-transfers">
+                    <h3 class="section-title">Recent Transfers</h3>
+                    <table class="transactions-table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="recent-transfers-table">
+                        <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal" id="success-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Transfer Successful</h2>
+            <button class="close-modal">✖</button>
+        </div>
+        <div class="modal-body">
+            <div class="success-message">
+                <div class="success-icon">✓</div>
+                <p>Your transfer has been processed successfully.</p>
+                <div class="transfer-details" id="transfer-details">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+                <div class="form-actions">
+                    <button class="primary-button" id="new-transfer-button">Make Another Transfer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/customer-js/transfer.js"></script>
+</body>
+</html>

@@ -1,14 +1,40 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories;
 
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer> {
-    User findByName(String name);
-    User findById(int i);
+public interface UserRepo extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
+    Optional<User> findByFullName(String username);
     List<User> findAll();
+
+    List<User> findByRole(Role role);
+    List<User> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.active = 'ACTIVE'")
+    long countActiveUsers();
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.active = 'INACTIVE'")
+    long countInactiveUsers();
+
+    @Query("SELECT u FROM User u WHERE u.fullName LIKE %:keyword% OR u.email LIKE %:keyword%")
+    List<User> searchUsers(String keyword);
+
+    @Query("SELECT u FROM User u ORDER BY u.createdAt DESC LIMIT 5")
+    List<User> findRecentUsers();
+
+    @Modifying
+    @Query("UPDATE User u set u.active= :active WHERE u.id= :userId")
+    void updateUserStatus(Long userId, AccountStatus status);
+
+    boolean existsByEmail(String email);
 }

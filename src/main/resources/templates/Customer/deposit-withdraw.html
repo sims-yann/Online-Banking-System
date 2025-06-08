@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Deposit/Withdraw</title>
+    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../../static/customer-css/deposit-withdraw.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="user-dashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="accounts.html"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a href="transfer.html"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a href="transactions.html"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="deposit-withdraw.html" class="active"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a href="profile.html"><span class="icon">👤</span><span>Profile</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Deposit & Withdraw</h1>
+
+                <!-- Operation Type Selector -->
+                <div class="operation-selector">
+                    <button class="operation-button active" data-operation="deposit">
+                        <span class="operation-icon">💰</span>
+                        <span>Deposit</span>
+                    </button>
+                    <button class="operation-button" data-operation="withdraw">
+                        <span class="operation-icon">💸</span>
+                        <span>Withdraw</span>
+                    </button>
+                </div>
+
+                <!-- Form Container -->
+                <div class="form-card">
+                    <!-- Deposit Form -->
+                    <div id="deposit-form-container" class="operation-form active">
+                        <h2 class="form-title">Deposit Money</h2>
+
+                        <form id="deposit-form" class="transaction-form">
+                            <div class="form-group">
+                                <label for="deposit-account">Select Account</label>
+                                <select id="deposit-account" required>
+                                    <option value="" disabled selected>Select account</option>
+                                    <!-- Options will be added by JavaScript -->
+                                </select>
+                                <div class="account-balance" id="deposit-account-balance"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="deposit-method">Deposit Method</label>
+                                <select id="deposit-method" required>
+                                    <option value="" disabled selected>Select method</option>
+                                    <option value="cash">Cash Deposit</option>
+                                    <option value="check">Check Deposit</option>
+                                    <option value="wire">Wire Transfer</option>
+                                    <option value="direct-deposit">Direct Deposit</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="deposit-amount">Amount</label>
+                                <div class="amount-input-container">
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" id="deposit-amount" placeholder="0.00" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="deposit-description">Description (Optional)</label>
+                                <input type="text" id="deposit-description" placeholder="What's this deposit for?">
+                            </div>
+
+                            <div id="check-details" class="form-group hidden">
+                                <label for="check-number">Check Number</label>
+                                <input type="text" id="check-number" placeholder="Enter check number">
+                            </div>
+
+                            <div id="wire-details" class="form-group hidden">
+                                <label for="sending-bank">Sending Bank</label>
+                                <input type="text" id="sending-bank" placeholder="Enter bank name">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="primary-button" id="deposit-button">
+                                    <span class="icon">💰</span>
+                                    Process Deposit
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="info-panel">
+                            <h3 class="info-title">About Deposits</h3>
+                            <div class="info-content">
+                                <p>Deposits are typically credited to your account within the following timeframes:</p>
+                                <ul>
+                                    <li><strong>Cash deposits:</strong> Immediately available</li>
+                                    <li><strong>Check deposits:</strong> 1-2 business days</li>
+                                    <li><strong>Wire transfers:</strong> Same business day</li>
+                                    <li><strong>Direct deposits:</strong> Same business day</li>
+                                </ul>
+                                <p>For amounts over $10,000, additional verification may be required.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Withdraw Form -->
+                    <div id="withdraw-form-container" class="operation-form">
+                        <h2 class="form-title">Withdraw Money</h2>
+
+                        <form id="withdraw-form" class="transaction-form">
+                            <div class="form-group">
+                                <label for="withdraw-account">Select Account</label>
+                                <select id="withdraw-account" required>
+                                    <option value="" disabled selected>Select account</option>
+                                    <!-- Options will be added by JavaScript -->
+                                </select>
+                                <div class="account-balance" id="withdraw-account-balance"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdraw-method">Withdrawal Method</label>
+                                <select id="withdraw-method" required>
+                                    <option value="" disabled selected>Select method</option>
+                                    <option value="atm">ATM Withdrawal</option>
+                                    <option value="cash">Cash Withdrawal (In Branch)</option>
+                                    <option value="check">Request Cashier's Check</option>
+                                    <option value="wire">Wire Transfer</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdraw-amount">Amount</label>
+                                <div class="amount-input-container">
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" id="withdraw-amount" placeholder="0.00" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdraw-description">Description (Optional)</label>
+                                <input type="text" id="withdraw-description" placeholder="What's this withdrawal for?">
+                            </div>
+
+                            <div id="cashier-check-details" class="form-group hidden">
+                                <label for="payee-name">Payee Name</label>
+                                <input type="text" id="payee-name" placeholder="Enter payee name">
+                            </div>
+
+                            <div id="withdrawal-wire-details" class="form-group hidden">
+                                <label for="recipient-bank">Recipient Bank</label>
+                                <input type="text" id="recipient-bank" placeholder="Enter bank name">
+
+                                <label for="recipient-account">Recipient Account Number</label>
+                                <input type="text" id="recipient-account" placeholder="Enter account number">
+
+                                <label for="recipient-name">Recipient Name</label>
+                                <input type="text" id="recipient-name" placeholder="Enter recipient name">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="primary-button" id="withdraw-button">
+                                    <span class="icon">💸</span>
+                                    Process Withdrawal
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="info-panel">
+                            <h3 class="info-title">About Withdrawals</h3>
+                            <div class="info-content">
+                                <p>Please note the following withdrawal limits and processing times:</p>
+                                <ul>
+                                    <li><strong>ATM withdrawals:</strong> Up to $500 per day</li>
+                                    <li><strong>Cash withdrawals (In Branch):</strong> Up to $5,000 per day</li>
+                                    <li><strong>Cashier's checks:</strong> No limit, available same day</li>
+                                    <li><strong>Wire transfers:</strong> Up to $25,000 per day, may take 1-2 business days</li>
+                                </ul>
+                                <p>For larger withdrawals, please contact our customer service for assistance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 class="section-title">Recent Deposit & Withdrawal Activity</h3>
+                    <table class="transactions-table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Account</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="recent-activity-table">
+                        <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal" id="success-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="success-title">Transaction Successful</h2>
+            <button class="close-modal">✖</button>
+        </div>
+        <div class="modal-body">
+            <div class="success-message">
+                <div class="success-icon">✓</div>
+                <p id="success-message">Your transaction has been processed successfully.</p>
+                <div class="transaction-details" id="transaction-details">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+                <div class="form-actions">
+                    <button class="secondary-button" id="new-transaction-button">Make Another Transaction</button>
+                    <button class="outline-button" id="view-account-button">View Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/customer-js/deposit-withdraw.js"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #F8F9FA;
+    color: #333;
+}
+
+/* Layout */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color:  #7E69AB;
+    color: white;
+    width: 260px;
+    position: fixed;
+    height: 100vh;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-top: 16px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.sidebar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+}
+
+.sidebar-nav .icon {
+    margin-right: 12px;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-bottom: 32px;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logout-button .icon {
+    margin-right: 12px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+}
+
+/* Header */
+.dashboard-header {
+    background-color: white;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1A1F2C;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #9b87f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Dashboard */
+.dashboard {
+    padding: 24px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+/* Account Summary */
+.account-summary {
+    margin-bottom: 24px;
+}
+
+.total-balance-card {
+    background: linear-gradient(to right, #9b87f5, #7E69AB);
+    color: white;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
+.total-balance {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 24px 0 12px;
+}
+
+.accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.account-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.account-type {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.account-number {
+    font-size: 14px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.account-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F4F8;
+    border-radius: 50%;
+}
+
+.account-balance {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 16px;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Cards */
+.chart-card,
+.transactions-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    padding: 24px 24px 0;
+}
+
+.card-content {
+    padding: 24px;
+}
+
+/* Chart */
+.chart-container {
+    height: 320px;
+}
+
+/* Transactions */
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions-table th,
+.transactions-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.transactions-table th {
+    font-weight: 500;
+    color: #666;
+    font-size: 14px;
+}
+
+.transactions-table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+/* Status Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-icon {
+    margin-right: 4px;
+    font-size: 10px;
+}
+
+.badge-outline {
+    border: 1px solid #ddd;
+}
+
+.badge-default {
+    background-color: #3D9970;
+    color: white;
+}
+
+.badge-secondary {
+    background-color: #FF851B;
+    color: white;
+}
+
+.badge-destructive {
+    background-color: #FF4136;
+    color: white;
+}
+
+/* Amount Colors */
+.amount-positive {
+    color: #3D9970;
+}
+
+.amount-negative {
+    color: #FF4136;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Profile</title>
+    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../../static/customer-css/profile.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="user-dashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="accounts.html"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a href="transfer.html"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a href="transactions.html"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="deposit-withdraw.html"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a href="profile.html" class="active"><span class="icon">👤</span><span>Profile</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Profile Settings</h1>
+
+                <!-- Profile Overview -->
+                <div class="profile-overview">
+                    <div class="profile-header">
+                        <div class="profile-picture">
+                            <div class="avatar-large">👤</div>
+                            <button class="change-photo-button">Change Photo</button>
+                        </div>
+
+                        <div class="profile-summary">
+                            <h2 id="user-full-name">John Doe</h2>
+                            <p id="user-email" class="profile-email">john.doe@example.com</p>
+                            <div class="profile-details">
+                                <div class="profile-detail">
+                                    <span class="detail-label">Customer Since</span>
+                                    <span id="user-joined-date" class="detail-value">January 15, 2023</span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Last Login</span>
+                                    <span id="user-last-login" class="detail-value">May 15, 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tabs -->
+                <div class="profile-tabs">
+                    <button class="tab-button active" data-tab="personal">Personal Information</button>
+                    <button class="tab-button" data-tab="security">Security Settings</button>
+                    <button class="tab-button" data-tab="notifications">Notification Preferences</button>
+                    <button class="tab-button" data-tab="contact">Contact Preferences</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="profile-tab-content">
+                    <!-- Personal Information Tab -->
+                    <div class="tab-pane active" id="personal-tab">
+                        <div class="tab-content-container">
+                            <h3 class="tab-title">Personal Information</h3>
+                            <form id="personal-form" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name</label>
+                                        <input type="text" id="first-name" value="John">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name</label>
+                                        <input type="text" id="last-name" value="Doe">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" value="john.doe@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" value="(555) 123-4567">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address">Street Address</label>
+                                        <input type="text" id="address" value="123 Main Street">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <input type="text" id="city" value="Anytown">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="state">State</label>
+                                        <select id="state">
+                                            <option value="AL">Alabama</option>
+                                            <option value="AK">Alaska</option>
+                                            <!-- More states... -->
+                                            <option value="CA" selected>California</option>
+                                            <!-- More states... -->
+                                            <option value="WY">Wyoming</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="zip">Zip Code</label>
+                                        <input type="text" id="zip" value="12345">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" id="dob" value="1985-06-15">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ssn">SSN (last 4 digits)</label>
+                                        <input type="text" id="ssn" value="****-**-1234" disabled>
+                                        <small>For security, only last 4 digits are shown</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-button">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings Tab -->
+                    <div class="tab-pane" id="security-tab">
+                        <div class="tab-content-container">
+                            <h3 class="tab-title">Security Settings</h3>
+
+                            <div class="security-section">
+                                <h4 class="section-subtitle">Change Password</h4>
+                                <form id="password-form" class="profile-form">
+                                    <div class="form-group">
+                                        <label for="current-password">Current Password</label>
+                                        <input type="password" id="current-password" placeholder="Enter your current password">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="new-password">New Password</label>
+                                        <input type="password" id="new-password" placeholder="Enter your new password">
+                                        <small>Password must be at least 8 characters with a mix of letters, numbers, and symbols</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirm New Password</label>
+                                        <input type="password" id="confirm-password" placeholder="Confirm your new password">
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="primary-button">Change Password</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="security-section">
+                                <h4 class="section-subtitle">Two-Factor Authentication</h4>
+                                <div class="toggle-container">
+                                    <span>Enable Two-Factor Authentication</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="tfa-toggle" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <p class="security-description">Adding a second layer of security to your account helps keep your financial information safe.</p>
+
+                                <div class="tfa-settings">
+                                    <h5>Verification Method</h5>
+                                    <div class="radio-group">
+                                        <label class="radio-container">
+                                            <input type="radio" name="tfa-method" value="sms" checked>
+                                            <span class="radio-custom"></span>
+                                            <span>SMS to registered phone</span>
+                                        </label>
+                                        <label class="radio-container">
+                                            <input type="radio" name="tfa-method" value="email">
+                                            <span class="radio-custom"></span>
+                                            <span>Email to registered email address</span>
+                                        </label>
+                                        <label class="radio-container">
+                                            <input type="radio" name="tfa-method" value="app">
+                                            <span class="radio-custom"></span>
+                                            <span>Authenticator app</span>
+                                        </label>
+                                    </div>
+
+                                    <button id="update-tfa-button" class="secondary-button">Update Settings</button>
+                                </div>
+                            </div>
+
+                            <div class="security-section">
+                                <h4 class="section-subtitle">Session Management</h4>
+                                <p class="security-description">Review and manage your active banking sessions.</p>
+
+                                <div class="session-list">
+                                    <div class="session-item current">
+                                        <div class="session-details">
+                                            <div class="session-device">Chrome on Windows</div>
+                                            <div class="session-location">Los Angeles, CA</div>
+                                            <div class="session-time">Current session</div>
+                                        </div>
+                                        <button class="text-button" disabled>Current</button>
+                                    </div>
+                                    <div class="session-item">
+                                        <div class="session-details">
+                                            <div class="session-device">Safari on iPhone</div>
+                                            <div class="session-location">Los Angeles, CA</div>
+                                            <div class="session-time">Last active: Yesterday at 3:45 PM</div>
+                                        </div>
+                                        <button class="text-button danger">Sign Out</button>
+                                    </div>
+                                    <div class="session-item">
+                                        <div class="session-details">
+                                            <div class="session-device">Chrome on MacBook</div>
+                                            <div class="session-location">San Francisco, CA</div>
+                                            <div class="session-time">Last active: May 10, 2023</div>
+                                        </div>
+                                        <button class="text-button danger">Sign Out</button>
+                                    </div>
+                                </div>
+
+                                <button id="signout-all-button" class="warning-button">Sign Out All Other Sessions</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Preferences Tab -->
+                    <div class="tab-pane" id="notifications-tab">
+                        <div class="tab-content-container">
+                            <h3 class="tab-title">Notification Preferences</h3>
+                            <p class="tab-description">Choose how you'd like to be notified about account activity.</p>
+
+                            <div class="notification-section">
+                                <h4 class="section-subtitle">Security Alerts</h4>
+
+                                <div class="notification-option">
+                                    <div class="notification-details">
+                                        <div class="notification-title">Login Attempts</div>
+                                        <div class="notification-description">Notifies you when someone tries to log in to your account</div>
+                                    </div>
+                                    <div class="notification-toggles">
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>SMS</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox">
+                                            <span>Push</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="notification-option">
+                                    <div class="notification-details">
+                                        <div class="notification-title">Password Changes</div>
+                                        <div class="notification-description">Notifies you when your password is changed</div>
+                                    </div>
+                                    <div class="notification-toggles">
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>SMS</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox">
+                                            <span>Push</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="notification-section">
+                                <h4 class="section-subtitle">Transaction Alerts</h4>
+
+                                <div class="notification-option">
+                                    <div class="notification-details">
+                                        <div class="notification-title">Deposits</div>
+                                        <div class="notification-description">Notifies you when a deposit is made to your account</div>
+                                    </div>
+                                    <div class="notification-toggles">
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox">
+                                            <span>SMS</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Push</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="notification-option">
+                                    <div class="notification-details">
+                                        <div class="notification-title">Withdrawals</div>
+                                        <div class="notification-description">Notifies you when a withdrawal is made from your account</div>
+                                    </div>
+                                    <div class="notification-toggles">
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>SMS</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Push</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="notification-option">
+                                    <div class="notification-details">
+                                        <div class="notification-title">Large Transactions</div>
+                                        <div class="notification-description">Notifies you when a transaction exceeds your threshold</div>
+                                    </div>
+                                    <div class="notification-toggles">
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>SMS</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Push</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="notification-section">
+                                <h4 class="section-subtitle">Balance Alerts</h4>
+
+                                <div class="notification-option">
+                                    <div class="notification-details">
+                                        <div class="notification-title">Low Balance</div>
+                                        <div class="notification-description">Notifies you when your balance falls below your specified threshold</div>
+                                    </div>
+                                    <div class="notification-toggles">
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox" checked>
+                                            <span>SMS</span>
+                                        </label>
+                                        <label class="toggle-label">
+                                            <input type="checkbox">
+                                            <span>Push</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" id="save-notifications" class="primary-button">Save Preferences</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Preferences Tab -->
+                    <div class="tab-pane" id="contact-tab">
+                        <div class="tab-content-container">
+                            <h3 class="tab-title">Contact Preferences</h3>
+                            <p class="tab-description">Manage how CoreBank communicates with you.</p>
+
+                            <div class="contact-section">
+                                <h4 class="section-subtitle">Marketing Communications</h4>
+
+                                <div class="toggle-container">
+                                    <span>Receive product updates and offers</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="marketing-toggle" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-container">
+                                    <span>Financial education content</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="education-toggle" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle-container">
+                                    <span>Event invitations</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="events-toggle">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="contact-section">
+                                <h4 class="section-subtitle">Statement Delivery</h4>
+
+                                <div class="radio-group">
+                                    <label class="radio-container">
+                                        <input type="radio" name="statement-delivery" value="electronic" checked>
+                                        <span class="radio-custom"></span>
+                                        <span>Electronic Statements (Email)</span>
+                                    </label>
+                                    <label class="radio-container">
+                                        <input type="radio" name="statement-delivery" value="paper">
+                                        <span class="radio-custom"></span>
+                                        <span>Paper Statements (Mail)</span>
+                                    </label>
+                                    <label class="radio-container">
+                                        <input type="radio" name="statement-delivery" value="both">
+                                        <span class="radio-custom"></span>
+                                        <span>Both Electronic and Paper</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="contact-section">
+                                <h4 class="section-subtitle">Statement Frequency</h4>
+
+                                <div class="form-group">
+                                    <select id="statement-frequency">
+                                        <option value="monthly" selected>Monthly</option>
+                                        <option value="quarterly">Quarterly</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" id="save-contact" class="primary-button">Save Preferences</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Success Notification -->
+<div class="notification-popup" id="success-notification">
+    <div class="notification-content success">
+        <span class="notification-icon">✓</span>
+        <span class="notification-message">Changes saved successfully!</span>
+        <button class="notification-close">✖</button>
+    </div>
+</div>
+
+<script src="../../static/customer-js/profile.js"></script>
+</body>
+</html>

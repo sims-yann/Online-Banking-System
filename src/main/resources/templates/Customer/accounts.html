@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreBank Accounts</title>
+    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../../static/customer-css/accounts.css">
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">CoreBank</h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="user-dashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a href="accounts.html" class="active"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a href="transfer.html"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a href="transactions.html"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a href="deposit-withdraw.html"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a href="profile.html"><span class="icon">👤</span><span>Profile</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-button" class="logout-button">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <div class="user-avatar">
+                <div class="avatar-circle">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="dashboard-content fade-in">
+                <h1 class="page-title">Your Accounts</h1>
+
+                <!-- Accounts Summary -->
+                <div class="accounts-overview">
+                    <h3 class="section-title">Total Balance</h3>
+                    <div class="total-balance-card">
+                        <div class="card-header">
+                            <h3>💵 Total Balance</h3>
+                            <p class="card-subtitle">Combined balance across all accounts</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="total-balance">$5,250.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="account-actions">
+                    <button class="primary-button" id="new-account-button">
+                        <span class="icon">➕</span>
+                        Open New Account
+                    </button>
+                </div>
+
+                <!-- All Accounts -->
+                <div class="accounts-list">
+                    <h3 class="section-title">Account Details</h3>
+                    <div class="accounts-grid detailed">
+                        <!-- Account cards will be added by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="modal" id="account-details-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Account Details</h2>
+            <button class="close-modal">✖</button>
+        </div>
+        <div class="modal-body" id="account-details-content">
+            <!-- Account details will be added by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<script src="../../static/customer-js/accounts.js"></script>
+</body>
+</html>
