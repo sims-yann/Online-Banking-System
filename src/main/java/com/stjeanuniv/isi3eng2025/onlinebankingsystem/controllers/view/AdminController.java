@@ -31,9 +31,9 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         long totalUsers = userRepository.count();
-        long activeUsers = userRepository.countByStatus("ACTIVE");
+        long activeUsers = userRepository.countActiveUsers();
         long totalAccounts = accountRepository.count();
-        long activeAccounts = accountRepository.countByStatus("ACTIVE");
+        long activeAccounts = accountRepository.countActiveAccounts();
         long totalTransactions = transactionRepository.count();
 
         model.addAttribute("totalUsers", totalUsers);
@@ -46,24 +46,24 @@ public class AdminController {
         model.addAttribute("recentUsers", userRepository.findTop5ByOrderByCreatedAtDesc());
         model.addAttribute("recentTransactions", transactionRepository.findTop5ByOrderByCreatedAtDesc());
 
-        return "admin/dashboard";
+        return "/admin/admin-dashboard";
     }
 
     @GetMapping("/users")
     public String userManagement(Model model) {
         model.addAttribute("users", userRepository.findAll());
-        return "admin/users";
+        return "/admin/admin-users";
     }
 
     @GetMapping("/transactions")
     public String transactionManagement(Model model) {
         model.addAttribute("transactions", transactionRepository.findAll());
-        return "admin/transactions";
+        return "/admin/admin-transaction";
     }
 
     @GetMapping("/settings")
     public String systemSettings(Model model) {
         // Load settings from database or default values
-        return "admin/settings";
+        return "/admin/admin-settings";
     }
 }

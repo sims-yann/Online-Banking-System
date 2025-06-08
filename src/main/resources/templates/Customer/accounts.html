@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Accounts</title>
-    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
-    <link rel="stylesheet" href="../../static/customer-css/accounts.css">
+     <link rel="stylesheet" th:href="@{/customer-css/user-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/customer-css/accounts.css}">
 </head>
 <body>
 <div class="layout">
@@ -17,12 +18,12 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="user-dashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
-                <li><a href="accounts.html" class="active"><span class="icon">💾</span><span>Accounts</span></a></li>
-                <li><a href="transfer.html"><span class="icon">💳</span><span>Transfer</span></a></li>
-                <li><a href="transactions.html"><span class="icon">🕒</span><span>Transactions</span></a></li>
-                <li><a href="deposit-withdraw.html"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
-                <li><a href="profile.html"><span class="icon">👤</span><span>Profile</span></a></li>
+                <li><a th:href="@{/Customer/Dashboard}" ><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a th:href="@{/Customer/Accounts}" class="active"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a th:href="@{/Customer/Transfer}"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a th:href="@{/Customer/Transactions}"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a th:href="@{/Customer/Deposit-Withdraw}"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a th:href="@{/Customer/Profile}"><span class="icon">👤</span><span>Profile</span></a></li>
             </ul>
         </nav>
 
@@ -94,6 +95,6 @@
     </div>
 </div>
 
-<script src="../../static/customer-js/accounts.js"></script>
+<script th:src="@{/customer-js/accounts.js}"></script>
 </body>
 </html>

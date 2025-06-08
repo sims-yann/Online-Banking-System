@@ -46,4 +46,6 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
            "t.transactionType = 'TRANSFER' AND t.transactionStatus = 'COMPLETED' " +
            "AND t.createdAt BETWEEN :startDate AND :endDate")
     BigDecimal getTotalTransfersBetween(LocalDateTime startOfDay, LocalDateTime now);
+
+    List<Transaction> findTop5ByOrderByCreatedAtDesc();
 }
