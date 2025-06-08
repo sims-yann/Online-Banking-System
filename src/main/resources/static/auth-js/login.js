@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Redirect based on user role
             setTimeout(() => {
                 if (user.role === 'admin') {
-                    window.location.href = '/admin';
+                    window.location.href = '../admin-html/admin-dashboard.html';
                 } else {
-                    window.location.href = '/dashboard';
+                    window.location.href = '../user/user-html/userdashboard.html';
                 }
             }, 1000);
         } else {
