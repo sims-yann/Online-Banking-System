@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionDTO {
+    @NotBlank(message = "From account number is required")
+    private String fromAccountNumber;
+
     @NotBlank(message = "To account number is required")
     private String toAccountNumber;
 
