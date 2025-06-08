@@ -47,7 +47,7 @@ public class User {
     private Role role = Role.CUSTOMER;
 
     @Column(nullable = false)
-    private Boolean active = true;
+    private AccountStatus active = AccountStatus.ACTIVE;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,4 +34,16 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     List<Transaction> findByFromAccountIdOrToAccountId(Long fromAccountId, Long toAccountId);
 
+    @Query("SELECT t FROM Transaction t WHERE " +
+           "(t.fromAccount.user.id = :userId OR t.toAccount.user.id = :userId) " +
+           "AND t.createdAt >= :startDate")
+    List<Transaction> findUserTransactionSince(Long userId, LocalDateTime since);
+
+     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'COMPLETED'")
+    long countCompletedTransactions();
+
+    @Query("SELECT SUM(t.amount) FROM Transaction t WHERE " +
+           "t.transactionType = 'TRANSFER' AND t.transactionStatus = 'COMPLETED' " +
+           "AND t.createdAt BETWEEN :startDate AND :endDate")
+    BigDecimal getTotalTransfersBetween(LocalDateTime startOfDay, LocalDateTime now);
 }

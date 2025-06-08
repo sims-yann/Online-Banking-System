@@ -1,29 +1,45 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.AccountDto;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AccountRepo;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private final AccountRepo accountRepo;
+    @Autowired
+    private final UserRepo userRepository;
 
-    public AccountServiceImpl( AccountRepo accountRepo){
+    public AccountServiceImpl(AccountRepo accountRepo, UserRepo userRepo) {
         this.accountRepo = accountRepo;
+        this.userRepository = userRepo;
     }
 
     //to update account
-    public void updateAccount(Account account){
-        accountRepo.save(account);
-        accountRepo.flush();
+    @Override
+    @Transactional
+    public Account updateAccount(Long accountId, AccountDto accountDto) {
+
+        Account account = accountRepo.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
+
+        if (accountDto.getAccountType() != null) {
+            account.setAccountType(accountDto.getAccountType());
+        }
+
+        return accountRepo.save(account);
     }
 
     public void recordAccount(Account account) {
@@ -35,32 +51,95 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account getAccount(int id) {
+    public Optional<Account> getAccount(Long id) {
         return accountRepo.findById(id);
     }
 
-    public List<Account> getAllAccounts(int id) {
-        return accountRepo.findByUserId(id);
+    public List<Account> getAllAccounts() {
+        return accountRepo.findAll();
     }
+
 
     //to block an account
-    public void blockAccount(int id){
-       Account ac = accountRepo.findById(id);
-
-       accountRepo.save(ac);
+    public void blockAccount(Long id) {
+        Account ac = accountRepo.findById(id).get();
+        accountRepo.save(ac);
     }
 
-    public Map<String, Object> viewAccountDetails(int id){
-        Account ac = accountRepo.findById(id);
-        Map<String, Object> details =new HashMap<>();
+    @Override
+    public Map<String, Object> viewAccountDetails(Long id) {
+        Account ac = accountRepo.findById(id).get();
+        Map<String, Object> details = new HashMap<>();
         details.put("balace", ac.getBalance());
-        details.put("createdDate", ac.getCreatedDate());
-        details.put("type", ac.getType());
+        details.put("createdDate", ac.getCreatedAt());
+        details.put("type", ac.getAccountType());
         details.put("status", ac.getStatus());
 
         return details;
     }
 
-    //to save accounts
+    @Override
+    @Transactional
+    public Account createAccount(AccountDto accountDto) {
+        User user = userRepository.findById(accountDto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        Account account = new Account();
+        account.setUser(user);
+        account.setAccountType(accountDto.getAccountType());
+        account.setAccountNumber(generateAccountNumber());
+        account.setBalance(BigDecimal.ZERO);
+        account.setStatus(AccountStatus.ACTIVE);
+
+        return accountRepository.save(account);
+    }
+
+    @Override
+    @Transactional
+    public void changeAccountStatus(Long accountId, AccountStatus status) {
+        if (!accountRepo.existsById(accountId)) {
+            throw new ResourceNotFoundException("Account not found");
+        }
+        accountRepo.updateAccountStatus(accountId, status);
+    }
+
+    @Override
+    public Account getAccountById(Long accountId) {
+        return accountRepo.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
+
+    }
+
+    @Override
+    public Account getAccountByNumber(String accountNumber) {
+        return accountRepo.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
+    }
+
+    @Override
+    public List<Account> getUserAccounts(Long userId) {
+        return accountRepo.findByUserId(userId);
+    }
+
+    @Override
+    public long countAllAccounts() {
+        return accountRepo.count();
+    }
+
+    @Override
+    public long countActiveAccounts() {
+        return accountRepo.countActiveAccounts();
+    }
+
+    @Override
+    public BigDecimal getTotalBalanceByUser(Long userId) {
+        return accountRepo.getTotalBalanceByUserId(userId);
+    }
+
+    private String generateAccountNumber() {
+        Random random = new Random();
+        long number = 1000000000L + random.nextInt(900000000);
+        return String.valueOf(number);
+    }
 
 }

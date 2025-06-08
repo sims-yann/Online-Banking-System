@@ -39,7 +39,7 @@ public class Transaction {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TransactionStatus transactionStatus=TransactionStatus.PENDING;
+    private TransactionStatus transactionStatus=TransactionStatus.COMPLETED;
 
     @Column(name = "transaction_date", nullable = false)
     private LocalDateTime transactionDate;
