@@ -1,45 +1,55 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Data
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(
-        name = "TYPE",
-        discriminatorType = DiscriminatorType.STRING
-)
+@Table(name = "transactions")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Transaction_ID;
+    private Long id;
 
-    @NotNull
-    @Min(value = 0)
-    private double amount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_account_id")
+    private Account fromAccount;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_account_id")
+    private Account toAccount;
+
+    @Column(nullable = false, precision = 19, scale = 2)
+    private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transaction_type", nullable = false)
+    private TransactionType transactionType;
+
+    @Column(length = 500)
     private String description;
 
-    private Date date;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionStatus transactionStatus=TransactionStatus.COMPLETED;
 
-    private String status;
+    @Column(name = "transaction_date", nullable = false)
+    private LocalDateTime transactionDate;
 
-    @ManyToOne
-    @JoinColumn(name = "Source_Account", unique = false, nullable = true, updatable = false)
-    private Account SourceAccount;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "Destination_Account", unique = false, nullable = true, updatable = false)
-    private Account DestinationAccount;
-
-    @NotNull
-    private LocalDateTime time;
-
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }

@@ -3,8 +3,8 @@
 **Problem description**: 
 
 In today’s fast-paced digital world, traditional banking systems often fall short in providing efficient, real
-time, and user-friendly services to customers. Customers expect to perform basic banking operations—such 
-as checking balances, transferring funds, viewing transaction history, and managing accounts—without 
+time, and user-friendly services to customers. Customers expect to perform basic banking operations such 
+as checking balances, transferring funds, viewing transaction history, and managing accounts without 
 having to visit a physical branch. 
 However, many banking systems still rely on outdated technologies, which lack scalability, security, and 
 accessibility. Moreover, with the growing threat of cyberattacks and data breaches, ensuring the safety and 
