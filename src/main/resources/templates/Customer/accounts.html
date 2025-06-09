@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"
-xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Accounts</title>
-     <link rel="stylesheet" th:href="@{/customer-css/user-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/customer-css/userdashboard.css}">
     <link rel="stylesheet" th:href="@{/customer-css/accounts.css}">
 </head>
 <body>
@@ -28,10 +27,12 @@ xmlns:th="http://www.thymeleaf.org">
         </nav>
 
         <div class="sidebar-footer">
-            <button id="logout-button" class="logout-button">
-                <span class="icon">🚪</span>
-                <span>Logout</span>
-            </button>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logout-button" class="logout-button">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 
@@ -39,7 +40,7 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="main-content">
         <!-- Header -->
         <header class="dashboard-header">
-            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <h2 class="welcome-text" th:text="'Welcome, ' + ${user.fullName}">Welcome, John Doe</h2>
             <div class="user-avatar">
                 <div class="avatar-circle">👤</div>
             </div>
@@ -59,7 +60,7 @@ xmlns:th="http://www.thymeleaf.org">
                             <p class="card-subtitle">Combined balance across all accounts</p>
                         </div>
                         <div class="card-content">
-                            <div class="total-balance">$5,250.00</div>
+                            <div class="total-balance" th:text="${'$' + #numbers.formatDecimal(totalBalance, 1, 'COMMA', 2, 'POINT')}">$5,250.00</div>
                         </div>
                     </div>
                 </div>
@@ -75,7 +76,38 @@ xmlns:th="http://www.thymeleaf.org">
                 <div class="accounts-list">
                     <h3 class="section-title">Account Details</h3>
                     <div class="accounts-grid detailed">
-                        <!-- Account cards will be added by JavaScript -->
+                        <!-- Account cards -->
+                        <div th:each="account : ${accounts}" class="account-card detailed">
+                            <div class="account-header-detailed">
+                                <div>
+                                    <h3 class="account-type" th:text="${account.accountType}">Checking Account</h3>
+                                    <p class="account-number" th:text="'Account No: ' + ${account.accountNumber}">Account No: 1234567890</p>
+                                </div>
+                                <div class="account-balance" th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 'COMMA', 2, 'POINT')}">$2,250.00</div>
+                            </div>
+
+                            <div class="account-info">
+                                <div class="account-info-item">
+                                    <div class="account-info-label">Account Status</div>
+                                    <div class="account-info-value"><span class="status-badge" th:classappend="${'status-' + #strings.toLowerCase(account.status)}" th:text="${account.status}">Active</span></div>
+                                </div>
+                                <div class="account-info-item">
+                                    <div class="account-info-label">Opening Date</div>
+                                    <div class="account-info-value" th:text="${#temporals.format(account.createdAt, 'MMM dd, yyyy')}">Jan 15, 2023</div>
+                                </div>
+                            </div>
+
+                            <div class="account-actions-row">
+                                <button class="action-button view-button view-details" th:data-account-id="${account.id}">
+                                    <span>👁️</span>
+                                    View Details
+                                </button>
+                                <button th:if="${account.status == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus).ACTIVE}" class="action-button transfer-button" th:data-account-id="${account.id}">
+                                    <span>💸</span>
+                                    Transfer
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,6 +115,7 @@ xmlns:th="http://www.thymeleaf.org">
     </div>
 </div>
 
+<!-- Account Details Modal -->
 <div class="modal" id="account-details-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -91,6 +124,31 @@ xmlns:th="http://www.thymeleaf.org">
         </div>
         <div class="modal-body" id="account-details-content">
             <!-- Account details will be added by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- New Account Modal -->
+<div class="modal" id="new-account-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Open New Account</h2>
+            <button class="close-modal">✖</button>
+        </div>
+        <div class="modal-body">
+            <form id="new-account-form">
+                <div class="form-group">
+                    <label for="account-type">Account Type</label>
+                    <select id="account-type" name="accountType" required>
+                        <option value="">Select Account Type</option>
+                        <option th:each="type : ${accountTypes}" th:value="${type}" th:text="${type}">SAVINGS</option>
+                    </select>
+                </div>
+                <div class="form-message" id="form-message"></div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Open Account</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

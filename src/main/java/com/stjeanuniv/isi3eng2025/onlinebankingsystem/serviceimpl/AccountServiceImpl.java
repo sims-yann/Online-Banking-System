@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
@@ -71,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
     public Map<String, Object> viewAccountDetails(Long id) {
         Account ac = accountRepo.findById(id).get();
         Map<String, Object> details = new HashMap<>();
-        details.put("balace", ac.getBalance());
+        details.put("balance", ac.getBalance());
         details.put("createdDate", ac.getCreatedAt());
         details.put("type", ac.getAccountType());
         details.put("status", ac.getStatus());
@@ -90,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
         account.setAccountType(accountDto.getAccountType());
         account.setAccountNumber(generateAccountNumber());
         account.setBalance(BigDecimal.ZERO);
-        account.setStatus(AccountStatus.ACTIVE);
+        account.setStatus(AccountStatus.INACTIVE);
 
         return accountRepo.save(account);
     }

@@ -1,6 +1,7 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.services;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransactionDTO;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransactionHistoryDTO;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Transaction;
 
 import java.util.List;
@@ -33,5 +34,6 @@ public interface TransactionService {
     Transaction rejectTransaction(Long transactionId);
 
     List<Transaction> getTransactionsByAccountId(Long accountId);
-}
 
+    List<Transaction> filterTransactions(TransactionHistoryDTO criteria, Long userId);
+}

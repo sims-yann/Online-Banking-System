@@ -64,23 +64,11 @@ function setupForms() {
         showSaveSuccess('Security settings');
     });
 
-    // Transaction Settings Form
+    // Transaction Settings Form - Now handled by Thymeleaf form submission
+    // We'll just log the form submission for debugging
     document.getElementById('transaction-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const dailyTransferLimit = document.getElementById('dailyLimit').value;
-        const perTransactionLimit = document.getElementById('transactionLimit').value;
-        const requireApprovalAbove = document.getElementById('approvalLimit').value;
-
-        const settings = {
-            dailyTransferLimit,
-            perTransactionLimit,
-            requireApprovalAbove
-        };
-
-        // In a real app, this would be an API call to save settings
-        console.log('Saving transaction settings:', settings);
-        showSaveSuccess('Transaction settings');
+        // Don't prevent default - let the form submit normally
+        console.log('Transaction form submitted');
     });
 
     // Notification Settings Form

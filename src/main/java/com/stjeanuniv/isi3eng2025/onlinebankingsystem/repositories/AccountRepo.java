@@ -1,8 +1,6 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +18,7 @@ public interface AccountRepo extends JpaRepository<Account, Long> {
 
     List<Account> findByStatus(AccountStatus status);
     
-    Page<Account> findByAccountType(AccountType accountType, Pageable pageable);
+    List<Account> findByAccountType(AccountType accountType);
 
     @Query("SELECT COUNT(a) FROM Account a WHERE a.status = :status")
     long countByStatus(AccountStatus status);

@@ -6,6 +6,7 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,19 +54,19 @@ public class AdminDashboardController {
     public List<RecentTransactionDTO> getRecentTransactions() {
         RecentTransactionDTO t1 = new RecentTransactionDTO();
         t1.type = TransactionType.TRANSFER;
-       t1.date = java.time.LocalDateTime.of(2023, 5, 1, 10, 30);
+        t1.date = LocalDateTime.now();
         t1.amount = 500.00;
         t1.status = TransactionStatus.COMPLETED;
 
         RecentTransactionDTO t2 = new RecentTransactionDTO();
         t2.type = TransactionType.TRANSFER;
-        t2.date = java.time.LocalDateTime.of(2023, 5, 10, 18, 45);
+        t2.date = LocalDateTime.now();
         t2.amount = 125.50;
         t2.status = TransactionStatus.COMPLETED;
 
         RecentTransactionDTO t3 = new RecentTransactionDTO();
         t3.type = TransactionType.DEPOSIT;
-        t3.date = java.time.LocalDateTime.of(2023, 5, 15, 9, 0);
+        t3.date = LocalDateTime.now();
         t3.amount = 2500.00;
         t3.status = TransactionStatus.COMPLETED;
 
