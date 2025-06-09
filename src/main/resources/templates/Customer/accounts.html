@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Accounts</title>
-    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
-    <link rel="stylesheet" href="../../static/customer-css/accounts.css">
+    <link rel="stylesheet" th:href="@{/customer-css/userdashboard.css}">
+    <link rel="stylesheet" th:href="@{/customer-css/accounts.css}">
 </head>
 <body>
 <div class="layout">
@@ -17,20 +17,20 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="user-dashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
-                <li><a href="accounts.html" class="active"><span class="icon">💾</span><span>Accounts</span></a></li>
-                <li><a href="transfer.html"><span class="icon">💳</span><span>Transfer</span></a></li>
-                <li><a href="transactions.html"><span class="icon">🕒</span><span>Transactions</span></a></li>
-                <li><a href="deposit-withdraw.html"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
-                <li><a href="profile.html"><span class="icon">👤</span><span>Profile</span></a></li>
+                <li><a th:href="@{/customer/dashboard}"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a th:href="@{/customer/accounts}" class="active"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a th:href="@{/customer/transactions}"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a th:href="@{/customer/profile}"><span class="icon">👤</span><span>Profile</span></a></li>
             </ul>
         </nav>
 
         <div class="sidebar-footer">
-            <button id="logout-button" class="logout-button">
-                <span class="icon">🚪</span>
-                <span>Logout</span>
-            </button>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logout-button" class="logout-button">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
     <div class="main-content">
         <!-- Header -->
         <header class="dashboard-header">
-            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <h2 class="welcome-text" th:text="'Welcome, ' + ${user.fullName}">Welcome, John Doe</h2>
             <div class="user-avatar">
                 <div class="avatar-circle">👤</div>
             </div>
@@ -58,7 +58,7 @@
                             <p class="card-subtitle">Combined balance across all accounts</p>
                         </div>
                         <div class="card-content">
-                            <div class="total-balance">$5,250.00</div>
+                            <div class="total-balance" th:text="${'$' + #numbers.formatDecimal(totalBalance, 1, 'COMMA', 2, 'POINT')}">$5,250.00</div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,38 @@
                 <div class="accounts-list">
                     <h3 class="section-title">Account Details</h3>
                     <div class="accounts-grid detailed">
-                        <!-- Account cards will be added by JavaScript -->
+                        <!-- Account cards -->
+                        <div th:each="account : ${accounts}" class="account-card detailed">
+                            <div class="account-header-detailed">
+                                <div>
+                                    <h3 class="account-type" th:text="${account.accountType}">Checking Account</h3>
+                                    <p class="account-number" th:text="'Account No: ' + ${account.accountNumber}">Account No: 1234567890</p>
+                                </div>
+                                <div class="account-balance" th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 'COMMA', 2, 'POINT')}">$2,250.00</div>
+                            </div>
+
+                            <div class="account-info">
+                                <div class="account-info-item">
+                                    <div class="account-info-label">Account Status</div>
+                                    <div class="account-info-value" th:text="${account.status}">Active</div>
+                                </div>
+                                <div class="account-info-item">
+                                    <div class="account-info-label">Opening Date</div>
+                                    <div class="account-info-value" th:text="${#temporals.format(account.createdAt, 'MMM dd, yyyy')}">Jan 15, 2023</div>
+                                </div>
+                            </div>
+
+                            <div class="account-actions-row">
+                                <button class="action-button view-button view-details" th:data-account-id="${account.id}">
+                                    <span>👁️</span>
+                                    View Details
+                                </button>
+                                <button th:if="${account.status == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus).ACTIVE}" class="action-button transfer-button" th:data-account-id="${account.id}">
+                                    <span>💸</span>
+                                    Transfer
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,6 +113,7 @@
     </div>
 </div>
 
+<!-- Account Details Modal -->
 <div class="modal" id="account-details-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -94,6 +126,31 @@
     </div>
 </div>
 
-<script src="../../static/customer-js/accounts.js"></script>
+<!-- New Account Modal -->
+<div class="modal" id="new-account-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Open New Account</h2>
+            <button class="close-modal">✖</button>
+        </div>
+        <div class="modal-body">
+            <form id="new-account-form">
+                <div class="form-group">
+                    <label for="account-type">Account Type</label>
+                    <select id="account-type" name="accountType" required>
+                        <option value="">Select Account Type</option>
+                        <option th:each="type : ${accountTypes}" th:value="${type}" th:text="${type}">SAVINGS</option>
+                    </select>
+                </div>
+                <div class="form-message" id="form-message"></div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Open Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/customer-js/accounts.js}"></script>
 </body>
 </html>

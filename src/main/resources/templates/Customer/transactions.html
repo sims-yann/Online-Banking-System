@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Transactions</title>
-    <link rel="stylesheet" href="/templates/user/user/user-css/userdashboard.css">
-    <link rel="stylesheet" href="../../static/customer-css/transactions.css">
+    <link rel="stylesheet" th:href="@{/customer-css/userdashboard.css}">
+    <link rel="stylesheet" th:href="@{/customer-css/transactions.css}">
 </head>
 <body>
 <div class="layout">
@@ -18,20 +18,22 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="user-dashboard.html"><span class="icon">🏠</span><span>Dashboard</span></a></li>
-                <li><a href="accounts.html"><span class="icon">💾</span><span>Accounts</span></a></li>
-                <li><a href="transfer.html"><span class="icon">💳</span><span>Transfer</span></a></li>
-                <li><a href="transactions.html" class="active"><span class="icon">🕒</span><span>Transactions</span></a></li>
-                <li><a href="deposit-withdraw.html"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
-                <li><a href="profile.html"><span class="icon">👤</span><span>Profile</span></a></li>
+                <li><a th:href="@{/customer/dashboard}"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a th:href="@{/customer/accounts}"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a th:href="@{/customer/transfer}"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a th:href="@{/customer/transactions}" class="active"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a th:href="@{/customer/deposit-withdraw}"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a th:href="@{/customer/profile}"><span class="icon">👤</span><span>Profile</span></a></li>
             </ul>
         </nav>
 
         <div class="sidebar-footer">
-            <button id="logout-button" class="logout-button">
-                <span class="icon">🚪</span>
-                <span>Logout</span>
-            </button>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logout-button" class="logout-button">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 
@@ -39,7 +41,7 @@
     <div class="main-content">
         <!-- Header -->
         <header class="dashboard-header">
-            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <h2 class="welcome-text" th:text="'Welcome, ' + ${user.fullName}">Welcome, John Doe</h2>
             <div class="user-avatar">
                 <div class="avatar-circle">👤</div>
             </div>
@@ -51,38 +53,64 @@
                 <h1 class="page-title">Transaction History</h1>
 
                 <!-- Filters -->
-                <div class="transactions-filters">
+                <form th:action="@{/customer/transactions/search}" method="post" class="transactions-filters">
                     <div class="filter-group">
-                        <label for="filter-account">Account</label>
-                        <select id="filter-account">
-                            <option value="all">All Accounts</option>
-                            <!-- Options will be added by JavaScript -->
+                        <label for="accountNumber">Account</label>
+                        <select id="accountNumber" name="accountNumber">
+                            <option value="">All Accounts</option>
+                            <option th:each="account : ${accounts}" 
+                                    th:value="${account.accountNumber}" 
+                                    th:text="${account.accountNumber + ' (' + account.accountType + ')'}"
+                                    th:selected="${searchCriteria.accountNumber == account.accountNumber}">
+                                Account Number (Type)
+                            </option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="filter-type">Transaction Type</label>
-                        <select id="filter-type">
-                            <option value="all">All Types</option>
-                            <option value="transfer">Transfer</option>
-                            <option value="deposit">Deposit</option>
-                            <option value="withdraw">Withdrawal</option>
+                        <label for="transactionType">Transaction Type</label>
+                        <select id="transactionType" name="transactionType">
+                            <option value="">All Types</option>
+                            <option th:each="type : ${transactionTypes}" 
+                                    th:value="${type}" 
+                                    th:text="${type}"
+                                    th:selected="${searchCriteria.transactionType == type}">
+                                Type
+                            </option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="filter-date">Date Range</label>
-                        <select id="filter-date">
-                            <option value="all">All Time</option>
-                            <option value="today">Today</option>
-                            <option value="week">Last 7 Days</option>
-                            <option value="month">Last 30 Days</option>
-                            <option value="year">Last Year</option>
+                        <label for="description">Description</label>
+                        <input type="text" id="description" name="description" 
+                               th:value="${searchCriteria.description}" 
+                               placeholder="Search in description">
+                    </div>
+                    <div class="filter-group">
+                        <label for="startDate">From Date</label>
+                        <input type="date" id="startDate" name="startDate" 
+                               th:value="${searchCriteria.startDate != null ? #temporals.format(searchCriteria.startDate, 'yyyy-MM-dd') : ''}">
+                    </div>
+                    <div class="filter-group">
+                        <label for="endDate">To Date</label>
+                        <input type="date" id="endDate" name="endDate" 
+                               th:value="${searchCriteria.endDate != null ? #temporals.format(searchCriteria.endDate, 'yyyy-MM-dd') : ''}">
+                    </div>
+                    <div class="filter-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="">All Statuses</option>
+                            <option th:each="status : ${transactionStatuses}" 
+                                    th:value="${status}" 
+                                    th:text="${status}"
+                                    th:selected="${searchCriteria.status == status}">
+                                Status
+                            </option>
                         </select>
                     </div>
                     <div class="filter-actions">
-                        <button id="search-button" class="secondary-button">Search</button>
-                        <button id="reset-filters" class="text-button">Reset</button>
+                        <button type="submit" class="secondary-button">Search</button>
+                        <a th:href="@{/customer/transactions}" class="text-button">Reset</a>
                     </div>
-                </div>
+                </form>
 
                 <!-- Transactions Table -->
                 <div class="transactions-container">
@@ -110,19 +138,50 @@
                         <tr>
                             <th>Date & Time</th>
                             <th>Description</th>
-                            <th>Account</th>
+                            <th>From Account</th>
+                            <th>To Account</th>
                             <th>Type</th>
                             <th>Amount</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody id="transactions-table-body">
-                        <!-- Will be populated by JavaScript -->
+                        <tbody>
+                            <tr th:each="transaction : ${transactions}">
+                                <td>
+                                    <div th:text="${#temporals.format(transaction.createdAt, 'dd MMM yyyy')}">01 Jan 2023</div>
+                                    <div class="transaction-time" th:text="${#temporals.format(transaction.createdAt, 'HH:mm')}">14:30</div>
+                                </td>
+                                <td>
+                                    <div class="transaction-description">
+                                        <span th:text="${transaction.description != null ? transaction.description : 'No description'}">Transaction description</span>
+                                    </div>
+                                </td>
+                                <td th:text="${transaction.fromAccount != null ? transaction.fromAccount.accountNumber : '-'}">From Account</td>
+                                <td th:text="${transaction.toAccount != null ? transaction.toAccount.accountNumber : '-'}">To Account</td>
+                                <td th:text="${transaction.transactionType}">Type</td>
+                                <td th:class="${transaction.fromAccount != null && transaction.fromAccount.user.id == user.id ? 'amount-negative' : 'amount-positive'}"
+                                    th:text="${transaction.fromAccount != null && transaction.fromAccount.user.id == user.id ? '-' : '+'} + ${transaction.amount}">
+                                    Amount
+                                </td>
+                                <td>
+                                    <span class="badge" 
+                                          th:classappend="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).COMPLETED ? 'badge-default' : 
+                                                           (transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).PENDING ? 'badge-secondary' : 'badge-destructive')}"
+                                          th:text="${transaction.transactionStatus}">
+                                        Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-button view-details" th:data-id="${transaction.id}">View Details</button>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
-                    <div id="no-transactions" class="no-transactions" style="display: none;">
+                    <div th:if="${#lists.isEmpty(transactions)}" class="no-transactions">
                         <p>No transactions found matching your filters.</p>
                     </div>
                 </div>
@@ -144,6 +203,6 @@
     </div>
 </div>
 
-<script src="../../static/customer-js/transactions.js"></script>
+<script th:src="@{/customer-js/transactions.js}"></script>
 </body>
 </html>

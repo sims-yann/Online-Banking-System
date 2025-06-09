@@ -48,4 +48,6 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     BigDecimal getTotalTransfersBetween(LocalDateTime startOfDay, LocalDateTime now);
 
     List<Transaction> findTop5ByOrderByCreatedAtDesc();
+
+    List<Transaction> findByTransactionStatus(TransactionStatus status);
 }

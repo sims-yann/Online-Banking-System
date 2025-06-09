@@ -1,6 +1,7 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransactionDTO;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransactionHistoryDTO;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.*;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.exception.*;
@@ -14,10 +15,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
@@ -35,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
         // Validate accounts
         Account fromAccount = accountRepository.findByAccountNumber(fromAccountNumber)
                 .orElseThrow(() -> new Exception("Source account not found"));
-        
+
         Account toAccount = accountRepository.findByAccountNumber(toAccountNumber)
                 .orElseThrow(() -> new Exception("Destination account not found"));
 
@@ -228,5 +232,61 @@ public class TransactionServiceImpl implements TransactionService {
 
         accountRepository.updateAccountBalance(fromAccount.getId(), transaction.getAmount().negate());
         accountRepository.updateAccountBalance(toAccount.getId(), transaction.getAmount());
+    }
+
+    @Override
+    public List<Transaction> filterTransactions(TransactionHistoryDTO criteria, Long userId) {
+        // Get all user transactions
+        List<Transaction> userTransactions = transactionRepository.findUserTransactionSince(
+            userId, 
+            criteria.getStartDate() != null ? criteria.getStartDate() : LocalDateTime.now().minusYears(1)
+        );
+
+        // Apply filters
+        return userTransactions.stream()
+            .filter(transaction -> {
+                // Filter by account number if specified
+                if (criteria.getAccountNumber() != null && !criteria.getAccountNumber().isEmpty()) {
+                    boolean matchesFromAccount = transaction.getFromAccount() != null && 
+                        transaction.getFromAccount().getAccountNumber().equals(criteria.getAccountNumber());
+                    boolean matchesToAccount = transaction.getToAccount() != null && 
+                        transaction.getToAccount().getAccountNumber().equals(criteria.getAccountNumber());
+                    if (!matchesFromAccount && !matchesToAccount) {
+                        return false;
+                    }
+                }
+
+                // Filter by transaction type if specified
+                if (criteria.getTransactionType() != null) {
+                    if (transaction.getTransactionType() != criteria.getTransactionType()) {
+                        return false;
+                    }
+                }
+
+                // Filter by description if specified
+                if (criteria.getDescription() != null && !criteria.getDescription().isEmpty()) {
+                    if (transaction.getDescription() == null || 
+                        !transaction.getDescription().toLowerCase().contains(criteria.getDescription().toLowerCase())) {
+                        return false;
+                    }
+                }
+
+                // Filter by date range
+                if (criteria.getStartDate() != null && transaction.getCreatedAt().isBefore(criteria.getStartDate())) {
+                    return false;
+                }
+
+                if (criteria.getEndDate() != null && transaction.getCreatedAt().isAfter(criteria.getEndDate())) {
+                    return false;
+                }
+
+                // Filter by status if specified
+                if (criteria.getStatus() != null && transaction.getTransactionStatus() != criteria.getStatus()) {
+                    return false;
+                }
+
+                return true;
+            })
+            .collect(Collectors.toList());
     }
 } 

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
@@ -90,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
         account.setAccountType(accountDto.getAccountType());
         account.setAccountNumber(generateAccountNumber());
         account.setBalance(BigDecimal.ZERO);
-        account.setStatus(AccountStatus.ACTIVE);
+        account.setStatus(AccountStatus.INACTIVE);
 
         return accountRepo.save(account);
     }

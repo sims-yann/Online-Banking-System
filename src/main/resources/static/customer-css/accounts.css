@@ -1,4 +1,76 @@
 /* Account Specific Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group select, .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-message {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+}
+
+.form-message.success {
+    background-color: #e6f7e6;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    display: block;
+}
+
+.form-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+    display: block;
+}
+
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-active {
+    background-color: #e6f7e6;
+    color: #2e7d32;
+}
+
+.status-inactive {
+    background-color: #fff8e1;
+    color: #f57c00;
+}
+
+.status-suspended {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.status-closed {
+    background-color: #eceff1;
+    color: #546e7a;
+}
 .accounts-overview {
     margin-bottom: 24px;
 }

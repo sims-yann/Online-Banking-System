@@ -30,21 +30,83 @@
             <span>Welcome, Admin User</span>
             <span class="profile-icon"><i class="bi bi-person-circle"></i></span>
         </div>
-        <div class="container-fluid mt-3 d-none" id="transactionsManagementSection">
+        <div class="container-fluid mt-3" id="transactionsManagementSection">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="fw-bold">Transactions Management</h4>
                 <input type="text" class="form-control w-auto" id="transactionDateRange" placeholder="Select date range" readonly style="max-width: 220px;">
             </div>
+
+            <!-- Alert Messages -->
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${successMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${errorMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <div class="mb-3">
                 <input type="text" class="form-control" id="transactionSearchInput" placeholder="Search by description or ID...">
             </div>
+
+            <!-- Pending Transactions Section -->
+            <div class="card mb-4" th:if="${not #lists.isEmpty(pendingTransactions)}">
+                <div class="card-header bg-warning text-white">
+                    <h5 class="mb-0">Pending Transactions Requiring Approval</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table mb-0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Date & Time</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="transaction : ${pendingTransactions}">
+                                <td th:text="${transaction.id}"></td>
+                                <td th:text="${transaction.transactionType}"></td>
+                                <td th:text="${transaction.fromAccount != null ? transaction.fromAccount.accountNumber : 'N/A'}"></td>
+                                <td th:text="${transaction.toAccount != null ? transaction.toAccount.accountNumber : 'N/A'}"></td>
+                                <td th:text="${'$' + transaction.amount}"></td>
+                                <td th:text="${transaction.description}"></td>
+                                <td th:text="${#temporals.format(transaction.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <form th:action="@{/admin/transactions/approve/{id}(id=${transaction.id})}" method="post" class="me-2">
+                                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                        </form>
+                                        <form th:action="@{/admin/transactions/reject/{id}(id=${transaction.id})}" method="post">
+                                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- All Transactions Section -->
             <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">All Transactions</h5>
+                </div>
                 <div class="card-body p-0">
                     <table class="table mb-0" id="transactionsTable">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>Type</th>
+                            <th>From</th>
+                            <th>To</th>
                             <th>Amount</th>
                             <th>Description</th>
                             <th>Date & Time</th>
@@ -53,7 +115,31 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Transactions will be rendered here by JS -->
+                            <tr th:each="transaction : ${transactions}">
+                                <td th:text="${transaction.id}"></td>
+                                <td th:text="${transaction.transactionType}"></td>
+                                <td th:text="${transaction.fromAccount != null ? transaction.fromAccount.accountNumber : 'N/A'}"></td>
+                                <td th:text="${transaction.toAccount != null ? transaction.toAccount.accountNumber : 'N/A'}"></td>
+                                <td th:text="${'$' + transaction.amount}"></td>
+                                <td th:text="${transaction.description}"></td>
+                                <td th:text="${#temporals.format(transaction.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                                <td>
+                                    <span th:if="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).COMPLETED}" class="badge bg-success">Completed</span>
+                                    <span th:if="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).PENDING}" class="badge bg-warning">Pending</span>
+                                    <span th:if="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).FAILED}" class="badge bg-danger">Failed</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex" th:if="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).PENDING}">
+                                        <form th:action="@{/admin/transactions/approve/{id}(id=${transaction.id})}" method="post" class="me-2">
+                                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                        </form>
+                                        <form th:action="@{/admin/transactions/reject/{id}(id=${transaction.id})}" method="post">
+                                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                        </form>
+                                    </div>
+                                    <span th:if="${transaction.transactionStatus != T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).PENDING}">-</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
