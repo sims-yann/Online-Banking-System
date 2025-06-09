@@ -18,12 +18,12 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a th:href="@{/customer/dashboard}"><span class="icon">🏠</span><span>Dashboard</span></a></li>
-                <li><a th:href="@{/customer/accounts}"><span class="icon">💾</span><span>Accounts</span></a></li>
-                <li><a th:href="@{/customer/transfer}"><span class="icon">💳</span><span>Transfer</span></a></li>
-                <li><a th:href="@{/customer/transactions}" class="active"><span class="icon">🕒</span><span>Transactions</span></a></li>
-                <li><a th:href="@{/customer/deposit-withdraw}"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
-                <li><a th:href="@{/customer/profile}"><span class="icon">👤</span><span>Profile</span></a></li>
+                <li><a th:href="@{/Customer/Dashboard}"><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a th:href="@{/Customer/Accounts}"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a th:href="@{/Customer/Transfer}"><span class="icon">💳</span><span>Transfer</span></a></li>
+                <li><a th:href="@{/Customer/Transactions}" class="active"><span class="icon">🕒</span><span>Transactions</span></a></li>
+                <li><a th:href="@{/Customer/Deposit-Withdraw}"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
+                <li><a th:href="@{/Customer/Profile}"><span class="icon">👤</span><span>Profile</span></a></li>
             </ul>
         </nav>
 
@@ -58,8 +58,8 @@
                         <label for="accountNumber">Account</label>
                         <select id="accountNumber" name="accountNumber">
                             <option value="">All Accounts</option>
-                            <option th:each="account : ${accounts}" 
-                                    th:value="${account.accountNumber}" 
+                            <option th:each="account : ${accounts}"
+                                    th:value="${account.accountNumber}"
                                     th:text="${account.accountNumber + ' (' + account.accountType + ')'}"
                                     th:selected="${searchCriteria.accountNumber == account.accountNumber}">
                                 Account Number (Type)
@@ -70,8 +70,8 @@
                         <label for="transactionType">Transaction Type</label>
                         <select id="transactionType" name="transactionType">
                             <option value="">All Types</option>
-                            <option th:each="type : ${transactionTypes}" 
-                                    th:value="${type}" 
+                            <option th:each="type : ${transactionTypes}"
+                                    th:value="${type}"
                                     th:text="${type}"
                                     th:selected="${searchCriteria.transactionType == type}">
                                 Type
@@ -80,26 +80,26 @@
                     </div>
                     <div class="filter-group">
                         <label for="description">Description</label>
-                        <input type="text" id="description" name="description" 
-                               th:value="${searchCriteria.description}" 
+                        <input type="text" id="description" name="description"
+                               th:value="${searchCriteria.description}"
                                placeholder="Search in description">
                     </div>
                     <div class="filter-group">
                         <label for="startDate">From Date</label>
-                        <input type="date" id="startDate" name="startDate" 
+                        <input type="date" id="startDate" name="startDate"
                                th:value="${searchCriteria.startDate != null ? #temporals.format(searchCriteria.startDate, 'yyyy-MM-dd') : ''}">
                     </div>
                     <div class="filter-group">
                         <label for="endDate">To Date</label>
-                        <input type="date" id="endDate" name="endDate" 
+                        <input type="date" id="endDate" name="endDate"
                                th:value="${searchCriteria.endDate != null ? #temporals.format(searchCriteria.endDate, 'yyyy-MM-dd') : ''}">
                     </div>
                     <div class="filter-group">
                         <label for="status">Status</label>
                         <select id="status" name="status">
                             <option value="">All Statuses</option>
-                            <option th:each="status : ${transactionStatuses}" 
-                                    th:value="${status}" 
+                            <option th:each="status : ${transactionStatuses}"
+                                    th:value="${status}"
                                     th:text="${status}"
                                     th:selected="${searchCriteria.status == status}">
                                 Status
@@ -165,8 +165,8 @@
                                     Amount
                                 </td>
                                 <td>
-                                    <span class="badge" 
-                                          th:classappend="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).COMPLETED ? 'badge-default' : 
+                                    <span class="badge"
+                                          th:classappend="${transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).COMPLETED ? 'badge-default' :
                                                            (transaction.transactionStatus == T(com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus).PENDING ? 'badge-secondary' : 'badge-destructive')}"
                                           th:text="${transaction.transactionStatus}">
                                         Status

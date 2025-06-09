@@ -20,7 +20,7 @@
                 <p class="card-description">Enter your email and password to sign in</p>
             </div>
 
-            <form id="login-form">
+            <form id="login-form" th:action="@{/authenticate}" th:method="post">
                 <div class="card-content">
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -30,6 +30,7 @@
                                     id="email"
                                     type="email"
                                     placeholder="name@example.com"
+                                    name="username"
                                     required
                             />
                         </div>
@@ -43,6 +44,7 @@
                                     id="password"
                                     type="password"
                                     placeholder="••••••••"
+                                    name="password"
                                     required
                             />
                         </div>
@@ -59,7 +61,7 @@
 
                     <p class="text-center text-sm text-gray-600">
                         Don't have an account?
-                        <a href="register.html" class="text-banking-primary hover-underline">
+                        <a th:href="@{/register}" class="text-banking-primary hover-underline">
                             Register here
                         </a>
                     </p>

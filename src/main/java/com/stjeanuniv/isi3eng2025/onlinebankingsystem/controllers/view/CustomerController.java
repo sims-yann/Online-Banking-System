@@ -64,6 +64,11 @@ public class CustomerController {
         return "/Customer/user-dashboard";
     }
 
+    @GetMapping("/profile")
+    public String Profile(Model model) {
+        return "/Customer/profile";
+    }
+
     @GetMapping("/transactions")
     public String transactionsPage(Model model, Principal principal) {
         String email = principal.getName();

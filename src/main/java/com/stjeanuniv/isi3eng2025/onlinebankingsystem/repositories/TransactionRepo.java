@@ -1,6 +1,7 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,9 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'PENDING'")
     long countPendingTransactions();
 
+
+    List<Transaction> findTransactionByFromAccountOrToAccount_Id(Long fromAccount, Long toAccountId);
+
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'FAILED'")
     long countFailedTransactions();
 
@@ -32,7 +36,8 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     List<Transaction> findByCreatedAtBetweenOrderByCreatedAtDesc(java.time.LocalDateTime start, java.time.LocalDateTime end);
 
-    List<Transaction> findByFromAccountIdOrToAccountId(Long fromAccountId, Long toAccountId);
+    @Query("SELECT t FROM Transaction t WHERE "+"t.fromAccount.user.id = :userId OR t.toAccount.user.id = :userId " +"ORDER BY t.createdAt DESC")
+    List<Transaction> findByFromAccountIdOrToAccountId(Long userId);
 
     @Query("SELECT t FROM Transaction t WHERE " +
            "(t.fromAccount.user.id = :userId OR t.toAccount.user.id = :userId) " +

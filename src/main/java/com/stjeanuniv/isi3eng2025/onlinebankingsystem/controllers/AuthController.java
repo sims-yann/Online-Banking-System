@@ -54,7 +54,6 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("customer", new User());
         return "auth/register";
     }
 

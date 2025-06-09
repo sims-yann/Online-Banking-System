@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
     Optional<User> findByFullName(String username);
     List<User> findAll();
+    User findById(Long id);
 
     List<User> findByRole(Role role);
     List<User> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
