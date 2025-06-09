@@ -1,10 +1,9 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Account;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransferDTO {
+public class DepositeDTO {
 
     private List<Account> from_account;
 
@@ -24,8 +23,8 @@ public class TransferDTO {
 
     private String description;
 
-    //private String recipient_bank
+    private TransactionType type;
 
-    private TransactionType transactionType;
+    private TransactionStatus status;
 
 }

@@ -1,6 +1,8 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controllers.view;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.AccountDto;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransactionDTO;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransferDTO;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,21 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("/transfer")
-    public String showTransferForm(Model model) {
+    @Autowired
+    private AccountService accountService;
 
+    @GetMapping("/{userId}/transfer")
+    public String showTransferForm(@PathVariable Long userId, Model model) {
+        List<Account> accounts = accountService.getUserAccounts(userId);
 
+        TransactionDTO transaction = new TransactionDTO();
+        transaction.setTransactionType(TransactionType.TRANSFER);
 
+        TransactionDTO WithdrawOrDeposit = new TransactionDTO();
+
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("transaction", transaction);
+        model.addAttribute("WOD", WithdrawOrDeposit);
         return "transaction/transfer";
     }
 

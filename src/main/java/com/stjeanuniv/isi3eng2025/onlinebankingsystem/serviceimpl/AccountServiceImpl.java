@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
     public Account updateAccount(Long accountId, AccountDto accountDto) {
 
         Account account = accountRepo.findById(accountId)
-                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
+                .orElseThrow(() -> new RuntimeException("Account not found"));
 
         if (accountDto.getAccountType() != null) {
             account.setAccountType(accountDto.getAccountType());
