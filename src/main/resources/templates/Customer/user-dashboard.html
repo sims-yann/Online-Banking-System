@@ -38,7 +38,7 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="main-content">
         <!-- Header -->
         <header class="dashboard-header">
-            <h2 class="welcome-text">Welcome, John Doe</h2>
+            <h2 class="welcome-text">Welcome, <span th:text="${username}"></span></h2>
             <div class="user-avatar">
                 <div class="avatar-circle">👤</div>
             </div>
@@ -54,34 +54,24 @@ xmlns:th="http://www.thymeleaf.org">
                     <div class="total-balance-card">
                         <div class="card-header">
                             <h3>💵 Total Balance</h3>
-                            <p class="card-subtitle">Combined balance across all accounts</p>
+                            <p class="card-subtitle">Combined balance across <span th:text="${useraccounts.size()}"></span> accounts</p>
                         </div>
                         <div class="card-content">
-                            <div class="total-balance">$5,250.00</div>
+                            <div class="total-balance" th:text="${total_balance}"></div>
                         </div>
                     </div>
 
                     <h3 class="section-title">Your Accounts</h3>
-                    <div class="accounts-grid">
+                    <div class="accounts-grid" th:each="account : ${useraccounts}">
                         <div class="account-card">
                             <div class="account-header">
                                 <div>
-                                    <h3 class="account-type">Checking Account</h3>
-                                    <p class="account-number">**** 4321</p>
+                                    <h3 class="account-type"><span  th:text="${account.getStatus()}"></span> Account</h3>
+                                    <p class="account-number" th:text="${account.getAccountNumber()}"></p>
                                 </div>
                                 <div class="account-icon">💳</div>
                             </div>
-                            <div class="account-balance">$2,250.00</div>
-                        </div>
-                        <div class="account-card">
-                            <div class="account-header">
-                                <div>
-                                    <h3 class="account-type">Savings Account</h3>
-                                    <p class="account-number">**** 8765</p>
-                                </div>
-                                <div class="account-icon">💳</div>
-                            </div>
-                            <div class="account-balance">$3,000.00</div>
+                            <div class="account-balance"><span th:text="${account.getBalance()}"></span>$</div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +108,14 @@ xmlns:th="http://www.thymeleaf.org">
                                     <th>Status</th>
                                 </tr>
                                 </thead>
-                                <tbody id="transactionsTableBody">
+                                <tbody id="transactionsTableBody" th:each="transaction : ${user_transactions}">
+                                    <tr>
+                                        <td th:text="${#dates.format(transaction.getTransactionDate(), 'dd MMM yyyy')}"></td>
+                                        <td th:text="${transaction.getDescription()}"></td>
+                                        <td th:text="${transaction.getTransactionType()}"></td>
+                                        <td th:text="${transaction.getAmount()} + ' $'"></td>
+                                        <td th:text="${transaction.getTransactionStatus()}"></td>
+                                    </tr>
                                 <!-- Transactions will be populated by JavaScript -->
                                 </tbody>
                             </table>

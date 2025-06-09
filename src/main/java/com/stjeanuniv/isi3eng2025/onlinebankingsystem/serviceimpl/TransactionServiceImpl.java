@@ -100,7 +100,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getUserTransactions(Long userId, LocalDateTime since) {
+    public List<Transaction> getUserTransactionsSince(Long userId, LocalDateTime since) {
         return transactionRepository.findUserTransactionSince(userId,since);
     }
 
@@ -181,6 +181,11 @@ public class TransactionServiceImpl implements TransactionService {
 
         transaction.setTransactionStatus(TransactionStatus.FAILED);
         return transactionRepository.save(transaction);
+    }
+
+    @Override
+    public List<Transaction> getTransactionsByAccountId(Long accountId) {
+        return transactionRepository.findByFromAccountIdOrToAccountId(accountId);
     }
 
     private void processTransaction(Transaction transaction) {

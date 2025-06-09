@@ -18,7 +18,7 @@ public interface TransactionService {
 
     List<Transaction> getRecentTransactions(int count);
 
-    List<Transaction> getUserTransactions(Long userId, LocalDateTime since);
+    List<Transaction> getUserTransactionsSince(Long userId, LocalDateTime since);
 
     long countAllTransactions();
 
@@ -31,5 +31,7 @@ public interface TransactionService {
     Transaction approveTransaction(Long transactionId);
 
     Transaction rejectTransaction(Long transactionId);
+
+    List<Transaction> getTransactionsByAccountId(Long accountId);
 }
 
