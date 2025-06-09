@@ -66,4 +66,5 @@ public class AdminController {
         // Load settings from database or default values
         return "/admin/admin-settings";
     }
+
 }

@@ -27,6 +27,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query("SELECT COUNT(u) FROM User u WHERE u.active = 'INACTIVE'")
     long countInactiveUsers();
 
+
     @Query("SELECT u FROM User u WHERE u.fullName LIKE %:keyword% OR u.email LIKE %:keyword%")
     List<User> searchUsers(String keyword);
 

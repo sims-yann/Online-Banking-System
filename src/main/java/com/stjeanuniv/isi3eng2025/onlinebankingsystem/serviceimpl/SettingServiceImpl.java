@@ -45,7 +45,7 @@ public class SettingServiceImpl implements SettingService {
     @Transactional
     public void updateSecuritySettings(SecuritySettingsDto settings) {
       updateSetting("security.session_timeout", String.valueOf(settings.getSessionTimeout()));
-      updateSetting("security.strong_passwords", String.valueOf(settings.isRequireStrongPasswords()));
+      updateSetting("security.strong_passwords", String.valueOf(settings.isRequireStrongPassword()));
       updateSetting("security.two_factor", String.valueOf(settings.isEnableTwoFactorAuth()));
     }
 
@@ -60,36 +60,46 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     public void updateNotificationSettings(Map<String, String> settings) {
-
+        settings.forEach(this::updateSetting);
     }
 
     @Override
     public SystemSetting getSettingByKey(String key) {
-        return null;
+        return settingRepository.findBySettingKey(key).orElseGet(() ->{SystemSetting setting = new SystemSetting();
+        setting.setSettingKey(key);
+        setting.setSettingValue("");
+        return setting;});
     }
 
     @Override
     public String getSettingValue(String key, String defaultValue) {
-        return "";
+        return settingRepository.findBySettingKey(key)
+                .map(SystemSetting::getSettingValue)
+                .orElse(defaultValue);
     }
 
     @Override
     public int getSessionTimeout() {
-        return 0;
+        return Integer.parseInt(getSettingValue("security,session_timeout","30"));
     }
 
     @Override
     public BigDecimal getDailyTransferLimit() {
-        return null;
+        return new BigDecimal(getSettingValue("security,daily_limit","10000"));
     }
 
     @Override
     public BigDecimal getPerTransactionLimit() {
-        return null;
+        return new BigDecimal(getSettingValue("security,per_transaction_limit","10000"));
     }
 
     @Override
     public BigDecimal getApprovalThreshold() {
-        return null;
+        return new BigDecimal(getSettingValue("security,approval_threshold","1000"));
+    }
+    private void updateSetting(String key, String value) {
+        SystemSetting setting = settingRepository.findBySettingKey(key).orElseGet(()-> new SystemSetting(key,value));
+        setting.setSettingValue(value);
+        settingRepository.save(setting);
     }
 }

@@ -68,10 +68,10 @@ public class TransactionServiceImpl implements TransactionService {
             accountRepository.save(toAccount);
 
             // Update transaction status and save
-            transaction.setTransactionStatus(TransactionStatus.COMPLETED);
+            transaction.setStatus("COMPLETED");
             return transactionRepository.save(transaction);
         } catch (Exception e) {
-            transaction.setTransactionStatus(TransactionStatus.FAILED);
+            transaction.setStatus("FAILED");
             transactionRepository.save(transaction);
             throw new Exception("Transfer failed: " + e.getMessage());
         }
@@ -127,14 +127,14 @@ public class TransactionServiceImpl implements TransactionService {
         Account fromAccount = null;
         Account toAccount = null;
 
-        if (transactionDto.getFromAccountNumber() != null) {
-            fromAccount = accountRepository.findByAccountNumber(transactionDto.getFromAccountNumber())
-                    .orElseThrow(() -> new RuntimeException("From account not found"));
+        if (transactionDto.getFromAccountId() != null) {
+            fromAccount = accountRepository.findById(transactionDto.getFromAccountId())
+                    .orElseThrow(() -> new ResourceNotFoundException("From account not found"));
         }
 
-        if (transactionDto.getToAccountNumber() != null) {
-            toAccount = accountRepository.findByAccountNumber(transactionDto.getToAccountNumber())
-                    .orElseThrow(() -> new RuntimeException("To account not found"));
+        if (transactionDto.getToAccountId() != null) {
+            toAccount = accountRepository.findById(transactionDto.getToAccountId())
+                    .orElseThrow(() -> new ResourceNotFoundException("To account not found"));
         }
 
         Transaction transaction = new Transaction();
@@ -146,7 +146,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         BigDecimal approvalThreshold = settingService.getApprovalThreshold();
         if (transactionDto.getAmount().compareTo(approvalThreshold) > 0) {
-            transaction.setTransactionStatus(TransactionStatus.PENDING);
+            transaction.setStatus(TransactionStatus.PENDING);
         } else {
             processTransaction(transaction);
         }
@@ -158,10 +158,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public Transaction approveTransaction(Long transactionId) {
         Transaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
 
         if (transaction.getTransactionStatus() != TransactionStatus.PENDING) {
-            throw new RuntimeException("Only pending transactions can be approved");
+            throw new InvalidTransactionException("Only pending transactions can be approved");
         }
 
         processTransaction(transaction);
@@ -172,10 +172,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public Transaction rejectTransaction(Long transactionId) {
         Transaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
 
         if (transaction.getTransactionStatus() != TransactionStatus.PENDING) {
-            throw new RuntimeException("Only pending transactions can be rejected");
+            throw new InvalidTransactionException("Only pending transactions can be rejected");
         }
 
         transaction.setTransactionStatus(TransactionStatus.FAILED);
@@ -195,7 +195,7 @@ public class TransactionServiceImpl implements TransactionService {
                     processTransfer(transaction);
                     break;
                 default:
-                    throw new RuntimeException("Invalid transaction type");
+                    throw new InvalidTransactionException("Invalid transaction type");
             }
             transaction.setTransactionStatus(TransactionStatus.COMPLETED);
         } catch (Exception e) {

@@ -18,15 +18,15 @@ public class AdminDashboardController {
     @GetMapping("/statistics")
     public AdminStatisticsDTO getStatistics() {
         AdminStatisticsDTO stats = new AdminStatisticsDTO();
-        stats.totalUsers = 3;
-        stats.activeUsers = 3;
-        stats.inactiveUsers = 0;
-        stats.totalAccounts = 4;
-        stats.activeAccounts = 4;
-        stats.suspendedAccounts = 0;
-        stats.totalTransactions = 10;
-        stats.pendingTransactions = 0;
-        stats.failedTransactions = 0;
+        stats.setTotalUsers(3);
+        stats.setActiveUsers(3);
+        stats.setInactiveUsers(0);
+        stats.setTotalAccounts(4);
+        stats.setActiveAccounts(4);
+        stats.setSuspendedAccounts(0);
+        stats.setTotalTransactions(10);
+        stats.setPendingTransactions(0);
+        stats.setFailedTransactions(0);
         return stats;
     }
 
@@ -54,19 +54,19 @@ public class AdminDashboardController {
     public List<RecentTransactionDTO> getRecentTransactions() {
         RecentTransactionDTO t1 = new RecentTransactionDTO();
         t1.type = TransactionType.TRANSFER;
-        t1.date = LocalDateTime.parse("May 1, 10:30 AM");
+        t1.date = LocalDateTime.now();
         t1.amount = 500.00;
         t1.status = TransactionStatus.COMPLETED;
 
         RecentTransactionDTO t2 = new RecentTransactionDTO();
         t2.type = TransactionType.TRANSFER;
-        t2.date = LocalDateTime.parse("May 10, 06:45 PM");
+        t2.date = LocalDateTime.now();
         t2.amount = 125.50;
         t2.status = TransactionStatus.COMPLETED;
 
         RecentTransactionDTO t3 = new RecentTransactionDTO();
         t3.type = TransactionType.DEPOSIT;
-        t3.date = LocalDateTime.parse("May 15, 09:00 AM");
+        t3.date = LocalDateTime.now();
         t3.amount = 2500.00;
         t3.status = TransactionStatus.COMPLETED;
 
