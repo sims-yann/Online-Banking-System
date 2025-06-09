@@ -20,5 +20,5 @@ public interface TransferService {
 
     public List<Transfer> getTransferList();
 
-    public void
+    public List<Transfer> getTransferListByAccount(Account account);
 }

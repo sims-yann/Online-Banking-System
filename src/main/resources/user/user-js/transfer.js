@@ -6,7 +6,7 @@ const accounts = [
         accountNumber: "1234567890",
         type: "checking",
         balance: 2250.00,
-        currency: "USD",
+        currency: "XAF",
         interestRate: "0.01%",
         openedDate: new Date("2023-01-15"),
         status: "active"
@@ -17,7 +17,7 @@ const accounts = [
         accountNumber: "9876543210",
         type: "savings",
         balance: 3000.00,
-        currency: "USD",
+        currency: "XAF",
         interestRate: "0.5%",
         openedDate: new Date("2023-01-15"),
         status: "active"
@@ -32,7 +32,7 @@ const transfers = [
         toAccountId: "external1",
         recipientName: "Amazon",
         amount: 120.50,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Payment to Amazon",
@@ -44,7 +44,7 @@ const transfers = [
         toAccountId: "acc2",
         recipientName: "My Savings",
         amount: 500.00,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Transfer to savings",
@@ -56,7 +56,7 @@ const transfers = [
         toAccountId: "external2",
         recipientName: "John Smith",
         amount: 50.00,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Payment to friend",
@@ -66,9 +66,9 @@ const transfers = [
 
 // Utility Functions
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-CM', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'XAF',
     }).format(amount);
 }
 
@@ -223,7 +223,7 @@ function initializeTransferForms() {
             toAccountId,
             recipientName: getAccountById(toAccountId).type,
             amount,
-            currency: "USD",
+            currency: "XAF",
             type: "transfer",
             status: "completed",
             description: description || "Transfer between accounts",
@@ -269,7 +269,8 @@ function initializeTransferForms() {
             recipientAccount,
             recipientBank,
             amount,
-            currency: "USD",
+            currency: "XAF",
+            currency: "XAF",
             type: "transfer",
             status: "completed",
             description: description || `Payment to ${recipientName}`,

@@ -6,7 +6,7 @@ const accounts = [
         accountNumber: "1234567890",
         type: "checking",
         balance: 2250.00,
-        currency: "USD",
+        currency: "XAF",
         interestRate: "0.01%",
         openedDate: new Date("2023-01-15"),
         status: "active"
@@ -17,7 +17,7 @@ const accounts = [
         accountNumber: "9876543210",
         type: "savings",
         balance: 3000.00,
-        currency: "USD",
+        currency: "XAF",
         interestRate: "0.5%",
         openedDate: new Date("2023-01-15"),
         status: "active"
@@ -31,7 +31,7 @@ const transactions = [
         fromAccountId: "external2",
         toAccountId: "acc2",
         amount: 1500.00,
-        currency: "USD",
+        currency: "XAF",
         type: "deposit",
         method: "direct-deposit",
         status: "completed",
@@ -43,7 +43,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "",
         amount: 200.00,
-        currency: "USD",
+        currency: "XAF",
         type: "withdraw",
         method: "atm",
         status: "completed",
@@ -55,7 +55,7 @@ const transactions = [
         fromAccountId: "external4",
         toAccountId: "acc1",
         amount: 75.00,
-        currency: "USD",
+        currency: "XAF",
         type: "deposit",
         method: "check",
         checkNumber: "12345",
@@ -68,7 +68,7 @@ const transactions = [
         fromAccountId: "external7",
         toAccountId: "acc2",
         amount: 1000.00,
-        currency: "USD",
+        currency: "XAF",
         type: "deposit",
         method: "direct-deposit",
         status: "completed",
@@ -79,14 +79,14 @@ const transactions = [
 
 // Utility Functions
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-CM', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'XAF',
     }).format(amount);
 }
 
 function formatDate(date) {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat('en-CM', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('view-account-button').addEventListener('click', function() {
-        window.location.href = "/accounts";
+        window.location.href = "accounts.html";
     });
 
     // Close modal when clicking outside
@@ -227,7 +227,7 @@ function initializeDepositForm() {
             fromAccountId: `external-${Date.now()}`,
             toAccountId: accountId,
             amount,
-            currency: "USD",
+            currency: "XAF",
             type: "deposit",
             method,
             status: "completed",
@@ -318,7 +318,7 @@ function initializeWithdrawForm() {
             fromAccountId: accountId,
             toAccountId: "",
             amount,
-            currency: "USD",
+            currency: "XAF",
             type: "withdraw",
             method,
             status: "completed",

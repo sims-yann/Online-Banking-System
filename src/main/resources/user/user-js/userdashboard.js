@@ -13,7 +13,7 @@ const accounts = [
         accountNumber: "1234567890",
         type: "checking",
         balance: 2250.00,
-        currency: "USD",
+        currency: "XAF",
         createdAt: new Date("2023-01-15"),
         status: "active"
     },
@@ -23,7 +23,7 @@ const accounts = [
         accountNumber: "9876543210",
         type: "savings",
         balance: 3000.00,
-        currency: "USD",
+        currency: "XAF",
         createdAt: new Date("2023-01-15"),
         status: "active"
     }
@@ -36,7 +36,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "external1",
         amount: 120.50,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Payment to Amazon",
@@ -47,7 +47,7 @@ const transactions = [
         fromAccountId: "external2",
         toAccountId: "acc2",
         amount: 1500.00,
-        currency: "USD",
+        currency: "XAF",
         type: "deposit",
         status: "completed",
         description: "Salary deposit",
@@ -58,7 +58,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "external3",
         amount: 45.99,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Netflix subscription",
@@ -69,7 +69,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "",
         amount: 200.00,
-        currency: "USD",
+        currency: "XAF",
         type: "withdraw",
         status: "completed",
         description: "ATM withdrawal",
@@ -80,7 +80,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "acc2",
         amount: 500.00,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Transfer to savings",
@@ -90,9 +90,9 @@ const transactions = [
 
 // Utility Functions
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-CM', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'XAF',
     }).format(amount);
 }
 
@@ -172,7 +172,7 @@ function initializeSpendingChart() {
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
-                            return '$' + value;
+                            return 'XAF' + value;
                         }
                     }
                 }
@@ -181,7 +181,7 @@ function initializeSpendingChart() {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return context.dataset.label + ': $' + context.raw;
+                            return context.dataset.label + ': XAF' + context.raw;
                         }
                     }
                 }

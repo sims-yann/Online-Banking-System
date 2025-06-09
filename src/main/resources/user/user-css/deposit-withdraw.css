@@ -110,10 +110,11 @@
 
 .currency-symbol {
     position: absolute;
-    left: 12px;
+    left: 8px;
     top: 50%;
     transform: translateY(-50%);
     color: #666;
+
 }
 
 .amount-input-container input {

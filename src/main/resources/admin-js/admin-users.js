@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('logout-button').addEventListener('click', function() {
         console.log('Logout clicked');
         alert('Logging out...');
-        window.location.href = "/login";
+        window.location.href = "../login";
     });
 
     // Setup user actions dropdown functionality

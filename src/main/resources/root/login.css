@@ -194,13 +194,4 @@ a:hover {
     text-decoration: underline;
 }
 
-.demo-accounts {
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    color: var(--text-gray-600);
-    text-align: center;
-}
 
-.demo-accounts p {
-    margin-bottom: 0.25rem;
-}

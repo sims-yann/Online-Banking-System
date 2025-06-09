@@ -5,7 +5,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "external1",
         amount: 120.50,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Payment to Amazon",
@@ -16,7 +16,7 @@ const transactions = [
         fromAccountId: "external2",
         toAccountId: "acc2",
         amount: 1500.00,
-        currency: "USD",
+        currency: "XAF",
         type: "deposit",
         status: "completed",
         description: "Salary deposit",
@@ -27,7 +27,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "external3",
         amount: 45.99,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Netflix subscription",
@@ -38,7 +38,7 @@ const transactions = [
         fromAccountId: "acc1",
         toAccountId: "",
         amount: 200.00,
-        currency: "USD",
+        currency: "XAF",
         type: "withdraw",
         status: "pending",
         description: "ATM withdrawal",
@@ -49,7 +49,7 @@ const transactions = [
         fromAccountId: "acc3",
         toAccountId: "acc2",
         amount: 500.00,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "failed",
         description: "Transfer to savings",
@@ -60,7 +60,7 @@ const transactions = [
         fromAccountId: "external4",
         toAccountId: "acc1",
         amount: 350.00,
-        currency: "USD",
+        currency: "XAF",
         type: "deposit",
         status: "pending",
         description: "Check deposit",
@@ -71,7 +71,7 @@ const transactions = [
         fromAccountId: "acc2",
         toAccountId: "external5",
         amount: 75.25,
-        currency: "USD",
+        currency: "XAF",
         type: "transfer",
         status: "completed",
         description: "Utility payment",
@@ -87,14 +87,14 @@ let endDate = null;
 
 // Utility Functions
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-CM', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'XAF',
     }).format(amount);
 }
 
 function formatDateTime(date) {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat('en-CM', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('logout-button').addEventListener('click', function() {
         console.log('Logout clicked');
         alert('Logging out...');
-        window.location.href = "/login";
+        window.location.href = "login.html";
     });
 
     // Setup transaction actions dropdown functionality

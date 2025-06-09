@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Accounts</title>
-    <link rel="stylesheet" href="/user/user-html/user-css/userdashboard.css">
-    <link rel="stylesheet" href="../user-html/user-css/accounts.css">
+    <link rel="stylesheet" href="/user/user-css/userdashboard.css">
+    <link rel="stylesheet" href="../user-css/accounts.css">
 </head>
 <body>
 <div class="layout">
@@ -58,7 +58,7 @@
                             <p class="card-subtitle">Combined balance across all accounts</p>
                         </div>
                         <div class="card-content">
-                            <div class="total-balance">$5,250.00</div>
+                            <div class="total-balance">FCFA5,250.00</div>
                         </div>
                     </div>
                 </div>
@@ -82,6 +82,43 @@
     </div>
 </div>
 
+<!-- New Account Creation Modal -->
+<div class="modal" id="new-account-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Open New Account</h2>
+            <button class="close-modal">✖</button>
+        </div>
+        <div class="modal-body">
+            <form id="new-account-form">
+                <div class="form-group">
+                    <label for="account-type" class="account-info-label">Account Type</label>
+                    <select id="account-type" name="account-type" required>
+                        <option value="" disabled selected>Select account type</option>
+                        <option value="checking">Checking</option>
+                        <option value="savings">Savings</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="initial-deposit" class="account-info-label">Initial Deposit</label>
+                    <input type="number" id="initial-deposit" name="initial-deposit" min="0" step="0.01" placeholder="Enter amount" required>
+                </div>
+                <div id="form-error" class="error-message" style="display: none;"></div>
+                <div class="account-actions-row">
+                    <button type="submit" class="primary-button">
+                        <span class="icon">➕</span>
+                        Create Account
+                    </button>
+                    <button type="button" class="action-button close-modal">
+                        <span class="icon">✖</span>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="account-details-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -93,7 +130,11 @@
         </div>
     </div>
 </div>
+<!-- Toast Notification -->
+<div id="toast-notification" class="toast">
+    <span id="toast-message"></span>
+</div>
 
-<script src="../user-html/user-js/accounts.js"></script>
+<script src="../user-js/accounts.js"></script>
 </body>
 </html>
