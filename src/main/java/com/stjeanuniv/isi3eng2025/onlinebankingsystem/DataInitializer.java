@@ -6,9 +6,11 @@ import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AdminRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,17 +22,15 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepo userRepo;
     private final AccountRepo accountRepo;
     private final PasswordEncoder passwordEncoder;
-    private final AdminRepo adminRepo;
 
     @Autowired
     public DataInitializer(UserRepo userRepo,
                            AccountRepo accountRepo,
-                           PasswordEncoder passwordEncoder,
-                           AdminRepo adminRepo) {
+                           PasswordEncoder passwordEncoder
+                           ) {
         this.userRepo = userRepo;
         this.accountRepo = accountRepo;
         this.passwordEncoder = passwordEncoder;
-        this.adminRepo = adminRepo;
     }
 
 
@@ -56,34 +56,29 @@ public class DataInitializer implements CommandLineRunner {
     private void createAdmin(String username, String email,
                              String department, String position,
                              String accountNumber) {
-        Admin admin = new Admin();
-        admin.setName(username);
+        User admin = new User();
+        admin.setFullName(username);
         admin.setEmail(email);
         admin.setPassword(passwordEncoder.encode(username + "Pass")); // admin1Pass
-        admin.setPhone(1234567890);
-        admin.setCreationDate(new Date());
-        admin.setDepartment(department);
-        admin.setPosition(position);
-        adminRepo.save(admin);
+        admin.setPhone("1234567890");
+        admin.setActive(AccountStatus.ACTIVE);
+        admin.setRole(Role.ADMIN);
+        userRepo.save(admin);
 
 
-        createAccount(admin, accountNumber, "CURRENT", 50000.0);
+        createAccount(admin, , 50000.0);
     }
 
     private void createCustomer(String username, String email,
                                 String firstName, String lastName,
                                 String address, String birthDateStr,
                                 String nationalId, String accountNumber) {
-        Customer customer = new Customer();
-        customer.setName(username);
+        User customer = new User();
+        customer.setFullName(username);
         customer.setEmail(email);
         customer.setPassword(passwordEncoder.encode(username + "Pass")); // customer1Pass
-        customer.setPhone(9876543210L);
-        customer.setCreationDate(new Date());
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
-        customer.setAddress(address);
-        customer.setNationalCardNumber(nationalId);
+        customer.setPhone("9876543210L");
+
         try {
             customer.setBirthDate(parseDateLegacy(birthDateStr));
         } catch (ParseException e) {

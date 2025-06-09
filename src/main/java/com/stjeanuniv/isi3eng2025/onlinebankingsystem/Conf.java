@@ -1,10 +1,6 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem;
 
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Admin;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Customer;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.AdminRepo;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.CustomerRepo;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.UserRepo;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +16,12 @@ public class Conf {
     @Autowired
     private UserRepo user_repo;
 
-    @Autowired
-    private AdminRepo admin_repo;
-
     @Setter
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Bean
-    CommandLineRunner commandLineRunner(AdminRepo admin_repo, CustomerRepo customer_repo) {
+    CommandLineRunner commandLineRunner() {
         return args -> {
             // Create admin user if it doesn't exist
             if (admin_repo.count() == 0) {
