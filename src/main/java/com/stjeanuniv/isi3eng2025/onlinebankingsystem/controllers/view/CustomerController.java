@@ -59,7 +59,7 @@ public class CustomerController {
         }
 
         model.addAttribute("email", email);
-        model.addAttribute("username", user.getFullName());
+        model.addAttribute("user", user);
         model.addAttribute("total_balance", total_balance);
         model.addAttribute("useraccounts", useraccounts);
         model.addAttribute("user_transactions", user_transactions);

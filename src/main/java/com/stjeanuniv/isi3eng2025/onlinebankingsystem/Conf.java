@@ -71,7 +71,7 @@ public class Conf {
                 acct2.setStatus(AccountStatus.ACTIVE);
                 acct2.setCreatedAt(java.time.LocalDateTime.now());
                 acct2.setUpdatedAt(java.time.LocalDateTime.now());
-                accountRepo.save(acct1);
+                accountRepo.save(acct2);
                 System.out.println("acct number: "+acctservice.generateAccountNumber());
             }
 
