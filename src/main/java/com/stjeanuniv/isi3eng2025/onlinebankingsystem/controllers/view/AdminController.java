@@ -1,16 +1,15 @@
 package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controllers.view;
 
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.*;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Role;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.TransactionStatus;
-import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.User;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.*;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.SettingService;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransactionService;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +42,9 @@ public class AdminController {
 
     @Autowired
     private SettingService settingService;
+
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
@@ -209,6 +211,73 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating transaction settings: " + e.getMessage());
         }
         return "redirect:/admin/settings";
+    }
+
+    @GetMapping("/accounts")
+    public String adminAccountsPage(Model model) {
+        List<Account> allAccounts = accountService.getAllAccounts();
+        List<Account> pendingAccounts = allAccounts.stream()
+                .filter(account -> account.getStatus() == AccountStatus.INACTIVE)
+                .toList();
+
+        model.addAttribute("pendingAccounts", pendingAccounts);
+        model.addAttribute("allAccounts", allAccounts);
+
+        return "Admin/accounts";
+    }
+
+    @PostMapping("/accounts/{accountId}/approve")
+    @ResponseBody
+    public ResponseEntity<?> approveAccount(@PathVariable Long accountId) {
+        try {
+            accountService.changeAccountStatus(accountId, AccountStatus.ACTIVE);
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Account approved successfully"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Failed to approve account: " + e.getMessage()
+            ));
+        }
+    }
+
+    @PostMapping("/accounts/{accountId}/reject")
+    @ResponseBody
+    public ResponseEntity<?> rejectAccount(@PathVariable Long accountId) {
+        try {
+            accountService.changeAccountStatus(accountId, AccountStatus.CLOSED);
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Account rejected successfully"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Failed to reject account: " + e.getMessage()
+            ));
+        }
+    }
+
+    @PostMapping("/accounts/{accountId}/suspend")
+    @ResponseBody
+    public ResponseEntity<?> suspendAccount(@PathVariable Long accountId) {
+        try {
+            accountService.changeAccountStatus(accountId, AccountStatus.SUSPENDED);
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "message", "Account suspended successfully"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", "Failed to suspend account: " + e.getMessage()
+            ));
+        }
     }
 
 

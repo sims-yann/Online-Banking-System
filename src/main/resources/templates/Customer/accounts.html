@@ -87,7 +87,7 @@
                             <div class="account-info">
                                 <div class="account-info-item">
                                     <div class="account-info-label">Account Status</div>
-                                    <div class="account-info-value" th:text="${account.status}">Active</div>
+                                    <div class="account-info-value"><span class="status-badge" th:classappend="${'status-' + #strings.toLowerCase(account.status)}" th:text="${account.status}">Active</span></div>
                                 </div>
                                 <div class="account-info-item">
                                     <div class="account-info-label">Opening Date</div>

@@ -72,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
     public Map<String, Object> viewAccountDetails(Long id) {
         Account ac = accountRepo.findById(id).get();
         Map<String, Object> details = new HashMap<>();
-        details.put("balace", ac.getBalance());
+        details.put("balance", ac.getBalance());
         details.put("createdDate", ac.getCreatedAt());
         details.put("type", ac.getAccountType());
         details.put("status", ac.getStatus());
