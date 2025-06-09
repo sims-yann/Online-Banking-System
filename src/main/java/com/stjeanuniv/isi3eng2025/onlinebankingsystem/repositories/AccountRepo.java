@@ -25,10 +25,10 @@ public interface AccountRepo extends JpaRepository<Account, Long> {
     @Query("SELECT COUNT(a) FROM Account a WHERE a.status = :status")
     long countByStatus(AccountStatus status);
 
-    @Query("SELECT COUNT(a) FROM Account a WHERE a.status = 'ACTIVE'")
+    @Query("SELECT COUNT(a) FROM Account a WHERE a.status = com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus.ACTIVE")
     long countActiveAccounts();
 
-    @Query("SELECT COUNT(a) FROM Account a WHERE a.status = 'SUSPENDED'")
+    @Query("SELECT COUNT(a) FROM Account a WHERE a.status = com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus.SUSPENDED")
     long countSuspendedAccounts();
 
     boolean existsByAccountNumber(String accountNumber);

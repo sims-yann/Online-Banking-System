@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
@@ -16,15 +15,15 @@ public interface UserRepo extends JpaRepository<User, Long> {
     User findByEmail(String email);
     Optional<User> findByFullName(String username);
     List<User> findAll();
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     List<User> findByRole(Role role);
     List<User> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
 
-    @Query("SELECT COUNT(u) FROM User u WHERE u.active = 'ACTIVE'")
+    @Query("SELECT COUNT(u) FROM User u WHERE u.active = com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus.ACTIVE")
     long countActiveUsers();
 
-    @Query("SELECT COUNT(u) FROM User u WHERE u.active = 'INACTIVE'")
+    @Query("SELECT COUNT(u) FROM User u WHERE u.active = com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.AccountStatus.SUSPENDED")
     long countInactiveUsers();
 
 
@@ -35,7 +34,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     List<User> findRecentUsers();
 
     @Modifying
-    @Query("UPDATE User u set u.active= :active WHERE u.id= :userId")
+    @Query("UPDATE User u set u.active= :status WHERE u.id= :userId")
     void updateUserStatus(Long userId, AccountStatus status);
 
     boolean existsByEmail(String email);

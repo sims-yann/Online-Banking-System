@@ -28,12 +28,12 @@ public interface AccountService {
     Account createAccount(AccountDto accountDto);
     //Account updateAccount(Long accountId, AccountDto accountDto);
     void changeAccountStatus(Long accountId, AccountStatus status);
-    Optional<Account> getAccountById(Long accountId);
-    Optional<Account> getAccountByNumber(String accountNumber);
+    Account getAccountById(Long accountId);
+    Account getAccountByNumber(String accountNumber);
     List<Account> getUserAccounts(Long userId);
     long countAllAccounts();
     long countActiveAccounts();
     BigDecimal getTotalBalanceByUser(Long userId);
-    private String generateAccountNumber();
+    String generateAccountNumber();
 
 }

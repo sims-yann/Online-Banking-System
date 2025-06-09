@@ -18,15 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepo userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepo userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepo userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     @Transactional
@@ -64,11 +67,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
+   @Override
     @Transactional
     public User updateUser(Long userId, UserUpdateDto userDto) {
-        User user = userRepository.findById(userId);
-//                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (userDto.getFullName() != null) {
             user.setFullName(userDto.getFullName());
@@ -90,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long userId) {
+    public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
 //                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }

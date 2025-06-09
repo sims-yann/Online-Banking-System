@@ -19,8 +19,6 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     long countPendingTransactions();
 
 
-    List<Transaction> findTransactionByFromAccountOrToAccount_Id(Long fromAccount, Long toAccountId);
-
     @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'FAILED'")
     long countFailedTransactions();
 
@@ -41,7 +39,7 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     @Query("SELECT t FROM Transaction t WHERE " +
            "(t.fromAccount.user.id = :userId OR t.toAccount.user.id = :userId) " +
-           "AND t.createdAt >= :startDate")
+           "AND t.createdAt >= :since")
     List<Transaction> findUserTransactionSince(Long userId, LocalDateTime since);
 
      @Query("SELECT COUNT(t) FROM Transaction t WHERE t.transactionStatus = 'COMPLETED'")
@@ -49,7 +47,7 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
 
     @Query("SELECT SUM(t.amount) FROM Transaction t WHERE " +
            "t.transactionType = 'TRANSFER' AND t.transactionStatus = 'COMPLETED' " +
-           "AND t.createdAt BETWEEN :startDate AND :endDate")
+           "AND t.createdAt BETWEEN :startOfDay AND :now")
     BigDecimal getTotalTransfersBetween(LocalDateTime startOfDay, LocalDateTime now);
 
     List<Transaction> findTop5ByOrderByCreatedAtDesc();

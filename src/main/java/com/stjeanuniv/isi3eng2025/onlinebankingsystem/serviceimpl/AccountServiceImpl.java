@@ -137,7 +137,7 @@ public class AccountServiceImpl implements AccountService {
         return accountRepo.getTotalBalanceByUserId(userId);
     }
 
-    private String generateAccountNumber() {
+    public String generateAccountNumber() {
         Random random = new Random();
         long number = 1000000000L + random.nextInt(900000000);
         return String.valueOf(number);

@@ -23,4 +23,28 @@ public class UserUpdateDto {
     @Pattern(regexp = "^\\+?[0-9\\-\\s]+$", message = "Phone number should be valid")
     @Size(min = 6, max = 20, message = "Phone number must be between 6 and 20 characters")
     private String phone;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

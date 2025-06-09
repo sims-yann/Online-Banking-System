@@ -18,7 +18,6 @@ import static com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.Role.*;
 @Service
 public class CustomeruserDetails implements UserDetailsService {
 
-    @Autowired
     private final UserRepo user_repo;
 
     public CustomeruserDetails(UserRepo user_repo) {

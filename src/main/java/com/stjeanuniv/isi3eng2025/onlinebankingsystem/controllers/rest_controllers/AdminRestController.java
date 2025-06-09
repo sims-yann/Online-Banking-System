@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/Admin")
-public class AdminController {
+public class AdminRestController {
 
     @Autowired
     private final TransactionServiceImpl transactionService;
 
-    public AdminController(TransactionServiceImpl transactionService) {
+    public AdminRestController(TransactionServiceImpl transactionService) {
         this.transactionService = transactionService;
     }
 
