@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Transactions</title>
-    <link rel="stylesheet" th:href="@{/customer-css/userdashboard.css}">
-    <link rel="stylesheet" th:href="@{/customer-css/transactions.css}">
+    <link rel="stylesheet" th:href="@{/customerCss/userdashboard.css}">
+    <link rel="stylesheet" th:href="@{/customerCss/transactions.css}">
 </head>
 <body>
 <div class="layout">
@@ -41,7 +41,7 @@
     <div class="main-content">
         <!-- Header -->
         <header class="dashboard-header">
-            <h2 class="welcome-text" th:text="'Welcome, ' + ${user.fullName}">Welcome, John Doe</h2>
+            <h2 class="welcome-text" th:text="'Welcome, ' + ${user.fullName}"></h2>
             <div class="user-avatar">
                 <div class="avatar-circle">👤</div>
             </div>
@@ -203,6 +203,6 @@
     </div>
 </div>
 
-<script th:src="@{/customer-js/transactions.js}"></script>
+<script th:src="@{/customerJs/transactions.js}"></script>
 </body>
 </html>

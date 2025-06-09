@@ -5,7 +5,7 @@ xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Dashboard</title>
-    <link rel="stylesheet" th:href="@{/customer-css/user-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/customerCss/userDashboard.css}">
 </head>
 <body>
 <div class="layout">
@@ -57,7 +57,7 @@ xmlns:th="http://www.thymeleaf.org">
                             <p class="card-subtitle">Combined balance across <span th:text="${useraccounts.size()}"></span> accounts</p>
                         </div>
                         <div class="card-content">
-                            <div class="total-balance" th:text="${total_balance}"></div>
+                            <div class="total-balance" th:text="${total_balance}+XAF"></div>
                         </div>
                     </div>
 
@@ -66,12 +66,12 @@ xmlns:th="http://www.thymeleaf.org">
                         <div class="account-card">
                             <div class="account-header">
                                 <div>
-                                    <h3 class="account-type"><span  th:text="${account.getStatus()}"></span> Account</h3>
+                                    <h3 class="account-type"><span  th:text="${account.getAccountType()}"></span> Account</h3>
                                     <p class="account-number" th:text="${account.getAccountNumber()}"></p>
                                 </div>
                                 <div class="account-icon">💳</div>
                             </div>
-                            <div class="account-balance"><span th:text="${account.getBalance()}"></span>$</div>
+                            <div class="account-balance"><span th:text="${account.getBalance()}"></span>XAF</div>
                         </div>
                     </div>
                 </div>
@@ -128,6 +128,6 @@ xmlns:th="http://www.thymeleaf.org">
 </div>
 
 <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js}"></script>
-<script th:src="@{/customer-js/userdashboard.js}"></script>
+<script th:src="@{/customerJs/userdashboard.js}"></script>
 </body>
 </html>

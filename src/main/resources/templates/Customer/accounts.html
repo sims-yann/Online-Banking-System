@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreBank Accounts</title>
-    <link rel="stylesheet" th:href="@{/customer-css/userdashboard.css}">
-    <link rel="stylesheet" th:href="@{/customer-css/accounts.css}">
+    <link rel="stylesheet" th:href="@{/customerCss/userdashboard.css}">
+    <link rel="stylesheet" th:href="@{/customerCss/accounts.css}">
 </head>
 <body>
 <div class="layout">
@@ -17,8 +17,8 @@
 
        <nav class="sidebar-nav">
             <ul>
-                <li><a th:href="@{/customer/dashboard}" class="active"><span class="icon">🏠</span><span>Dashboard</span></a></li>
-                <li><a th:href="@{/customer/accounts}"><span class="icon">💾</span><span>Accounts</span></a></li>
+                <li><a th:href="@{/customer/dashboard}" ><span class="icon">🏠</span><span>Dashboard</span></a></li>
+                <li><a th:href="@{/customer/accounts}" class="active"><span class="icon">💾</span><span>Accounts</span></a></li>
                 <li><a th:href="@{/customer/transfer}"><span class="icon">💳</span><span>Transfer</span></a></li>
                 <li><a th:href="@{/customer/transactions}"><span class="icon">🕒</span><span>Transactions</span></a></li>
                 <li><a th:href="@{/customer/deposit-Withdraw}"><span class="icon">💵</span><span>Deposit/Withdraw</span></a></li>
@@ -60,7 +60,7 @@
                             <p class="card-subtitle">Combined balance across all accounts</p>
                         </div>
                         <div class="card-content">
-                            <div class="total-balance" th:text="${'$' + #numbers.formatDecimal(totalBalance, 1, 'COMMA', 2, 'POINT')}">$5,250.00</div>
+                            <div class="total-balance" th:text="${'XAF' + #numbers.formatDecimal(totalBalance, 1, 'COMMA', 2, 'POINT')}">$5,250.00</div>
                         </div>
                     </div>
                 </div>
@@ -153,6 +153,6 @@
     </div>
 </div>
 
-<script th:src="@{/customer-js/accounts.js}"></script>
+<script th:src="@{/customerJs/accounts.js}"></script>
 </body>
 </html>

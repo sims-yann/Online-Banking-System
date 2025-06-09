@@ -3,22 +3,28 @@ package com.stjeanuniv.isi3eng2025.onlinebankingsystem.controllers.view;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.AccountDto;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.dto.TransactionHistoryDTO;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.entities.*;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl.AccountServiceImpl;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.serviceimpl.TransactionServiceImpl;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.AccountService;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.services.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import com.stjeanuniv.isi3eng2025.onlinebankingsystem.repositories.*;
 import org.springframework.ui.*;
+import com.stjeanuniv.isi3eng2025.onlinebankingsystem.exception.*;
 
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,11 +44,15 @@ public class CustomerController {
     @Autowired
     private final TransactionServiceImpl transactionService;
 
-    public CustomerController(UserRepo userRepo, TransactionRepo transactionRepo, AccountServiceImpl accountService, TransactionServiceImpl transactionService) {
+    @Autowired
+    private final AccountRepo accountRepository;
+
+    public CustomerController(UserRepo userRepo, TransactionRepo transactionRepo, AccountServiceImpl accountService, TransactionServiceImpl transactionService, AccountRepo accountRepository) {
         this.userRepo = userRepo;
         this.transactionRepo = transactionRepo;
         this.accountService = accountService;
         this.transactionService = transactionService;
+        this.accountRepository = accountRepository;
     }
 
     @GetMapping("/dashboard")
@@ -74,9 +84,11 @@ public class CustomerController {
 
     @GetMapping("/transactions")
     public String transactionsPage(Model model, Principal principal) {
-        String email = principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        Authentication authentication = (Authentication) principal;
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername(); // Assuming CustomUserDetails has an email field
+        User user = userRepo.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Account> accounts = accountRepository.findByUserId(user.getId());
 
@@ -108,8 +120,8 @@ public class CustomerController {
             Model model, Principal principal) {
 
         String email = principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepo.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Account> accounts = accountRepository.findByUserId(user.getId());
 
@@ -146,8 +158,8 @@ public class CustomerController {
     @ResponseBody
     public Transaction getTransactionDetails(@PathVariable Long id, Principal principal) {
         String email = principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepo.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Transaction transaction = transactionService.getTransactionById(id);
 
@@ -170,8 +182,8 @@ public class CustomerController {
     @GetMapping("/accounts")
     public String accountsPage(Model model, Principal principal) {
         String email = principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepo.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<Account> accounts = accountService.getUserAccounts(user.getId());
         BigDecimal totalBalance = accountService.getTotalBalanceByUser(user.getId());
@@ -188,8 +200,8 @@ public class CustomerController {
     @ResponseBody
     public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto, Principal principal) {
         String email = principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepo.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 
         accountDto.setUserId(user.getId());
 
@@ -211,8 +223,8 @@ public class CustomerController {
     @ResponseBody
     public ResponseEntity<?> getAccountDetails(@PathVariable Long id, Principal principal) {
         String email = principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepo.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Account account = accountService.getAccountById(id);
 
@@ -230,5 +242,18 @@ public class CustomerController {
             "success", true,
             "account", accountDetails
         ));
+    }
+
+    @GetMapping("/transfer")
+    public String transferPage(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userRepo.findByEmail(email);
+
+        return "/Customer/transfer";
+    }
+
+    @GetMapping("/deposit-Withdraw")
+    public String deposit_withdraw(){
+        return "/Customer/deposit-withdraw";
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Controller
@@ -48,17 +49,25 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        long totalUsers = userRepository.count();
+        List<User> totalUsers = userRepository.findAll();
         long activeUsers = userRepository.countActiveUsers();
+        long inactiveusers = userRepository.countInactiveUsers();
         long totalAccounts = accountRepository.count();
         long activeAccounts = accountRepository.countActiveAccounts();
+        long inactiveAccounts = accountRepository.countSuspendedAccounts();
         long totalTransactions = transactionRepository.count();
+        long pendingTransactions = transactionRepository.countPendingTransactions();
+        long failedTransactions = transactionRepository.countFailedTransactions();
 
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("activeUsers", activeUsers);
         model.addAttribute("totalAccounts", totalAccounts);
         model.addAttribute("activeAccounts", activeAccounts);
         model.addAttribute("totalTransactions", totalTransactions);
+        model.addAttribute("inactiveUsers", inactiveusers);
+        model.addAttribute("inactiveAccounts", inactiveAccounts);
+        model.addAttribute("pendingTransactions", pendingTransactions);
+        model.addAttribute("failedTransactions", failedTransactions);
 
         // Add recent users and transactions
         model.addAttribute("recentUsers", userRepository.findTop5ByOrderByCreatedAtDesc());
@@ -78,7 +87,7 @@ public class AdminController {
 
     @GetMapping("/users/{id}")
     public String getUserDetails(@PathVariable Long id, Model model) {
-        User user = userService.getUserById(id);
+        Optional<User> user = userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("userUpdateDto", new UserUpdateDto());
         model.addAttribute("roles", Role.values());
@@ -187,17 +196,18 @@ public class AdminController {
 
     @GetMapping("/settings")
     public String systemSettings(Model model) {
-        // Load transaction settings
-        Map<String, String> transactionSettings = settingService.getAllTransactionSettings();
-
-        // Create DTO with default values in case settings don't exist
-        TransactionSettingsDto transactionSettingsDto = new TransactionSettingsDto(
-            new BigDecimal(transactionSettings.getOrDefault("transaction.daily_limit", "10000")),
-            new BigDecimal(transactionSettings.getOrDefault("transaction.per_transaction_limit", "5000")),
-            new BigDecimal(transactionSettings.getOrDefault("transaction.approval_threshold", "1000"))
-        );
-
-        model.addAttribute("transactionSettings", transactionSettingsDto);
+//        // Load transaction settings
+//        Map<String, String> transactionSettings = settingService.getAllTransactionSettings();
+//
+//        // Create DTO with default values in case settings don't exist
+//        TransactionSettingsDto transactionSettingsDto = new TransactionSettingsDto(
+////            new BigDecimal(transactionSettings.getOrDefault("transactionSettings.daily_limit", "10000")),
+////            new BigDecimal(transactionSettings.getOrDefault("transactionSettings.per_transaction_limit", "5000")),
+////            new BigDecimal(transactionSettings.getOrDefault("transactionSettings.requireApprovalAbove", "1000"))
+//                BigDecimal.valueOf(10000), BigDecimal.valueOf(5000), BigDecimal.valueOf(1000)
+//        );
+//
+//        model.addAttribute("transactionSettings", transactionSettingsDto);
         return "/admin/admin-settings";
     }
 
